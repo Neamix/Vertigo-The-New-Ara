@@ -1,0 +1,150 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Start: Fonts */
+
+@font-face {
+    font-family: 'robotic';
+    src: url('../fonts/robotic/Roboto-Light.ttf');
+    font-weight: lighter;
+}
+
+@font-face {
+    font-family: 'robotic';
+    src: url('../fonts/robotic/Roboto-Medium.ttf');
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: 'robotic';
+    src: url('../fonts/robotic/Roboto-Bold.ttf');
+    font-weight: bold;
+}
+
+/* End: Fonts */
+
+:root {
+    color-scheme: light !important;
+}
+
+body {
+    background-color: #040303;
+    color: #fff;
+    font-family: 'robotic';
+}
+
+/* Start:  */
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar {
+    width: 2px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #fff;
+  }
+/* End: */
+
+/* Start: Aside Component*/
+
+.aside {
+    transition: all .3s linear;
+}
+
+.aside .logo {
+    width: 120px;
+}
+
+.aside .fav {
+    width: 30px;
+}
+
+.aside .vertigo_menu {
+    max-height: 80vh;
+    overflow-y: scroll;
+}
+
+.aside .vertigo_menu 
+
+.aside li span {
+    font-weight: lighter;
+}
+
+.aside li.title {
+    color: #9c9c9c;
+}
+
+.aside li.workspace_icon img {
+    width: 20px;
+}
+
+.aside li {
+    border-radius: 20px;
+}
+
+.aside li.active {
+    background: #111;
+}
+
+.aside.closed_nav li.active {
+    width: 34px;
+}
+
+/* End: Aside Component */
+
+/* Start: Main Content */
+
+.main_content {
+    transition: all .3s linear;
+}
+
+.content {
+    min-height: 100vh;
+    background-color: #0d0d0d;
+    border-top-left-radius: 29px;
+    border: 2px solid rgb(20, 20, 20)
+}
+
+.border_divider {
+    border-color: rgb(20, 20, 20);
+}
+
+/* End: Main Content */
+
+/* Start: Transition */
+
+.dropdown-enter-active,
+.dropdown-leave-active {
+  transition: all .2s;
+  transform: translateY(0px);
+}
+
+.dropdown-enter-from,
+.dropdown-leave-to {
+  opacity: 0;
+  transform: translateY(-30px);
+}
+
+.dropdown-enter-to,
+.dropdown-leave-from {
+  opacity: 1;
+  transform: translateY(10px);
+}
+
+
+/* End: Transition */
+
+/* Start: Animation Effects */
+
+.rotate-half-circle-up {
+    transition: all .2s linear;
+}
+
+.rotate-half-circle-up.active {
+    transform: rotate(180deg);
+}
+
+/* End: Animation Effects */
