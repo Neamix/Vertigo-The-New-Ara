@@ -83,6 +83,7 @@ body {
 
 .aside li {
     border-radius: 20px;
+    cursor: pointer;
 }
 
 .aside li.active {

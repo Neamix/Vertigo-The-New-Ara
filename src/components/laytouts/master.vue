@@ -9,12 +9,14 @@
             <div class="pl-3 main_content min-h-screen" :class="{'col-span-17': aside_open,'col-span-19': !aside_open}">
                 <router-view></router-view>
             </div>
+
         </div>
     </div>
+
 </template>
 
 <script>
-import AsideNav from '../components/AsideNav.vue';
+import AsideNav from '../fragment/AsideNav.vue';
 
 export default {
     components: {AsideNav},

@@ -31,7 +31,10 @@ module.exports = {
         'span-19': 'span 19 / span 19',
         'span-20': 'span 20 / span 20',
         'span-21': 'span 21 / span 21',
-      }
+      },
+      width: {
+        "w-53x": "53px",
+      },
     },
 
     fontSize: {
