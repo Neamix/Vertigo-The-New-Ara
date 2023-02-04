@@ -149,3 +149,57 @@ body {
 }
 
 /* End: Animation Effects */
+
+/* Start: Buttons */
+
+.btn {
+    min-height: 12px !important;
+    height: 38px;
+    font-size: 12px;
+    background: #1b1b1b;
+    border: none;
+    color: #fff;
+}
+
+.btn_transparent {
+    background-color: transparent;
+    font-size: 11px;
+    text-transform: none;
+}
+
+.btn_transparent:hover {
+    color: #9c9c9c;
+    background-color: transparent !important;
+}
+
+/* End: Buttons */
+
+/* Start: Cards */
+.card_big .content_slide {
+    height: 240px;
+    overflow: scroll;
+}
+/* End: Cards */
+
+
+/* Start: Status */
+.busy {
+    background: #8f8803;
+    border-color: #8f8803;
+}
+
+.badget {
+    min-width: 50px;
+}
+
+.offline {
+    background: #333;
+    border-color: #333;
+}
+/* End: Status */
+
+/* Start:Avatars */
+.avatar-group :where(.avatar) {
+    border-width: 2px;
+}
+/* End:Avatars */

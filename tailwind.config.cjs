@@ -52,6 +52,9 @@ module.exports = {
       v_21: '21px',
       v_22: '22px',
       v_23: '23px',
+    },
+    backgroundColor: {
+      'dark': '#0f0f0f',
     }
   },
   plugins: [require("daisyui")],
