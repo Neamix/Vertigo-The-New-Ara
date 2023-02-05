@@ -1,6 +1,7 @@
 import { createApp } from 'vue';
 import './style.css';
 import App from './App.vue';
+import VueSplide from '@splidejs/vue-splide';
 
 // Routing
 import router from "./routes/index.js";
@@ -14,6 +15,7 @@ let app = createApp(App);
 
 // Plugins Using
 app.use(router)
+app.use(VueSplide)
 
 
 // App Initialization
