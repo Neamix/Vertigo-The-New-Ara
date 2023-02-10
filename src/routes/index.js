@@ -4,6 +4,7 @@ import { createRouter,createWebHistory } from "vue-router";
 // Components importing
 import masterLayout from '../components/laytouts/master.vue';
 import authLayout from '../components/laytouts/auth.vue';
+import registerLayout from '../components/laytouts/register.vue';
 
 // Routing importing
 import masterRoutes from "./master";
@@ -21,6 +22,11 @@ let router = createRouter({
         {
             path: '/login',
             component: authLayout,
+            name: 'login'
+        },
+        {
+            path: '/register',
+            component: registerLayout,
             name: 'login'
         }
     ]
