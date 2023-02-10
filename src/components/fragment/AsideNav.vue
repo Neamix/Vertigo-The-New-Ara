@@ -10,14 +10,14 @@
         <!-- Main Side Menu -->
         <div class="vertigo_menu my-5 pt-5 px-1">
             <ul class="menus my-2 flex justify-center flex-col">
-                <li class="flex p-2 active">
-                    <router-link :to="{name: 'dashboard'}" class="flex">
+                <li class="flex active">
+                    <router-link :to="{name: 'dashboard'}" class="flex p-2">
                         <object data="../../../src/assets/icons/home.svg"></object>
                         <span class="text-md px-2 text-v_13" v-if="aside_open">Dashboard</span>
                     </router-link>
                 </li>
-                <li class="flex p-2">
-                    <router-link :to="{name: 'members'}" class="flex">
+                <li class="flex">
+                    <router-link :to="{name: 'members'}" class="flex p-2">
                         <object data="../../../src/assets/icons/user.svg"></object>
                         <span class="text-md px-2 text-v_13" v-if="aside_open">Members</span>
                     </router-link>

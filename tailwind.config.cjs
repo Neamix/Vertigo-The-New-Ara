@@ -55,6 +55,8 @@ module.exports = {
     },
     backgroundColor: {
       'dark': '#0f0f0f',
+      "secoundry-dark":"#1b1b1b"
+
     }
   },
   plugins: [require("daisyui")],

@@ -86,8 +86,14 @@ body {
     cursor: pointer;
 }
 
-.aside li.active {
+.aside li .router-link-exact-active {
     background: #111;
+    @apply w-full;
+    border-radius: 20px;
+}
+
+.aside li a {
+    padding: 8px 10px;
 }
 
 .aside.closed_nav li.active {
@@ -203,3 +209,33 @@ body {
     border-width: 2px;
 }
 /* End:Avatars */
+
+/* Start:Dropdown */
+.dropdown-li {
+    font-size: 12px;
+    padding: 10px;
+    cursor: pointer;
+    transition: all .3s linear;
+}
+
+.dropdown-li:hover {
+    background-color: #1e1e1e;
+    border-radius: 10px;
+}
+/* End:Dropdown */
+
+/* Start: Forms */
+.form-control {
+    border: navajowhite;
+    padding: 11px;
+    border-radius: 8px;
+    background: rgb(27, 27, 27);
+    color: #fff;
+    font-size: 12px;
+    height: 38px;
+}
+
+.form-control:focus {
+    outline: #0d0d0d;
+}
+/* End:Forms */
