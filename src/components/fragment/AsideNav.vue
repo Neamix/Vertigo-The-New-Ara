@@ -71,11 +71,15 @@
                     </Transition>
                 </li>
             </ul>
+            <p v-if="loading">Loading ... </p>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { useAuth } from '../../stores/AuthStore';
+
 
 export default {
    props: ['asideOpen'],
@@ -83,7 +87,8 @@ export default {
     data() {
         return {
             workspaces_dropdown: true,
-            aside_open: true
+            aside_open: true,
+            isLoading: false,
         }
     },
 
@@ -103,7 +108,18 @@ export default {
         toggleSideNav() {
             this.aside_open = !this.aside_open
             this.$emit('toggleSideNav',this.aside_open)
-        }
+        },
+        ...mapActions(useAuth,['api'])
+    },
+
+    mounted() {
+        this.isLoading = true;
+        this.api().then((response) => {
+            setTimeout(function(){
+                this.isLoading = false;
+            },1000)
+            console.log(response);
+        })
     }
 }
 

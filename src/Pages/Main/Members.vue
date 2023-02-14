@@ -44,7 +44,7 @@
             <div class="col-span-3 flex justify-end">
                 <button class="btn">
                     <img src="../../assets/icons/export.svg" class=" w-4 mr-2">
-                    <span class="text-white mt-1">Export members</span>  
+                    <span class="text-white mt-1">{{ count }} Export members</span>  
                 </button>
             </div>
         </div>
@@ -55,9 +55,19 @@
 import Page from '../../components/fragment/Pages/Page.vue';
 import MainHeader from '../../components/fragment/MainHeader.vue';
 import Select from '../../components/fragment/Dropdowns/Select.vue';
+import { mapStores,mapState, mapActions } from 'pinia';
+import { useAuth } from '../../stores/AuthStore';
 
 export default {
-    components: {Page,MainHeader,Select}
+    components: {Page,MainHeader,Select},
+    computed: {
+    },
+    methods: {
+        ...mapActions(useAuth,['','api'])
+    },
+    mounted() {
+        this.api();
+    }
 }
 
 </script>
