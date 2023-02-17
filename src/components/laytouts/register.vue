@@ -1,7 +1,17 @@
 <script>
+import axios from 'axios';
 
+const createUser = async() => {
+        const response = await axios.post('http://localhost:8000/graphql',{
+            query: `mutation{
+            login(email: "beulah.rice@example.net", password:"password")
+            }`,
+        });
+
+        return response.data.data
+       }
 export default {
-
+    
     data: () => {
         return {
             steps: {},
@@ -46,7 +56,14 @@ export default {
 
         customerRegister: function () {
             this.hasSeenCongrats = true;
-        }
+        },
+
+        
+    },
+
+    mounted(){
+       const asas = createUser()
+       console.log(asas)       
     }
 }
 </script>
