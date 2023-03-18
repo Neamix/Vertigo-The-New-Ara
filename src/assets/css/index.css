@@ -48,11 +48,10 @@
 }
 
 body {
-  background-color: #040303;
-  color: #fff;
   font-family: 'robotic','cairo';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @apply bg-dark text-white;
 }
 
 /* Start:  */
@@ -209,6 +208,10 @@ body {
 .btn_transparent:hover {
   color: #9c9c9c;
   background-color: transparent !important;
+}
+
+.btn-close {
+  height: 33px !important;
 }
 
 /* End: Buttons */
