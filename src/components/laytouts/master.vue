@@ -1,13 +1,15 @@
 <template>
     
     <div class="container">
-        <div class="grid grid-cols-20">
+        <div class="flex">
             <!-- AsideNav -->
             <AsideNav @toggleSideNav="toggleSideNav"></AsideNav>
 
             <!-- Main View -->
-            <div class="pl-3 main_content min-h-screen" :class="{'col-span-17': aside_open,'col-span-19': !aside_open}">
-                <router-view></router-view>
+            <div class="pl-3 main_content min-h-screen" :class="{'closed_nav': !aside_open}">
+                <router-view v-slot="{Component}">
+                    <component :is="Component"></component>
+                </router-view>
             </div>
 
         </div>

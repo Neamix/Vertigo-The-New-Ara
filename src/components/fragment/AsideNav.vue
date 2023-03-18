@@ -1,5 +1,5 @@
 <template>
-    <div class="aside px-2 py-3" :class="{'col-span-3': aside_open,'col-span-1': !aside_open,'closed_nav': !aside_open}">
+    <div class="aside px-2 py-3" :class="{'closed_nav': !aside_open}">
 
         <!-- Main Logo -->
         <div class="vertigo_top_aside flex  items-center" :class="{'justify-between': aside_open,'justify-center pr-2': !aside_open}">
@@ -44,7 +44,7 @@
                 </li>
                 <li class="flex p-2">
                     <object data="../../../src/assets/icons/attending.svg"></object>
-                    <span class="text-md px-2 text-v_13" v-if="aside_open">Settings</span>
+                    <span class="text-md px-2 text-v_13" v-if="aside_open">{{ this.$helper.locale('Settings')  }}</span>
                 </li>
                 <li class="py-2 title w-full flex  items-center justify-between cursor-pointer" @click="workspaces_dropdown = !workspaces_dropdown">
                     <span class="text-md px-2 text-v_13" v-if="aside_open">Workspaces</span>
@@ -71,15 +71,15 @@
                     </Transition>
                 </li>
             </ul>
-            <p v-if="loading">Loading ... </p>
+            <p>{{ memberNumbers  }}</p>
         </div>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'pinia';
+import { mapActions, mapState } from 'pinia';
 import { useAuth } from '../../stores/AuthStore';
-
+import locale  from '@/Helpers/localization/locale';
 
 export default {
    props: ['asideOpen'],
@@ -94,13 +94,11 @@ export default {
 
     computed: {
         logo() {
-
             if ( this.aside_open ) {
                 return '../../../src/assets/images/logos/logo_light.png';
             } else {
                 return '../../../src/assets/images/logos/fav.png';
             }
-
         }
     },
 
@@ -113,13 +111,7 @@ export default {
     },
 
     mounted() {
-        this.isLoading = true;
-        this.api().then((response) => {
-            setTimeout(function(){
-                this.isLoading = false;
-            },1000)
-            console.log(response);
-        })
+        console.log(this.$helper.locale('Settings'))
     }
 }
 
