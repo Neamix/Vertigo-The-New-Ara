@@ -22,6 +22,25 @@
   font-weight: bold;
 }
 
+@font-face {
+  font-family: 'robotic';
+  src: url('../fonts/Cairo/Cairo-Light.ttf');
+  font-weight: lighter;
+}
+
+@font-face {
+  font-family: 'robotic';
+  src: url('../fonts/Cairo/Cairo-Medium.ttf');
+  font-weight: normal;
+}
+
+@font-face {
+  font-family: 'robotic';
+  src: url('../fonts/Cairo/Cairo-Bold.ttf');
+  font-weight: bold;
+}
+
+
 /* End: Fonts */
 
 :root {
@@ -31,7 +50,7 @@
 body {
   background-color: #040303;
   color: #fff;
-  font-family: 'robotic';
+  font-family: 'robotic','cairo';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
@@ -55,6 +74,8 @@ body {
 
 .aside {
   transition: all .3s linear;
+  width: 15%;
+  position: fixed;
 }
 
 .aside .logo {
@@ -97,8 +118,12 @@ body {
   padding: 8px 10px;
 }
 
-.aside.closed_nav li.active {
-  width: 34px;
+.aside.closed_nav {
+  width: 5%;
+}
+
+.aside.closed_nav li span {
+  white-space: nowrap;
 }
 
 /* End: Aside Component */
@@ -109,6 +134,13 @@ input{
 }
 .main_content {
   transition: all .3s linear;
+  width: 85%;
+  margin-left: 15%;
+}
+
+.main_content.closed_nav {
+  width: 95% !important;
+  margin-left: 5%;
 }
 
 .content {
@@ -247,7 +279,26 @@ input{
 }
 
 /* End:Forms */
-/*  */
+
+
+/* Start: Transition */
+.route-leave-to ,
+.route-enter-from {
+  opacity: 0;
+  transform: translateX(10%);
+}
+.route-leave-from ,
+.route-enter-to {
+  opacity: 1;
+  transform: translateX(0%);
+}
+
+.route-enter-active,
+.route-leave-active {
+  transition: all .3s linear;
+}
+/* End: Transition */
+
 /* VARIABLES */
 /* COLORS */
 /* FONT */
