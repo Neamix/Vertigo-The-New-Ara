@@ -10,6 +10,22 @@ module.exports = {
       container: {
 
       },
+
+      spacing: {
+        'v_15px': "15px",
+        'v_25px': "25px",
+        'v_35px': "35px",
+        'v_45px': "45px",
+        'v_55px': "55px",
+        'v_65px': "65px",
+        'v_75px': "75px",
+        'v_85px': "85px",
+        'v_95px': "95px",
+        'v_105px': "105px",
+        'v_115px': "115px",
+        'v_125px': "125px",
+      },
+
       gridTemplateColumns: {
         '13': 'repeat(13, minmax(0, 1fr))',
         '14': 'repeat(14, minmax(0, 1fr))',
@@ -21,6 +37,7 @@ module.exports = {
         '20': 'repeat(20, minmax(0, 1fr))',
         '21': 'repeat(21, minmax(0, 1fr))',
       },
+
       gridColumn: {
         'span-13': 'span 13 / span 13',
         'span-14': 'span 14 / span 14',
@@ -31,9 +48,6 @@ module.exports = {
         'span-19': 'span 19 / span 19',
         'span-20': 'span 20 / span 20',
         'span-21': 'span 21 / span 21',
-      },
-      width: {
-        "w-53x": "53px",
       },
     },
 
@@ -55,8 +69,8 @@ module.exports = {
     },
     backgroundColor: {
       'dark': '#0f0f0f',
-      "secoundry-dark":"#1b1b1b"
-
+      "secoundry-dark":"#1b1b1b",
+      "dark-300": "#121212"
     }
   },
   plugins: [require("daisyui")],

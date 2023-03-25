@@ -13,6 +13,10 @@ import './assets/css/index.css';
 // Import Locale
 import locale from './Helpers/localization/locale';
 
+// Assets js
+import $ from "jquery";
+import '@/assets/js/dropdown.js';
+
 let app = createApp(App);
 
 
