@@ -17,9 +17,9 @@ const pinia = createPinia();
 
 // Plugins Using
 app.use(router)
+app.use(createPinia());
 app.use(VueSplide)
 app.use(pinia)
-
 
 // App Initialization
 app.mount('#app');

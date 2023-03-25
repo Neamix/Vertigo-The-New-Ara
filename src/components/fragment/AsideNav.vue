@@ -10,14 +10,14 @@
         <!-- Main Side Menu -->
         <div class="vertigo_menu my-5 pt-5 px-1">
             <ul class="menus my-2 flex justify-center flex-col">
-                <li class="flex p-2 active">
-                    <router-link :to="{name: 'dashboard'}" class="flex">
+                <li class="flex active">
+                    <router-link :to="{name: 'dashboard'}" class="flex p-2">
                         <object data="../../../src/assets/icons/home.svg"></object>
                         <span class="text-md px-2 text-v_13" v-if="aside_open">Dashboard</span>
                     </router-link>
                 </li>
-                <li class="flex p-2">
-                    <router-link :to="{name: 'members'}" class="flex">
+                <li class="flex">
+                    <router-link :to="{name: 'members'}" class="flex p-2">
                         <object data="../../../src/assets/icons/user.svg"></object>
                         <span class="text-md px-2 text-v_13" v-if="aside_open">Members</span>
                     </router-link>
@@ -71,11 +71,15 @@
                     </Transition>
                 </li>
             </ul>
+            <p v-if="loading">Loading ... </p>
         </div>
     </div>
 </template>
 
 <script>
+import { mapActions } from 'pinia';
+import { useAuth } from '../../stores/AuthStore';
+
 
 export default {
    props: ['asideOpen'],
@@ -83,7 +87,8 @@ export default {
     data() {
         return {
             workspaces_dropdown: true,
-            aside_open: true
+            aside_open: true,
+            isLoading: false,
         }
     },
 
@@ -103,7 +108,18 @@ export default {
         toggleSideNav() {
             this.aside_open = !this.aside_open
             this.$emit('toggleSideNav',this.aside_open)
-        }
+        },
+        ...mapActions(useAuth,['api'])
+    },
+
+    mounted() {
+        this.isLoading = true;
+        this.api().then((response) => {
+            setTimeout(function(){
+                this.isLoading = false;
+            },1000)
+            console.log(response);
+        })
     }
 }
 

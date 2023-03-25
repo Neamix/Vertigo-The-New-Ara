@@ -1,8 +1,8 @@
 <template>
- <div class="w-100 p-6" style="background-color: white;">
+ <div class="w-100 h-full">
     <div class="w-100 flex items-center bg-white md:flex-row dark:bg-gray-800">
         <div class="flex flex-col justify-between p-4 leading-normal w-4/12 px-12">
-            <h3 class="mb-6 text-3xl font-bold tracking-tight text-gray-900 dark:text-white">LOGO Vertigo</h3>
+            <h3 class="mb-6 text-3xl font-bold tracking-tight text-gray-200  dark:text-gray-700">LOGO Vertigo</h3>
             <h1 class="mb-6 text-7xl font-bold tracking-tight text-gray-700 dark:text-white">Sign into your account</h1>
             <p class="mb-6 text-7xl font-bold tracking-tight text-gray-700 dark:text-white">Let's Start your jurney</p>
             <form action="">
