@@ -69,6 +69,18 @@ body {
 
 /* End: */
 
+/* Start: General */
+.container {
+  @apply max-w-6xl;
+}
+/* End: General */
+
+/* Start: Bullets */
+.bullet_active {
+  @apply bg-slate-10 text-black;
+}
+/* End: Bullets */
+
 /* Start: Aside Component*/
 
 .aside {
@@ -347,209 +359,10 @@ input{
     box-shadow: 0 10px 20px #0e2101;
   }
   
-  .register {
-    display: block;
-    color: #fff;
-    max-width: 540px;
-    margin: 2rem auto;
-    padding: 2rem;
-    border-radius: 4rem;
-    background: linear-gradient(145deg, #121212, #10100f);
-    box-shadow: 38px 38px 77px #080808, -38px -38px 77px #000000;
-  }
-  .register-icon {
-    display: flex;
-    background: #fff;
-    border-radius: 2rem;
-    width: 60px;
-    height: 60px;
-    padding: 1rem;
-    margin: -50px auto 20px;
-  }
-  .register-icon-item {
-    width: 100%;
-  }
-  .register-title {
-    font-weight: 300;
-    font-size: 1.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.2rem;
-    text-align: center;
-    color: #fff;
-    padding: 0 2rem;
-    margin-top: 2rem;
-  }
-  .register-stepper {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    position: relative;
-  }
-  .register-stepper::before {
-    z-index: 0;
-    content: "";
-    display: block;
-    position: absolute;
-    height: 2px;
-    top: calc(50% - 1px);
-    background: #cecece;
-    width: calc(100% - 20px);
-  }
-  .register-stepper .step {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    z-index: 2;
-    border: 2px solid #cecece;
-    color: #cecece;
-    background-color: #fff;
-    border-radius: 50%;
-    min-width: 25px;
-    min-height: 25px;
-    line-height: 20px;
-    font-size: 16px;
-  }
-  .register-stepper .step-active {
-    color: #00c4b5;
-    background-color: #fff;
-    border-color: #00c4b5;
-  }
-  .register-stepper .step-done {
-    color: #a7e4b5;
-    border-color: #a7e4b5;
-  }
-  .register-stepper .step-number {
-    font-family: "Montserrat", sans-serif;
-    font-weight: 800;
-    line-height: 1;
-    vertical-align: middle;
-  }
-  .register .form-group {
-    display: flex;
-    flex-flow: row;
-    justify-content: flex-start;
-    align-items: baseline;
-  }
-  
-  .register .form-group.cta-step {
-    color: #fff;
-    justify-content: space-between;
-  }
-  .register .form-group.cta-step .cta.prev {
-    padding: 10px 30px;
-  }
-  .register .form-group.new-password {
-    margin-top: 2rem;
-  }
-  .register .form .cta-color,
-  .register .form .cta-color input,
-  .register .form .cta-color .link_text {
-    color: #ccc;
-    font-family: "Montserrat", sans-serif;
-    font-size: 0.9rem;
-    text-decoration: none;
-  }
-  .register .form .cta-color .link_wrap {
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 100%;
-  }
-  .register .form .cta-color .link_wrap .arrow-prev {
-    position: relative;
-    display: inline-block;
-    transform: translate(0);
-    transition: transform 0.3s ease-in-out;
-  }
-  .register .form .cta-color .link_wrap .arrow-prev::before {
-    content: "<";
-    position: absolute;
-    top: -17px;
-    left: -25px;
-  }
-  .register .form .cta-color .link_wrap .arrow-next {
-    position: relative;
-    display: inline-block;
-    transform: translate(0);
-    transition: transform 0.3s ease-in-out;
-  }
-  .register .form .cta-color .link_wrap .arrow-next::before {
-    content: ">";
-    position: absolute;
-    top: -10px;
-    left: -25px;
-  }
-  .register .form .cta-color .link_wrap:hover .arrow-prev {
-    transform: translate(-5px);
-  }
-  .register .form .cta-color .link_wrap:hover .arrow-next {
-    transform: translate(5px);
-  }
-  .register input[type=submit],
-  .register input[type=text],
-  .register input[type=tel],
-  .register input[type=email],
-  .register input[type=date] {
-    -webkit-appearance: none;
-    border: 0;
-    border-radius: 5px;
-    padding: 0.3rem 1rem;
-    width: 100%;
-    margin: 0.5rem;
-    background-color: #333;
-  }
-  .register input[type=submit] {
-    cursor: pointer;
-    position: relative;
-    padding-right: 36px;
-    background-color: black;
-    width: fit-content;
-  }
-  .register input[type=submit]:hover, .register input[type=submit]:focus {
-    box-shadow: unset;
-    transform: none;
-  }
-  .register input[type=submit]::after {
-    content: "";
-    display: block;
-    position: absolute;
-    right: 0;
-    top: 50%;
-    border-radius: 50px;
-    border: 1px solid rgb(20 102 235 / 50%);
-    height: 25px;
-    width: 25px;
-    margin-top: -14px;
-    pointer-events: none;
-    transition: all 0.33s cubic-bezier(0.12, 0.75, 0.4, 1);
-  }
-  .register-btn input {
-    color: #fff;
-    font-size: 0.7rem;
-    font-family: "Montserrat", sans-serif;
-    font-weight: 600;
-    line-height: 1;
-    width: fit-content;
-    background-color: black;
-    box-shadow: 20px 20px 60px #080808, -20px -20px 60px #080808;
-  }
-  .register-btn input:hover {
-    background: rgb(20 102 235 / 50%);
-    box-shadow: 20px 20px 60px #050505, -20px -20px 60px #070707;
-  }
-  .register .slide-fade-enter-active {
-    transition: all 0.3s ease;
-  }
-  .register .slide-fade-leave-active {
-    display: none;
-    transition: all 0.4s cubic-bezier(1, 0.5, 0.8, 1);
-  }
-  .register .slide-fade-enter,
-  .register .slide-fade-leave-to {
-    transform: translateX(10px);
-    opacity: 0;
-  }
+  /* Start: Register */
+
+
+  /* End: Register */
   
   .congrats {
     background: #fff;

@@ -24,6 +24,18 @@ module.exports = {
         'v_105px': "105px",
         'v_115px': "115px",
         'v_125px': "125px",
+
+        // Precent
+        'v_10%': "10%",
+        'v_20%': "20%",
+        'v_30%': "30%",
+        'v_40%': "40%",
+        'v_50%': "50%",
+        'v_60%': "60%",
+        'v_70%': "70%",
+        'v_80%': "80%",
+        'v_90%': "90%",
+        'v_100%': "100%",
       },
 
       gridTemplateColumns: {
@@ -70,7 +82,12 @@ module.exports = {
     backgroundColor: {
       'dark': '#0f0f0f',
       "secoundry-dark":"#1b1b1b",
-      "dark-300": "#121212"
+      "dark-300": "#121212",
+      "dark-200": "#232323",
+
+      //Whites
+      "slate-10": "#fff"
+
     }
   },
   plugins: [require("daisyui")],
