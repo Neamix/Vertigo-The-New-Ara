@@ -187,6 +187,46 @@ input{
   transform: translateY(10px);
 }
 
+.movedown-enter-from {
+  top: -20px;
+  opacity: 0;
+}
+
+.movedown-enter-to {
+  top: 0px;
+  opacity: 1;
+}
+
+.moveup-enter-from {
+  top: 20px;
+  opacity: 0;
+}
+
+.moveup-enter-to {
+  top: 0px;
+  opacity: 1;
+}
+
+.movedown-enter-active,
+.moveup-enter-active {
+  transition: all .3s linear;
+}
+
+.opacity-enter-active {
+  transition: all .2s linear;
+}
+
+.opacity-enter-from,
+.opacity-leave-to {
+  opacity: 0;
+}
+
+.opacity-enter-to,
+.opacity-leave-from {
+  opacity: 1;
+}
+
+
 
 /* End: Transition */
 
@@ -205,12 +245,16 @@ input{
 /* Start: Buttons */
 
 .btn {
-  @apply bg-dark-300;
+  @apply bg-dark-300 ;
   min-height: 12px !important;
   height: 38px;
   font-size: 12px;
   border: none;
   color: #fff;
+}
+
+.btn-no-border {
+  border-radius: 0 !important;
 }
 
 .dropdown:focus {
@@ -234,13 +278,19 @@ input{
 
 /* End: Buttons */
 
+/* Start: Tooltip */
+.tooltip.tooltip-open::before, .tooltip.tooltip-open::after, 
+.tooltip:hover::before, .tooltip:hover::after {
+  font-size: 12px;
+  font-weight: bold;
+}
+/* End: Tooltip */
 
 /* Start: Cards */
 .card_big .content_slide {
   height: 240px;
   overflow: scroll;
 }
-
 /* End: Cards */
 
 
@@ -280,7 +330,6 @@ input{
   background-color: #1e1e1e;
   border-radius: 10px;
 }
-
 /* End:Dropdown */
 
 /* Start: Forms */
@@ -653,3 +702,44 @@ input{
 .congrats-subtitle strong {
   font-size: 1.2rem;
 }
+
+/* Start: Pagination */
+.active_page {
+  @apply bg-slate-10 text-black;
+}
+/* End: Pagination */
+
+/* Start: Main Loader */
+.main_loader {
+  width: 100%;
+  height: 1.8px;
+  display: inline-block;
+  position: relative;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 20px;
+  overflow: hidden;
+}
+.main_loader::after {
+  content: '';
+  width: 96px;
+  height: 1.8px;
+  background: #FFF;
+  position: absolute;
+  top: 0;
+  left: 0;
+  box-sizing: border-box;
+  animation: hitZak .6s linear infinite alternate;
+  border-radius: 20px;
+}
+
+@keyframes hitZak {
+  0% {
+    left: 0;
+    transform: translateX(-28px);
+  }
+  100% {
+    left: 100%;
+    transform: translateX(-80%);
+  }
+}
+/* End: Main Loader */

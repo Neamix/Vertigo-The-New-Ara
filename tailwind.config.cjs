@@ -36,6 +36,17 @@ module.exports = {
         'v_80%': "80%",
         'v_90%': "90%",
         'v_100%': "100%",
+
+        // Vh
+        'v_10vh': "10vh",
+        'v_20vh': "20vh",
+        'v_30vh': "30vh",
+        'v_40vh': "40vh",
+        'v_50vh': "50vh",
+        'v_60vh': "60vh",
+        'v_70vh': "70vh",
+        'v_80vh': "80vh",
+        'v_90vh': "90vh",
       },
 
       gridTemplateColumns: {
