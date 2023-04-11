@@ -12,20 +12,20 @@ import router from "./routes/index.js";
 // Import main index
 import './assets/css/index.css';
 
-let app = createApp(App);
-const pinia = createPinia();
 // Import Locale
 import locale from './Helpers/localization/locale';
 
-// Assets js
-import $ from "jquery";
-import '@/assets/js/dropdown.js';
+// Swal
+import VueSweetalert2 from 'vue-sweetalert2';
+import 'sweetalert2/dist/sweetalert2.min.css';
+import '@assets/js/dropdown.js';
 
 // Plugins Using
+let app = createApp(App);
 app.use(router)
 app.use(createPinia());
 app.use(VueSplide)
-app.use(pinia)
+app.use(VueSweetalert2);
 
 // Call Globals
 app.config.globalProperties.$helper = {

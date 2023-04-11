@@ -143,6 +143,7 @@ body {
 input{
   outline: none;
 }
+
 .main_content {
   transition: all .3s linear;
   width: 85%;
@@ -742,4 +743,87 @@ input{
     transform: translateX(-80%);
   }
 }
+
+.sub_loader {
+  width: 80px;
+  height: 80px;
+  border: 2px solid #FFF;
+  border-bottom-color: transparent;
+  border-radius: 50%;
+  display: inline-block;
+  box-sizing: border-box;
+  animation: rotation 1s linear infinite;
+}
+
+@keyframes rotation {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+} 
 /* End: Main Loader */
+
+/* Start: Swal */
+.swal2-modal {
+  background-color: #232323 !important;
+}
+
+.swal2-actions {
+  display: flex;
+  justify-content: flex-end !important;
+  width: 100% !important;
+  padding: 0 18px !important;
+}
+
+.swal2-styled {
+  padding: 5px 20px !important;
+  font-size: 14px !important;
+  border-radius: 20px !important;
+}
+
+.swal2-confirm {
+  background: #333 !important;
+}
+
+.swal2-cancel {
+  background-color: rgb(255, 68, 68) !important;
+  padding: 0 18px;
+}
+
+.swal2-html-container {
+  display: block !important;
+  overflow: auto !important;
+  font-size: 14px !important;
+  color: #ccc !important;
+}
+
+.swal2-title {
+  font-size: 20px !important;
+  color: #fff !important;
+}
+
+.swal2-icon-content {
+  color: #fff !important;
+}
+
+.swal2-warning {
+  border-color: #fff !important;
+}
+/* End: Swal */
+
+/* Start: Dragging */
+.drag-card .inner-card {
+  transform: rotate(2deg);
+}
+
+.ghost-card {
+  opacity: 1 !important;
+}
+
+.ghost-class .inner-card {
+  opacity: 1 !important;
+  visibility: hidden;
+}
+/* End: Dragging */

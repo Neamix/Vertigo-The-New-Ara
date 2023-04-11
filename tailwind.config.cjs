@@ -11,6 +11,67 @@ module.exports = {
 
       },
 
+      colors: {
+        'dark': '#0f0f0f',
+        "secoundry-dark":"#1b1b1b",
+        "dark-400": "#0d0d0d",
+        "dark-300": "#121212",
+        "dark-200": "#232323",
+        //Whites
+        "slate-10": "#fff",
+        // gray
+      },
+
+      minHeight: {
+        'v_15vh': "15vh",
+        'v_25vh': "25vh",
+        'v_35vh': "35vh",
+        'v_45vh': "45vh",
+        'v_55vh': "55vh",
+        'v_65vh': "65vh",
+        'v_70vh': "70vh",
+        'v_75vh': "75vh",
+        'v_85vh': "85vh",
+        'v_95vh': "95vh",
+        'v_105vh': "105vh",
+        'v_115vh': "115vh",
+        'v_125vh': "125vh",
+      },
+
+      maxHeight: {
+        'v_15vh': "15vh",
+        'v_25vh': "25vh",
+        'v_35vh': "35vh",
+        'v_45vh': "45vh",
+        'v_55vh': "55vh",
+        'v_65vh': "65vh",
+        'v_70vh': "70vh",
+        'v_75vh': "75vh",
+        'v_85vh': "85vh",
+        'v_95vh': "95vh",
+        'v_105vh': "105vh",
+        'v_115vh': "115vh",
+        'v_125vh': "125vh",
+      },
+
+      minWidth: {
+        'v_20px': "20px",
+        'v_40px': "40px",
+        'v_60px': "60px",
+        'v_80px': "80px",
+        'v_100px': "100px",
+        'v_120px': "120px",
+        'v_140px': "140px",
+        'v_160px': "160px",
+        'v_180px': "180px",
+        'v_200px': "200px",
+        'v_220px': "220px",
+        'v_240px': "240px",
+        'v_260px': "260px",
+        'v_280px': "280px",
+        'v_300px': "300px",
+      },
+
       spacing: {
         'v_15px': "15px",
         'v_25px': "25px",
@@ -90,16 +151,6 @@ module.exports = {
       v_22: '22px',
       v_23: '23px',
     },
-    backgroundColor: {
-      'dark': '#0f0f0f',
-      "secoundry-dark":"#1b1b1b",
-      "dark-300": "#121212",
-      "dark-200": "#232323",
-
-      //Whites
-      "slate-10": "#fff"
-
-    }
   },
   plugins: [require("daisyui")],
 }
