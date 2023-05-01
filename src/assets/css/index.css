@@ -45,6 +45,7 @@
 
 :root {
   color-scheme: light !important;
+  @apply bg-dark;
 }
 
 body {
@@ -52,6 +53,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   @apply bg-dark text-white;
+}
+
+html {
+  @apply bg-black;
 }
 
 /* Start:  */
@@ -70,9 +75,29 @@ body {
 /* End: */
 
 /* Start: General */
+
 .container {
   @apply max-w-6xl;
 }
+
+.vertigo_qty input:focus::placeholder {
+  opacity: 0;
+}
+
+.vertigo_qty input[type='number']::-webkit-inner-spin-button,
+.vertigo_qty input[type='number']::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.vertigo_qty input:focus {
+  outline: none !important;
+}
+
+.vertigo_qty button:focus {
+  outline: none !important;
+}
+
 /* End: General */
 
 /* Start: Bullets */
@@ -380,6 +405,12 @@ input{
 }
 
 /* End: Modals */
+
+/* Start: Errors */
+.is-invalid {
+  @apply border-red-400 border border-solid
+}
+/* End: Errors */
 
 /* VARIABLES */
 /* COLORS */
