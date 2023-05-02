@@ -15,14 +15,17 @@
 <script setup>
 import { ref,watch } from 'vue';
 
-defineEmits(['update:amount'])
+// Define Emiters
+let emit = defineEmits(['updateAmount'])
 
+// Define Props
 let props = defineProps({
     max: Number,
     min: Number,
     amount: Number
 });
 
+// Variables
 let max = props.max ?? 200;
 let min = props.min ?? 0;
 let qty = ref(props.amount);
@@ -37,5 +40,9 @@ function increment() {
         qty.value++; 
 }
 
-watch
+// Watchers
+watch(qty,(value) => {
+    console.log(value);
+    emit('updateAmount',value);
+});
 </script>
