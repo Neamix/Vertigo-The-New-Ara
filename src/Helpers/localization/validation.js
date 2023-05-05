@@ -1,15 +1,26 @@
+// Make The Variables Global
 let errorBag = {};
+let errorExist = false;
+let payload;
 
-function validation(payload,rules) {
+function validation(data,rules) {
     let rulesKeys = Object.keys(rules);
     let errors = [];
+    payload = data;
 
+    // Reset the bag and condition
+    errorBag = {};
+    errorExist = false;
+    
     for (var i = 0; i < rulesKeys.length; i++) {
-        let ruleArray = rules[rulesKeys[i]];
-        isValidValue(ruleArray,payload[rulesKeys[i]],rulesKeys[i]);
+        let conditions = rules[rulesKeys[i]];
+        isValidValue(conditions,payload[rulesKeys[i]],rulesKeys[i]);
     }
 
-    return errorBag;
+    return {
+        'errorBag' : errorBag,
+        'errorsExist': errorExist
+    };
 }
 
 function isValidValue(conditions,value,name) {
