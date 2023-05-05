@@ -1,6 +1,6 @@
 <script setup>
 defineProps(['modelValue'])
-defineEmits(['update:modelValue'])
+defineEmits(['update:modelValue']);
 </script>
 
 <template>
@@ -250,8 +250,4 @@ defineEmits(['update:modelValue'])
     <option value="Zambia">Zambia</option>
     <option value="Zimbabwe">Zimbabwe</option>
 </select>
-  <input
-    
-    class="bg-dark"
-  />
 </template>
