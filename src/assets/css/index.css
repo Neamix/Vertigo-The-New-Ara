@@ -77,7 +77,7 @@ html {
 /* Start: General */
 
 .container {
-  @apply max-w-6xl;
+  @apply max-w-6xl mx-auto;
 }
 
 .vertigo_qty input:focus::placeholder {
@@ -98,7 +98,17 @@ html {
   outline: none !important;
 }
 
+.error {
+  @apply text-v_11 font-bold my-2 text-red-400 capitalize
+}
+
 /* End: General */
+
+/* Start: Payment */
+#payment {
+  background-color: transparent !important;
+}
+/* End: Payment */
 
 /* Start: Bullets */
 .bullet_active {
@@ -281,6 +291,10 @@ input{
 
 .btn-no-border {
   border-radius: 0 !important;
+}
+
+.btn-loading {
+  background-color: hsl(var(--pf, var(--p)) / var(--tw-bg-opacity));
 }
 
 .dropdown:focus {
@@ -751,6 +765,7 @@ input{
   border-radius: 20px;
   overflow: hidden;
 }
+
 .main_loader::after {
   content: '';
   width: 96px;
@@ -763,6 +778,22 @@ input{
   animation: hitZak .6s linear infinite alternate;
   border-radius: 20px;
 }
+
+.loading {
+  width: 25px;
+  height: 25px;
+  animation: rotation 1s linear infinite;
+  @apply border-2 border-white border-b-transparent rounded-full
+}
+
+@keyframes rotation {
+  0% {
+      transform: rotate(0deg);
+  }
+  100% {
+      transform: rotate(360deg);
+  }
+  } 
 
 @keyframes hitZak {
   0% {
