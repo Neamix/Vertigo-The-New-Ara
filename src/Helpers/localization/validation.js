@@ -31,26 +31,38 @@ function isValidValue(conditions,value,name) {
         if ( ! errorBag.hasOwnProperty(name) ) {
             errorBag[name] = [];
         }   
-
-        if ( condition == 'required' && value == null) {
+        if ( condition == 'required' && value.length == 0) {
             errorBag[name].push(`${name} is required value`);
-        }
-        
-        if ( condition == 'integer' && typeof value != 'number' ) {
-            errorBag[name].push(`${name} must be a number`);
+            errorExist = true;
         }
 
         if ( value != null ) {
+            if ( condition == 'integer' && typeof value != 'number' ) {
+                errorBag[name].push(`${name} must be a number`);
+                errorExist = true;
+            }
+    
             if ( condition.indexOf('min') == 0 ) {
                 let split = condition.split(':');
-                console.log(split);
+
                 if ( value.length < split[1] ) {
                     errorBag[name].push( `${name} must be at least ${split[1]} letters`);
+                    errorExist = true;
+                }
+            }
+
+            if ( condition == 'email' && ! value.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
+                errorBag[name].push(`${name} must be a valid email address`);
+                errorExist = true;
+            }
+
+            if (condition == 'confirm') {
+                if (  payload[name]  !=  payload[`${name}_confirm`]  ) {
+                    errorBag[name].push(`${name} and ${name} confirmation doesn't match`);
+                    errorExist = true;
                 }
             }
         }
-
-        return errorBag;
     }
 } 
 
