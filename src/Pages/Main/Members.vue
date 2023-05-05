@@ -155,9 +155,4 @@ watch(() => search,(newValue, oldValue) => {
     SearchUser();
 },{ deep: true });
 
-// Life Cycle
-onMounted(() => {
-
-});
-
 </script>
