@@ -5,20 +5,26 @@ import axios from "axios";
 export const useRegisterStore = defineStore('registerStore',{
     state: () => ({
         company: {
-            name: "Vertigo",
-            email: "admin@vertigo.com",
+            name: "",
+            email: "",
             country: "United States",
-            address: "USA, California",
+            address: "",
             seats: 1,
-            description: "No Descriotion",
+            description: "",
             user: {
-                name: "Abdalrhman Hussin",
-                email: "abdalrhmanhussin44@gmail.com",
-                phone: "01118165546",
+                name: "",
+                email: "",
+                phone: "",
+            },
+            billing: {
+                id: null,
+                name: null,
+                phone: null,
+                email: null
             }
         },
-        currentRegisterName: "PersonalInfo",
-        nextStep: "PersonalInfo",
+        currentRegisterName: "CompanyInfo",
+        nextStep: "CompanyInfo",
     }),
 
     actions: {
@@ -52,15 +58,27 @@ export const useRegisterStore = defineStore('registerStore',{
                                 name: "${this.company.name}",
                                 email: "${this.company.email}",
                                 country: "${this.company.country}",
-                                address: "${this.company.address}",
+                                address:"${this.company.address}",
                                 seats: ${this.company.seats},
                                 user: {
-                                    name: "${this.company.name}",
-                                    email: "${this.company.email}",
-                                    password: "${this.company.password}",
+                                    name:"${this.company.user.name}",
+                                    email:"${this.company.user.email}",
+                                    password:"${this.company.user.password}",
+                                },
+                                billing: {
+                                    id: "${this.company.billing.id}",
+                                    name: "${this.company.billing.name}",
+                                    email: "${this.company.billing.email}",
+                                    phone: "${this.company.billing.password}"
                                 }
                             }) {
-                                name
+                                company {
+                                    name
+                                },
+                                user {
+                                    name,
+                                },
+                                token
                             }
                         }
                     `

@@ -120,8 +120,6 @@
         let keys = Object.keys(errors);
         
         for ( var i = 0; i < keys.length; i++ ) {
-            let errorText = errors[keys[i]].join("<br>");
-            console.log(errors[keys[i]]);
             document.querySelector(`.error_${keys[i]}`).innerHTML = '';
             document.querySelector(`.error_${keys[i]}`).innerHTML = errors[keys[i]].join("<br>");
         }

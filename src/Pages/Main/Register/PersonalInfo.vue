@@ -56,9 +56,9 @@
                 </button>
             </router-link>
             <button class="btn btn-primary flex items-center relative" @click="goToReviewAndCheckout()">
-                <span v-if="! loading">Next: Review & Checkout </span>
+                <span :class="{'opacity-0': loading}">Next: Review</span>
                 <span v-if="loading" class="loading absolute"></span>
-                <i v-if="! loading" class="fa-solid fa-chevron-right text-v_10 mx-2 pt-0.5"></i>
+                <i :class="{'opacity-0': loading}" class="fa-solid fa-chevron-right text-v_10 mx-2 pt-0.5"></i>
             </button>
        </div>
    </div>
@@ -90,21 +90,20 @@
         let errors = validation(payload,{
             'name': ['required','min:3'],
             'email': ['required','email'],
-            'password': ['required','confirm']
+            'password': ['required','confirm','min:8']
         });
         
         // Active loading loader
-        loading = ref(true);
-
+        loading.value = true;
         // Remove old errors with in holders
         removeOldErrors();
-        console.log(errors);
+
         if ( errors['errorsExist'] ) {
             displayErrors(errors['errorBag']);
         } else {
             RegisterStore.checkIfTheEmailInUse().then((response) => {
                 let getUserWithSameEmail = response.data.data.userWithEmail;
-
+                console.log(getUserWithSameEmail);
                 //If no user with same email go to next page else display error
                 if ( ! getUserWithSameEmail ) {
                     RegisterStore.nextStep = "Checkout";
@@ -144,7 +143,7 @@
     onMounted(() => {
         let next = RegisterStore.nextStep;
 
-        if ( next != 'PersonalInfo' )
+        if ( next != 'PersonalInfo')
             router.push({
                 name:  'CompanyInfo'
             })

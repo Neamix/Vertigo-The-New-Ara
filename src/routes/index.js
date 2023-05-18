@@ -23,7 +23,8 @@ let router = createRouter({
         {
             path: '/',
             component: masterLayout,
-            children: masterRoutes
+            children: masterRoutes,
+            name: "dashboard"
         },
         {
             path: '/login',

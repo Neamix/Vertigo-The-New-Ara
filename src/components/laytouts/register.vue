@@ -8,7 +8,7 @@
                 <i class="fa-solid fa-chevron-right text-v_10 mx-2 pt-0.5"></i>
             </button>
         </div>
-        <div class="bullets grid grid-cols-4 w-full pt-16">
+        <div class="bullets grid grid-cols-3 w-full pt-16">
             <div class="bullet flex">
                 <div class="bullet_value rounded-full bg-dark-200 w-v_45px h-v_45px flex justify-center items-center" :class="{'bullet_active':   currentName == 'CompanyInfo' ||  currentName == 'PersonalInfo'}">
                     <p class=" font-bold">1</p>
@@ -32,16 +32,8 @@
                     <p class=" font-bold ">3</p>
                 </div>
                 <div class="company_info_bullet mx-3">
-                    <p class=" text-v_14 ">Review</p>
+                    <p class=" text-v_14 ">Review & Checkout</p>
                     <span class="block text-v_12 text-gray-300">Review your data</span>
-                </div>
-            </div>
-            <div class="bullet flex">
-                <div class="bullet_value rounded-full bg-dark-200 w-v_45px h-v_45px flex justify-center items-center">
-                    <p class=" font-bold ">3</p>
-                </div>
-                <div class="company_info_bullet mx-3">
-                    <p class=" text-v_14 ">Pay & Checkout</p>
                 </div>
             </div>
         </div>
