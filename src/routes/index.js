@@ -3,18 +3,18 @@ import { createRouter,createWebHistory } from "vue-router";
 
 // Components importing
 import masterLayout from '../components/laytouts/master.vue';
-import authLayout from '../components/laytouts/auth.vue';
-import registerLayout from '../components/laytouts/register.vue';
+import authLayout from '../Pages/Auth/Auth.vue';
 import NotFound from '../Pages/Main/404.vue';
-
-// Register Component
-import CompanyInfo from '../Pages/Main/Register/CompanyInfo.vue';
-import PersonalInfo from '../Pages/Main/Register/PersonalInfo.vue';
-import Checkout from '../Pages/Main/Register/Checkout.vue';
 
 // Routing importing
 import masterRoutes from "./master";
+import authRoutes from "./auth";
 
+// Register Component
+import registerLayout from '../components/laytouts/register.vue';
+import CompanyInfo from '../Pages/Auth/Register/CompanyInfo.vue';
+import PersonalInfo from '../Pages/Auth/Register/PersonalInfo.vue';
+import Checkout from '../Pages/Auth/Register/Checkout.vue';
 
 //Create Paths
 let router = createRouter({
@@ -24,12 +24,16 @@ let router = createRouter({
             path: '/',
             component: masterLayout,
             children: masterRoutes,
-            name: "dashboard"
         },
         {
-            path: '/login',
+            path: '/auth',
             component: authLayout,
-            name: 'login'
+            children: authRoutes
+        },
+        { 
+            path: '/:pathMatch(.*)', 
+            name: 'not-found', 
+            component: NotFound 
         },
         {
             path: '/register',
@@ -52,11 +56,6 @@ let router = createRouter({
                     name: 'Checkout'
                 }
             ]
-        },
-        { 
-            path: '/:pathMatch(.*)', 
-            name: 'not-found', 
-            component: NotFound 
         }
     ]
 });

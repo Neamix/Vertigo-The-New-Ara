@@ -28,6 +28,6 @@
 
     // Member Function
     memberStore.suspendUser(2).then((response) => {
-        console.log(response)
+
     });
 </script>

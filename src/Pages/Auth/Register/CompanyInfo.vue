@@ -63,11 +63,7 @@
 
 <script setup>
     import SelectCountry from '@/components/fragment/Dropdowns/SelectCountry.vue';
-    import vueFilePond from 'vue-filepond';
-    import setOptions from 'vue-filepond';
     import "@assets/css/filepound.css";
-    import FilePondPluginFileValidateType from "filepond-plugin-file-validate-type";
-    import FilePondPluginImagePreview from "filepond-plugin-image-preview";
     import QtyInput from '@/components/fragment/Inputs/QtyInput.vue';
     import validation from '@/Helpers/localization/validation.js';
     import { useRegisterStore } from '@/stores/RegisterStore.js';
@@ -83,10 +79,6 @@
     
     /** Set Active Bullet */
     RegisterStore.currentRegisterName = route.name;
-
-    /** FilePond Register */
-    let FilePond = vueFilePond(FilePondPluginFileValidateType,FilePondPluginImagePreview);
-    let FilePondPlaceholder = `<p class="text-v_12  text-white ">Drop and drag</p>`;    
 
 
     function TotalSeats($amount) {

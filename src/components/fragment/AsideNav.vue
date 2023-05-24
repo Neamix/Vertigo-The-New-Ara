@@ -78,7 +78,7 @@
 
 <script>
 import { mapActions, mapState } from 'pinia';
-import { useAuth } from '../../stores/AuthStore';
+import { useAuthStore } from '../../stores/AuthStore';
 import locale  from '@/Helpers/localization/locale';
 
 export default {
@@ -107,12 +107,8 @@ export default {
             this.aside_open = !this.aside_open
             this.$emit('toggleSideNav',this.aside_open)
         },
-        ...mapActions(useAuth,['api'])
+        ...mapActions(useAuthStore,['api'])
     },
-
-    mounted() {
-        console.log(this.$helper.locale('Settings'))
-    }
 }
 
 </script>

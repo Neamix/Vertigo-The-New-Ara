@@ -42,7 +42,6 @@ function increment() {
 
 // Watchers
 watch(qty,(value) => {
-    console.log(value);
     emit('updateAmount',value);
 });
 </script>

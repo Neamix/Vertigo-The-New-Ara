@@ -1,88 +1,90 @@
 <template>
     <div class="min-h-screen w-full mx-auto">
+        <!-- Start Saved Information -->
         <div class="form-section mt-10">
+            <div class="mb-5">
+                <h3 class="text-v_17 font-bold">Company Information</h3>
+                <p class=" text-v_13 text-gray-500 ">Your company information will be used in contact you for all changes in this workstation</p>
+            </div>
+            <div class="grid grid-cols-2 gap-3 w-full">
+                <div class="form-group">
+                    <label class=" my-3 block text-v_13 font-bold">
+                        Company name
+                    </label>
+                    <p class="text-v_12">  {{  payload.name  }} </p>
+                </div>
+                <div class="form-group w-full">
+                    <label class="my-3 block text-v_13 font-bold">
+                        Company Email
+                    </label>
+                    <p class="text-v_12"> {{  payload.email }} </p>
+                </div>
+            </div>
+            <div class="form-group w-full mt-4">
+                <div class=" grid grid-cols-2 gap-2">
+                    <div class="form-group w-full">
+                        <label class=" my-3 block text-v_13 font-bold">
+                            Company Country
+                        </label>
+                        <p class=" text-v_12 font-bold "> {{  payload.country }} </p>
+                    </div>
+                    <div class="form-group w-full">
+                        <label class=" my-3 block text-v_13 font-bold">
+                            Company Address
+                        </label>
+                        <p class=" text-v_12 font-bold "> {{  payload.address }} </p>
+                    </div>
+                    <div class="form-group w-full">
+                        <label class=" my-3 block text-v_13 font-bold">
+                            Total Seats
+                        </label>
+                        <p class=" text-v_12 font-bold "> {{  payload.seats }} Seat</p>
+                    </div>
+                    <div class="form-group w-full">
+                        <label class=" my-3 block text-v_13 font-bold">
+                            Total you will have to pay
+                        </label>
+                        <p class=" text-v_12 font-bold "> {{  payload.seats * 20 }}  $</p>
+                    </div>
+                </div>
+            </div>
+            <div class="form-group w-full mt-4">
+                <div class="form-group w-full">
+                    <label class=" my-3 block text-v_13 font-bold">
+                        Company Description
+                    </label>
+                    <p class="text-v_12"> {{  payload.description ?? 'Not Specified' }} </p>
+                </div>
+            </div>
+            <div class="form-section w-full mt-10">
                 <div class="mb-5">
-                    <h3 class="text-v_17 font-bold">Company Information</h3>
-                    <p class=" text-v_13 text-gray-500 ">Your company information will be used in contact you for all changes in this workstation</p>
+                    <h3 class=" text-v_17 font-bold my-2">Personal Information</h3>
+                    <p class=" text-v_13 text-gray-500 ">Your personal information will be used in daily authutications</p>
                 </div>
-                <div class="grid grid-cols-2 gap-3 w-full">
-                    <div class="form-group">
-                        <label class=" my-3 block text-v_13 font-bold">
-                            Company name
-                        </label>
-                        <p class="text-v_12">  {{  payload.name  }} </p>
-                    </div>
-                    <div class="form-group w-full">
-                        <label class="my-3 block text-v_13 font-bold">
-                            Company Email
-                        </label>
-                        <p class="text-v_12"> {{  payload.email }} </p>
-                    </div>
-                </div>
-                <div class="form-group w-full mt-4">
-                    <div class=" grid grid-cols-2 gap-2">
-                        <div class="form-group w-full">
-                            <label class=" my-3 block text-v_13 font-bold">
-                                Company Country
-                            </label>
-                            <p class=" text-v_12 font-bold "> {{  payload.country }} </p>
-                        </div>
-                        <div class="form-group w-full">
-                            <label class=" my-3 block text-v_13 font-bold">
-                                Company Address
-                            </label>
-                            <p class=" text-v_12 font-bold "> {{  payload.address }} </p>
-                        </div>
-                        <div class="form-group w-full">
-                            <label class=" my-3 block text-v_13 font-bold">
-                                Total Seats
-                            </label>
-                            <p class=" text-v_12 font-bold "> {{  payload.seats }} Seat</p>
-                        </div>
-                        <div class="form-group w-full">
-                            <label class=" my-3 block text-v_13 font-bold">
-                                Total you will have to pay
-                            </label>
-                            <p class=" text-v_12 font-bold "> {{  payload.seats * 20 }}  $</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="form-group w-full mt-4">
+                <div class=" grid grid-cols-2 gap-2">
                     <div class="form-group w-full">
                         <label class=" my-3 block text-v_13 font-bold">
-                            Company Description
+                            Your Name
                         </label>
-                        <p class="text-v_12"> {{  payload.description ?? 'Not Specified' }} </p>
+                        <p class="text-v_12"> {{  payload.user.name }} </p>
+                    </div>
+                    <div class="form-group w-full">
+                        <label class=" my-3 block text-v_13 font-bold">
+                            Your Email
+                        </label>
+                        <p class="text-v_12"> {{  payload.user.email}} </p>
+                    </div>
+                    <div class="form-group w-full">
+                        <label class=" my-3 block text-v_13 font-bold">
+                            Your Phone
+                        </label>
+                        <p class="text-v_12"> {{  payload.user.phone ?? 'Not Specified'}} </p>
                     </div>
                 </div>
-                <div class="form-section w-full mt-10">
-                    <div class="mb-5">
-                        <h3 class=" text-v_17 font-bold my-2">Personal Information</h3>
-                        <p class=" text-v_13 text-gray-500 ">Your personal information will be used in daily authutications</p>
-                    </div>
-                    <div class=" grid grid-cols-2 gap-2">
-                        <div class="form-group w-full">
-                            <label class=" my-3 block text-v_13 font-bold">
-                                Your Name
-                            </label>
-                            <p class="text-v_12"> {{  payload.user.name }} </p>
-                        </div>
-                        <div class="form-group w-full">
-                            <label class=" my-3 block text-v_13 font-bold">
-                                Your Email
-                            </label>
-                            <p class="text-v_12"> {{  payload.user.email}} </p>
-                        </div>
-                        <div class="form-group w-full">
-                            <label class=" my-3 block text-v_13 font-bold">
-                                Your Phone
-                            </label>
-                            <p class="text-v_12"> {{  payload.user.phone ?? 'Not Specified'}} </p>
-                        </div>
-                    </div>
-                </div>
+            </div>
         </div>
-        
+        <!-- End Saved Information -->
+        <!-- Start Billing Information -->
         <div class="form-section w-full mt-10">
             <div class="mb-5">
                 <h3 class=" text-v_17 font-bold my-2">Billing Information</h3>
@@ -118,7 +120,8 @@
                 </div>
             </div>
         </div>
-
+        <!-- End Billing Information -->
+        <!-- Start Register Footer -->
         <div class="footer flex justify-between my-10">
             <router-link :to="{name:'CompanyInfo'}">
                 <button class="btn btn-primary flex items-center">
@@ -134,6 +137,7 @@
                 <div class="loading absolute" :class="{'opacity-0': !loading}"></div>
             </button>
        </div>
+       <!-- End Register Footer -->
    </div>
 </template>
 
@@ -185,17 +189,33 @@
     function registerNewCompany() {
         RegisterStore.registerNewCompany().then((response) => {
             loading.value = false;
-            localStorage.setItem('token',response.data.data.token);
-            router.push({
-                name:  'dashboard'
-            })
+            handlePaymentAction(response);
         });
     }
     
+    /** Make action according to payment response */
+    function handlePaymentAction(response) {
+        let data = response.data.data.registerCompany;
+
+        if ( data.status == 'Failed' ) {
+            // In case of status failed display error 
+            document.querySelector('.error_payment').innerHTML = data.message;
+        } else {
+            // In case of status success get the token and store it in localstorage
+            localStorage.setItem('token',data.token);
+
+            // Then redirect user to dashboard
+            router.push({
+                name:  'dashboard'
+            })
+        }
+    }
 
     /** Redirect If The Prev Steps Uncompeleted */
     onMounted(async () => {
         let next = RegisterStore.nextStep;
+
+        // Stripe Element
         stripe.value = await loadStripe(import.meta.env.VITE_STRIPE_PUB_KEY);
         elements.value = stripe.value.elements();
 
@@ -210,6 +230,8 @@
         });
 
         cardElement.value.mount('#payment');
+
+        // Check if prev steps done
         if ( next != 'Checkout') {
             router.push({
                 name:  'PersonalInfo'

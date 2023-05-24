@@ -12,6 +12,10 @@ function validation(data,rules) {
     errorBag = {};
     errorExist = false;
     
+    // Remove Old Errors
+    removeOldErrors();
+
+    // Start Tracking Errors
     for (var i = 0; i < rulesKeys.length; i++) {
         let conditions = rules[rulesKeys[i]];
         isValidValue(conditions,payload[rulesKeys[i]],rulesKeys[i]);
@@ -23,8 +27,7 @@ function validation(data,rules) {
     };
 }
 
-function isValidValue(conditions,value,name) {
-
+function isValidValue(conditions,value,name) {    
     for (var x = 0; x < conditions.length; x++) {
         let condition = conditions[x];
 
@@ -65,5 +68,15 @@ function isValidValue(conditions,value,name) {
         }
     }
 } 
+
+
+function removeOldErrors() 
+{
+    let errors_holder = document.querySelectorAll('.error');
+    
+    errors_holder.forEach((holder) => {
+        holder.innerHTML = '';
+    });
+}
 
 export default validation;

@@ -5,16 +5,18 @@ import axios from "axios";
 export const useRegisterStore = defineStore('registerStore',{
     state: () => ({
         company: {
-            name: "",
-            email: "",
+            name: "Nested Code",
+            email: "admin@nestedcode.com",
             country: "United States",
-            address: "",
+            address: "USA,California",
             seats: 1,
             description: "",
             user: {
-                name: "",
-                email: "",
-                phone: "",
+                name: "Adam Jerry",
+                email: "adam_jerry@gmail.com",
+                phone: "01118165546",
+                password: "AG616433",
+                password_confirm: "AG616433"
             },
             billing: {
                 id: null,
@@ -23,8 +25,8 @@ export const useRegisterStore = defineStore('registerStore',{
                 email: null
             }
         },
-        currentRegisterName: "CompanyInfo",
-        nextStep: "CompanyInfo",
+        currentRegisterName: "Checkout",
+        nextStep: "Checkout",
     }),
 
     actions: {
@@ -78,7 +80,9 @@ export const useRegisterStore = defineStore('registerStore',{
                                 user {
                                     name,
                                 },
-                                token
+                                token,
+                                status,
+                                message
                             }
                         }
                     `

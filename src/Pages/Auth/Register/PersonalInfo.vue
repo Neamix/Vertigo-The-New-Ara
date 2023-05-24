@@ -55,11 +55,14 @@
                     <span>Back: Company information </span>
                 </button>
             </router-link>
-            <button class="btn btn-primary flex items-center relative" @click="goToReviewAndCheckout()">
-                <span :class="{'opacity-0': loading}">Next: Review</span>
-                <span v-if="loading" class="loading absolute"></span>
-                <i :class="{'opacity-0': loading}" class="fa-solid fa-chevron-right text-v_10 mx-2 pt-0.5"></i>
-            </button>
+            <LoaderButton class="btn btn-primary flex items-center relative" :loading="loading" @click="goToReviewAndCheckout()">
+                <template #text>
+                    <div class="flex">
+                        <span>Review & Checkout</span>
+                        <i :class="{'opacity-0': loading}" class="fa-solid fa-chevron-right text-v_10 mx-2 pt-0.5"></i>
+                    </div>
+                </template>
+            </LoaderButton>
        </div>
    </div>
 </template>
@@ -70,6 +73,7 @@
     import { useRouter, useRoute } from 'vue-router';
     import validation from "@/Helpers/localization/validation";
     import { onMounted, ref } from 'vue';
+    import LoaderButton from "../../../components/fragment/Buttons/LoaderButton.vue";
 
     /**  Routers  */
     let router = useRouter();
@@ -95,15 +99,17 @@
         
         // Active loading loader
         loading.value = true;
+
         // Remove old errors with in holders
         removeOldErrors();
 
         if ( errors['errorsExist'] ) {
             displayErrors(errors['errorBag']);
+            loading.value = false;
         } else {
             RegisterStore.checkIfTheEmailInUse().then((response) => {
                 let getUserWithSameEmail = response.data.data.userWithEmail;
-                console.log(getUserWithSameEmail);
+
                 //If no user with same email go to next page else display error
                 if ( ! getUserWithSameEmail ) {
                     RegisterStore.nextStep = "Checkout";
@@ -114,10 +120,9 @@
                     displayErrors({email: ["This email is used by another account"]});
                 }
                 
+                loading.value = false;
             });
         }
-
-        loading = ref(false);
     }
 
     function displayErrors(errors)
