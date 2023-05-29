@@ -1,8 +1,8 @@
-const inputs = document.querySelectorAll(".input-field");
-const toggle_btn = document.querySelectorAll(".toggle");
-const main = document.querySelector("main");
-const bullets = document.querySelectorAll(".bullets span");
-const images = document.querySelectorAll(".image");
+var inputs = document.querySelectorAll(".input-field");
+var toggle_btn = document.querySelectorAll(".toggle");
+var main = document.querySelector("main");
+var bullets = document.querySelectorAll(".bullets span");
+var images = document.querySelectorAll(".image");
 
 inputs.forEach((inp) => {
   inp.addEventListener("focus", () => {
