@@ -5,11 +5,18 @@
             <!-- AsideNav -->
             <AsideNav @toggleSideNav="toggleSideNav"></AsideNav>
             <!-- Main View -->
-            <div class="pl-3 main_content min-h-screen" :class="{'closed_nav': !aside_open}">
-                <router-view v-slot="{Component}">
-                    <component :is="Component"></component>
-                </router-view>
-            </div>
+                <div class="pl-3 main_content min-h-screen w-full" :class="{'closed_nav': !aside_open}">
+                    <Page class="w-full">
+                        <MainHeader>
+                            <template #title>
+                                {{ useGlobalStore().page  }}
+                            </template>
+                        </MainHeader>
+                        <router-view v-slot="{Component}">
+                            <component :is="Component"></component>
+                        </router-view>
+                    </Page>
+                </div>
             <!-- Loader  -->
         </div>
     </div>
@@ -18,17 +25,13 @@
 <script setup>
 import AsideNav from '../fragment/AsideNav.vue';
 import Loader from '../../Pages/Main/Loader.vue';
-import { ref,computed } from 'vue';
+import { ref } from 'vue';
+import MainHeader from '@/components/fragment/MainHeader.vue';
+import Page from '@/components/fragment/Pages/Page.vue';
+import { useGlobalStore } from "@/stores/GlobalStore";
 
-let workspaces_dropdown = ref(true);
+
 let aside_open = ref(true);
-let logo = computed(() => {
-    if ( this.aside_open ) {
-        return '@assets/images/logos/logo_light.png';
-    } else {
-        return '@assets/images/logos/fav.png';
-    }
-});
 
 function toggleSideNav ($val) {
     aside_open = false;
