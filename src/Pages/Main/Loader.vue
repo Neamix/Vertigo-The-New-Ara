@@ -18,9 +18,4 @@ import { ref } from 'vue';
 
 // Define Store
 const globalStore = useGlobalStore()
-onMounted(() => {
-    setTimeout(function () {
-        globalStore.mainLoader = false;
-    },2000)
-});
 </script>
