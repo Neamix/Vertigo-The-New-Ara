@@ -16,6 +16,9 @@ import CompanyInfo from '../Pages/Auth/Register/CompanyInfo.vue';
 import PersonalInfo from '../Pages/Auth/Register/PersonalInfo.vue';
 import Checkout from '../Pages/Auth/Register/Checkout.vue';
 
+// Guards 
+import beforeGuard from "./guards/beforeGuard";
+
 //Create Paths
 let router = createRouter({
     history: createWebHistory(),
@@ -60,5 +63,6 @@ let router = createRouter({
     ]
 });
 
+beforeGuard(router)
 
 export default router;
