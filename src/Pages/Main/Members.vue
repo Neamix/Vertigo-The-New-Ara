@@ -1,19 +1,5 @@
 <template>
-    <Page>
-        <MainHeader>
-            <template #title>
-                <div>
-                    <span>
-                        Members
-                    </span>
-                    <label class="btn mx-3" for="inviteModal">
-                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" fill="#fff" width="10" height="10" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg> 
-                        <span  class="text-white">Add New Member</span>  
-                    </label>
-                </div>
-            </template>
-        </MainHeader>
-        <SectionVue>
+      <SectionVue>
             <div class="filters d-flex justify-between grid grid-cols-6">
                 <div class="grid grid-cols-3 col-span-3">
                     <div class="">
@@ -54,15 +40,12 @@
             </div>
            <Pagination :currentPage="1" :totalPages="10" @paginate="Paginate($event)"></Pagination>
         </SectionVue>
-    </Page>
 </template>
 
 <script setup>
 import { watch,onMounted,ref } from 'vue';
 
 // Import Main Components 
-import Page from '../../components/fragment/Pages/Page.vue';
-import MainHeader from '../../components/fragment/MainHeader.vue';
 import SectionVue from '../../components/fragment/Pages/Section.vue';
 
 // Import Fragments
@@ -71,6 +54,7 @@ import MemberCard from '../../components/fragment/Cards/MemberCard.vue';
 import Pagination from '../../components/fragment/Pages/Pagination.vue';
 import { useMemberStore } from '../../stores/MembersStore';
 import Swal from 'sweetalert2/dist/sweetalert2';
+import { useGlobalStore } from '../../stores/GlobalStore';
 
 /*** Searching ***/
 
@@ -154,5 +138,10 @@ function ShortNameAttr($name) {
 watch(() => search,(newValue, oldValue) => {
     SearchUser();
 },{ deep: true });
+
+// On Mounted 
+onMounted(() => {
+    useGlobalStore().page = 'Members'
+})
 
 </script>
