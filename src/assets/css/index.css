@@ -377,6 +377,10 @@ input{
   @apply text-v_12 rounded-md
 }
 
+.form-control.form-black {
+  color: #000000 !important;
+}
+
 .form-control.search {
   @apply bg-dark-300;
 }
