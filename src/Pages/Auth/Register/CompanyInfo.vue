@@ -24,7 +24,7 @@
                             <label class=" my-3 block text-v_13 font-bold">
                                 Company's Country
                             </label>
-                            <SelectCountry class="w-full" v-model="payload.country" />
+                            <SelectCountry class="w-full" v-model="payload.country"/>
                             <p class="my-1 error error_country error"></p>
                         </div>
                         <div class="form-group w-full col-span-2">

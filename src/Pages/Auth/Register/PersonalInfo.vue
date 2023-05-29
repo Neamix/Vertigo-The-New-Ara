@@ -24,7 +24,7 @@
                             <label class=" my-3 block text-v_13 font-bold">
                                 Your's Phone
                             </label>
-                            <input type="tel" placeholder="Amazing Address" class="form-control w-full p-3 bg-dark-300" v-model="payload.phone">
+                            <input type="tel" placeholder="Amazing Phone" class="form-control w-full p-3 bg-dark-300" v-model="payload.phone">
                             <p class="mb-1 error_phone error"></p>
                         </div>
                     </div>

@@ -201,8 +201,11 @@
             // In case of status failed display error 
             document.querySelector('.error_payment').innerHTML = data.message;
         } else {
-            // In case of status success get the token and store it in localstorage
-            localStorage.setItem('token',data.token);
+            // Add token to localhost
+            localStorage.setItem('token',token);
+
+            // Reset user in auth store
+            useAuthStore().resetUser();
 
             // Then redirect user to dashboard
             router.push({

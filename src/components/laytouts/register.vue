@@ -3,10 +3,12 @@
     <div class="tabs container">
         <div class="header mt-10 mb-5 flex justify-between w-full">
             <img src="@/assets/images/logos/logo_light.png" class=" w-36 mr-3 " alt="logo">
-            <button class="flex text-v_13  items-center">
-                <span class="font-bold">Already have account</span>
-                <i class="fa-solid fa-chevron-right text-v_10 mx-2 pt-0.5"></i>
-            </button>
+            <router-link :to="{name: 'login'}" class="flex">
+                <button class="flex text-v_13  items-center">
+                    <span class="font-bold">Already have account</span>
+                    <i class="fa-solid fa-chevron-right text-v_10 mx-2 pt-0.5"></i>
+                </button>
+            </router-link>
         </div>
         <div class="bullets grid grid-cols-3 w-full pt-16">
             <div class="bullet flex">

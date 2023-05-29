@@ -44,7 +44,7 @@ let router = createRouter({
             name: 'register',
             children: [
                 {
-                    path: 'company',
+                    path: '',
                     component: CompanyInfo,
                     name: 'CompanyInfo'
                 },
