@@ -43,7 +43,6 @@ export const useAuthStore = defineStore('Auth', {
 
             for(var i = 0; i <= max_length; i++ ) {
                 gravatar_name += spliting_name[i].slice(0,1);
-                console.log(i,spliting_name[i].slice(0,1));
             }
 
             return gravatar_name;

@@ -7,7 +7,7 @@ function validation(data,rules) {
     let rulesKeys = Object.keys(rules);
     let errors = [];
     payload = data;
-    console.log(payload)
+
     // Reset the bag and condition
     errorBag = {};
     errorExist = false;
@@ -34,7 +34,7 @@ function isValidValue(conditions,value,name) {
         if ( ! errorBag.hasOwnProperty(name) ) {
             errorBag[name] = [];
         }   
-        console.log(value);
+
         if ( condition == 'required' && ! value) {
             errorBag[name].push(`${name} is required value`);
             errorExist = true;
@@ -69,7 +69,6 @@ function isValidValue(conditions,value,name) {
         }
     }
     if ( Object.keys(errorBag.length > 0 ))  {
-        console.log(errorBag)
         displayErrors(errorBag);
     }
 } 

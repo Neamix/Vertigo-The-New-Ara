@@ -24,7 +24,6 @@ let beforeGuard = ($router) => {
                         authStore.user.email = user.email;
                         authStore.user.status = user.status.id;
                         authStore.user.company_id = user.active_company_id
-                        console.log(authStore.user);
                     }
 
                     setTimeout(() => {

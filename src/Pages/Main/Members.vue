@@ -157,10 +157,6 @@ let sendInvitationLoader = ref(false);
 const sendInvitationIsOpen = ref(false)
 
 // Store functions
-watch(totalPages,(newTotal) => {
-    console.log(newTotal);
-})
-
 memberStore.getMembers(search.value).then((response) => {
     handlerMembers(response);
 });
