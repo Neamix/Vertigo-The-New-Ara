@@ -1,7 +1,6 @@
 import { createApp } from 'vue';
 import './style.css';
 import App from './App.vue';
-import VueSplide from '@splidejs/vue-splide';
 // axios & pinia
 import "./axios";
 import { createPinia } from 'pinia';
@@ -19,13 +18,16 @@ import locale from './Helpers/localization/locale';
 import VueSweetalert2 from 'vue-sweetalert2';
 import 'sweetalert2/dist/sweetalert2.min.css';
 import '@assets/js/dropdown.js';
+import error_schema from './error_schema';
 
 // Plugins Using
 let app = createApp(App);
 app.use(router)
 app.use(createPinia());
-app.use(VueSplide)
 app.use(VueSweetalert2);
+
+// Global axios catch  errors
+error_schema();
 
 // Call Globals
 app.config.globalProperties.$helper = {
