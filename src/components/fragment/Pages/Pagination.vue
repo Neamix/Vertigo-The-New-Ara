@@ -22,7 +22,8 @@
 
 <script setup>
 // General Import 
-import { ref } from 'vue';
+import { ref , watch} from 'vue';
+import { useMemberStore } from '../../../stores/MembersStore';
 
 // Variables
 
@@ -30,7 +31,7 @@ const props = defineProps(['currentPage','totalPages']);
 const emit =  defineEmits(['paginate']);
 
 let currentPage = ref(props.currentPage);
-let totalPages = ref(props.totalPages);
+let totalPages = useMemberStore().totalPages;
 let merge = ref(0);
 
 // Pagination Funcation
@@ -80,5 +81,6 @@ function declarePage(page) {
     // Emit Page
     emit('paginate',currentPage.value);
 }
+
 
 </script>

@@ -44,7 +44,6 @@
 </template>
 
 <script setup>
-    import { useRouter, useRoute } from 'vue-router';
     import { useRegisterStore } from '../../stores/RegisterStore';
     import { computed } from 'vue';
 

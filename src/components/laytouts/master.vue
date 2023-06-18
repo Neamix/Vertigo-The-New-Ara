@@ -47,17 +47,7 @@ var pusher = new Pusher(import.meta.env.VITE_PUSHER_APP_KEY, {
         headers:{
             'Authorization': 'Bearer ' + AuthStore.bearer_token,
         },
-        params: {
-            'param-1': 'param-value-1',
-            'param-2': 'param-value-2'
-        },
-        channel_data:{
-            'sdas': 'dasd'
-        }
     },
-    channel_data:{
-            'sdas': 'dasd'
-        },
     encrypted: true
 });
 
