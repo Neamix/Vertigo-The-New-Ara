@@ -354,6 +354,25 @@ input{
   border-width: 2px;
 }
 
+.avatar_icon {
+  width: 40px;
+  height: 40px;
+  @apply object-cover
+}
+
+.avatar-status {
+  width: 10px;
+  height: 10px;
+  @apply right-0 bottom-0 rounded-full
+}
+
+.avatar-status.in_meeting {
+  background: rgb(231 31 31);
+}
+
+.avatar-status.busy {
+  background: rgb(231 31 31);
+}
 /* End:Avatars */
 
 /* Start:Dropdown */
@@ -368,7 +387,41 @@ input{
   background-color: #1e1e1e;
   border-radius: 10px;
 }
-/* End:Dropdown */
+
+/* Start: Status */
+.status_pullet {
+  width: 7px;
+  height: 7px;
+}
+
+.status-green {
+  @apply bg-green-500;
+}
+
+.status-red {
+  @apply bg-red-500;
+}
+
+.status-yellow {
+  @apply bg-yellow-500;
+}
+/* End: Status */
+
+/* Start: Dropdown */
+.drop-container {
+  opacity: 0;
+  top: 5px;
+  pointer-events: none;
+  transition: all .2s linear;
+}
+
+.dropdown-toggle:hover .drop-container {
+  opacity: 1;
+  top: 0px;
+  pointer-events: fill;
+}
+
+/* End: Dropdown */
 
 /* Start: Forms */
 .form-control {
@@ -418,6 +471,10 @@ input{
 .modal-box {
   @apply bg-secoundry-dark;
   overflow-y: initial;
+}
+
+#headlessui-dialog-panel-4 {
+  @apply bg-dark-200
 }
 
 /* End: Modals */

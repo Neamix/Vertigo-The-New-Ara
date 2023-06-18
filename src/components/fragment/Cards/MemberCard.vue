@@ -1,6 +1,9 @@
 <template>
-    <div class=" bg-dark-300  rounded-md flex px-2 items-center justify-start py-2 relative ">
-        <img src="@assets/images/avatar/user.png" class=" w-v_45px h-v_45px">
+    <div class=" bg-dark-300  rounded-md flex px-2 items-center justify-start py-2 relative " :class="{}">
+        <div class="avatar p-1 relative">
+            <img src="@assets/images/avatar/user.png" class=" w-v_45px h-v_45px rounded-full ">
+            <span class="absolute avatar-status right-[7px] top-[27px]" :class="status_class"></span>
+        </div>
         <div class="user_info mx-4">
             <p class="text-v_14 w-v_125px flex-nowrap whitespace-nowrap " @click="addMember()">
                 <slot name="name"></slot>
@@ -16,18 +19,24 @@
 </template>
 
 <script setup>
-    // General Import 
-    import { ref } from "vue";
-    import Swal from 'sweetalert2/dist/sweetalert2';
-
     // Member Store Import
     import { useMemberStore } from "@/stores/MembersStore";
+    import { computed  } from "vue";
     
-    // Member Variables
-    let memberStore = useMemberStore();
-
-    // Member Function
-    memberStore.suspendUser(2).then((response) => {
-
+    // Get Member 
+    let props = defineProps({
+        member: Object
     });
+    
+
+    // Computed Class
+    let status_class = computed(() => {
+        if (props.member.status.id == 1) {
+            return "bg-green-500"
+        } else if (props.member.status.id == 2) {
+            return "bg-yellow-500"
+        } else if (props.member.status.id == 3) {
+            return "bg-red-500"
+        }
+    })
 </script>
