@@ -8,6 +8,7 @@ function validation(data,rules) {
     let errors = [];
     payload = data;
 
+    console.log(payload)
     // Reset the bag and condition
     errorBag = {};
     errorExist = false;
