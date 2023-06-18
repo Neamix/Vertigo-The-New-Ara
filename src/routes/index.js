@@ -4,7 +4,8 @@ import { createRouter,createWebHistory } from "vue-router";
 // Components importing
 import masterLayout from '../components/laytouts/master.vue';
 import authLayout from '../Pages/Auth/Auth.vue';
-import NotFound from '../Pages/Main/404.vue';
+import NotFound from '../Pages/Main/Errors/404.vue';
+import ServerError from '../Pages/Main/Errors/500.vue';
 
 // Routing importing
 import masterRoutes from "./master";
@@ -37,6 +38,11 @@ let router = createRouter({
             path: '/:pathMatch(.*)', 
             name: 'not-found', 
             component: NotFound 
+        },
+        { 
+            path: '/500', 
+            name: 'server-error', 
+            component: ServerError 
         },
         {
             path: '/register',
