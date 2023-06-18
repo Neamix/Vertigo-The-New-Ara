@@ -18,10 +18,14 @@ let beforeGuard = ($router) => {
             if ( authStore.bearer_token  && ! authStore.user.name && ! authStore.user.email) {
                await useAuthStore().me().then((response) => {
                     let user = response.data.data.me;
-                    console.log(user);
                     // Fetch user 
-                    authStore.user.name  = user.name;
-                    authStore.user.email = user.email;
+                    if ( user ) {
+                        authStore.user.name  = user.name;
+                        authStore.user.email = user.email;
+                        authStore.user.status = user.status.id;
+                        authStore.user.company_id = user.active_company_id
+                        console.log(authStore.user);
+                    }
 
                     setTimeout(() => {
                         globalStore.mainLoader = false;
