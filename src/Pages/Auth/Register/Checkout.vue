@@ -147,6 +147,7 @@
     import { useRouter, useRoute } from 'vue-router';
     import { onMounted, ref } from 'vue';
     import {loadStripe} from '@stripe/stripe-js';
+    import { useAuthStore } from '@/stores/AuthStore.js';
 
     /**  Routers  */
     let router = useRouter();
@@ -202,7 +203,7 @@
             document.querySelector('.error_payment').innerHTML = data.message;
         } else {
             // Add token to localhost
-            localStorage.setItem('token',token);
+            localStorage.setItem('token',data.token);
 
             // Reset user in auth store
             useAuthStore().resetUser();

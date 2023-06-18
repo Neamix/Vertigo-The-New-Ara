@@ -125,8 +125,7 @@
         }
     }
 
-    function displayErrors(errors)
-    {
+    function displayErrors(errors) {
         let keys = Object.keys(errors);
 
         for ( var i = 0; i < keys.length; i++ ) {
@@ -135,8 +134,7 @@
         }
     }
 
-    function removeOldErrors() 
-    {
+    function removeOldErrors() {
         let errors_holder = document.querySelectorAll('.error');
         
         errors_holder.forEach((holder) => {

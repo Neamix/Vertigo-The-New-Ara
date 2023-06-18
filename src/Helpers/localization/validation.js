@@ -7,7 +7,6 @@ function validation(data,rules) {
     let rulesKeys = Object.keys(rules);
     let errors = [];
     payload = data;
-
     console.log(payload)
     // Reset the bag and condition
     errorBag = {};
@@ -35,7 +34,8 @@ function isValidValue(conditions,value,name) {
         if ( ! errorBag.hasOwnProperty(name) ) {
             errorBag[name] = [];
         }   
-        if ( condition == 'required' && value.length == 0) {
+        console.log(value);
+        if ( condition == 'required' && ! value) {
             errorBag[name].push(`${name} is required value`);
             errorExist = true;
         }
@@ -68,6 +68,10 @@ function isValidValue(conditions,value,name) {
             }
         }
     }
+    if ( Object.keys(errorBag.length > 0 ))  {
+        console.log(errorBag)
+        displayErrors(errorBag);
+    }
 } 
 
 
@@ -78,6 +82,15 @@ function removeOldErrors()
     errors_holder.forEach((holder) => {
         holder.innerHTML = '';
     });
+}
+
+function displayErrors(errors) {
+    let keys = Object.keys(errors);
+
+    for ( var i = 0; i < keys.length; i++ ) {
+        document.querySelector(`.error_${keys[i]}`).innerHTML = '';
+        document.querySelector(`.error_${keys[i]}`).innerHTML = errors[keys[i]].join("<br>");
+    }
 }
 
 export default validation;

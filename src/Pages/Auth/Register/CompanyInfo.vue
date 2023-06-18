@@ -87,8 +87,7 @@
 
 
     /** Validate & Go To Next Page */
-    function goToPersonalInfo()
-    {
+    function goToPersonalInfo() {
         let errors = validation(payload,{
             'name': ['required','min:3'],
             'email': ['required'],
@@ -97,23 +96,11 @@
             'address': ['required']
         });
 
-        if ( errors['errorsExist'] ) {
-            displayErrors(errors['errorBag']);
-        } else {
+        if ( ! errors['errorsExist'] ) {
             RegisterStore.nextStep = "PersonalInfo";
             router.push({
                 name: 'PersonalInfo'
             });
-        }
-    }
-
-    function displayErrors(errors)
-    {
-        let keys = Object.keys(errors);
-        
-        for ( var i = 0; i < keys.length; i++ ) {
-            document.querySelector(`.error_${keys[i]}`).innerHTML = '';
-            document.querySelector(`.error_${keys[i]}`).innerHTML = errors[keys[i]].join("<br>");
-        }
+        } 
     }
 </script>
