@@ -9,7 +9,8 @@ export const useAuthStore = defineStore('Auth', {
             email: null,
             avatar: null,
             status: null,
-            company_id: null
+            company_id: null,
+            companies: []
         },
         forgetPayload: {
             verification_id: null,
@@ -97,7 +98,11 @@ export const useAuthStore = defineStore('Auth', {
                                 status {
                                     id
                                 },
-                                active_company_id
+                                active_company_id,
+                                companies {
+                                    id,
+                                    name
+                                }
                             }
                         }
                     `
