@@ -21,6 +21,7 @@
     "vue": "^3.2.45",
     "vue-axios": "^3.5.2",
     "vue-draggable-next": "^2.1.1",
+    "vue-feather-icons": "^5.1.0",
     "vue-filepond": "^7.0.3",
     "vue-fullscreen": "^3.1.1",
     "vue-router": "^4.1.6",
