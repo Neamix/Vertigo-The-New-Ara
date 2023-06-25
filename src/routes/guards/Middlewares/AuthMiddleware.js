@@ -14,7 +14,7 @@ export default async function AuthMiddleware(to,from,$router,next) {
         let relevent_user = authStore.user;
 
         // Check if token exist and valid
-        if ( authStore.bearer_token  && ! authStore.user.name && ! authStore.user.email) {
+        if ( authStore.bearer_token  && ! authStore.user.name && ! authStore.user.email && !authStore.user.company_id) {
             await useAuthStore().me().then((response) => {
                 let user = response.data.data.me;
                 
@@ -25,7 +25,6 @@ export default async function AuthMiddleware(to,from,$router,next) {
                     authStore.user.status = user.status.id;
                     authStore.user.company_id = user.active_company_id;
                     authStore.user.companies = user.companies;
-                    console.log(user)
                 }
 
                 setTimeout(() => {

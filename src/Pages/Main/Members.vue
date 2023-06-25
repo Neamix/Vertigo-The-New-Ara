@@ -5,7 +5,7 @@
         <div class="filters flex justify-between w-full">
             <div class="grid grid-cols-3 col-span-3">
                 <div class="mr-2">
-                    <input type="seach" placeholder="Search on member" class="form-control search p-2 h-v_35px" v-model="search.name">
+                    <input type="seach" placeholder="Search on member" class="form-control search p-2 h-v_35px" v-model="search.name" @input="SearchUser()">
                 </div>
             </div>
             <div class="action_btns w-full">
@@ -173,6 +173,9 @@ function handlerMembers(response) {
 
 
 // Actions
+let inActiveCards = ref([]);
+
+/*** Suspend User */
 function SuspendUserAction(member) {
     Swal.fire({
         icon: "warning",
@@ -181,6 +184,23 @@ function SuspendUserAction(member) {
         confirmText: "confirm",
         showCancelButton: true,
         confirmButtonText: "Confirm"
+    }).then((response) => {
+        if (response.isConfirmed) {
+            memberStore.toggleSuspend().then((response) => {
+                // Remove Member ID From In Active Cards
+                console.log(response)
+                let memberIndex = inActiveCards.value.indexOf(member.id);
+                delete inActiveCards[memberIndex];
+                console.log(response.data.data.toggleUserSuspended.status)
+
+                // In Case No Error
+                if ( response.data.data.toggleUserSuspended.status == 'Success' ) {
+                    let memberLoadedIndex = memberStore.members.findIndex((x) => x.id == member.id);
+                    memberStore.members[memberLoadedIndex].is_suspend = !memberStore.members[memberLoadedIndex].is_suspend;
+                    console.log( memberStore.members)
+                }
+            });
+        }
     });
 } 
 

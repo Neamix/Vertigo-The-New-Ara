@@ -170,6 +170,10 @@ html {
   white-space: nowrap;
 }
 
+.aside .company_switcher:hover:not(.active) {
+  @apply hover:bg-dark-200 transition-all;
+}
+
 /* End: Aside Component */
 
 /* Start: Main Content */

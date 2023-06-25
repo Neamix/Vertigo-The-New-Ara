@@ -55,17 +55,9 @@
                 <li>
                     <Transition name="dropdown">
                         <ul class="vertigo_dropmenu" v-if="workspaces_dropdown">
-                            <li class="flex p-2 workspace_icon">
+                            <li class="flex p-2 workspace_icon mt-2 company_switcher" :class="{'bg-white active': user.company_id == company.id}"  v-for="company in userCompanies" @click="switchCompanyTo(company.id)">
                                 <img src="../../../src/assets/workspaces/man.png" class="w-20" alt="workspace">
-                                <span class="text-md px-2 text-v_13" v-if="aside_open">Arktic Solution</span>
-                            </li>
-                            <li class="flex p-2 workspace_icon">
-                                <img src="../../../src/assets/workspaces/old-man.png" class="w-20" alt="workspace">
-                                <span class="text-md px-2 text-v_13" v-if="aside_open">Aviola</span>
-                            </li>
-                            <li class="flex p-2 workspace_icon">
-                                <img src="../../../src/assets/workspaces/woman.png" class="w-20" alt="workspace">
-                                <span class="text-md px-2 text-v_13" v-if="aside_open">Delta Solution</span>
+                                <span class="text-md px-2 text-v_13 transition-all" :class="{'text-black ': user.company_id == company.id}" v-if="aside_open">{{ company.name }}</span>
                             </li>
                         </ul>
                     </Transition>
@@ -76,39 +68,72 @@
     </div>
 </template>
 
-<script>
+<script setup>
 import { mapActions, mapState } from 'pinia';
 import { useAuthStore } from '../../stores/AuthStore';
-import locale  from '@/Helpers/localization/locale';
+import { useMemberStore } from '../../stores/MembersStore';
+import { useGlobalStore } from '../../stores/GlobalStore';
+import { computed, ref } from 'vue';
+import { usePusherStore } from '../../stores/PusherStore';
 
-export default {
-   props: ['asideOpen'],
+/*** Sidenav Open */
+let aside_open = ref(true);
+let workspaces_dropdown = ref(true);
 
-    data() {
-        return {
-            workspaces_dropdown: true,
-            aside_open: true,
-            isLoading: false,
+/*** Props */
+let props = defineProps({
+    aside_open: Boolean
+});
+
+/*** Computed Values */
+let logo = computed(() => {
+    return '../../../src/assets/images/logos/logo_light.png';
+
+});
+
+let user = computed(() => {
+    return useAuthStore().user;
+});
+
+let userCompanies = computed(() => {
+    return useAuthStore().user.companies
+});
+
+/*** Switch Company */
+let globalStore = useGlobalStore();
+let AuthStore   = useAuthStore();
+let memberStore = useMemberStore();
+let pusherStore = usePusherStore();
+
+function switchCompanyTo(companyID) {
+    // Cache Old Company 
+    let oldCompanyID = AuthStore.user.company_id;
+    
+    // Open Loader
+    globalStore.mainLoader = true;
+
+    // Nullify Company ID
+    AuthStore.user.company_id = null;
+    
+    // Send Switch Request
+    memberStore.switchCompany(companyID).then((response) => {
+        globalStore.mainLoader = false;        
+
+        // On Success
+        if ( response.data.data.switchCompany.status == 'success' ) {
+            AuthStore.user.company_id = companyID;
+            pusherStore.unSubscripeCompanyChannel(oldCompanyID);
+            pusherStore.subscribeCompanyChannel(companyID);
+            globalStore.recompile();
         }
-    },
-
-    computed: {
-        logo() {
-            if ( this.aside_open ) {
-                return '../../../src/assets/images/logos/logo_light.png';
-            } else {
-                return '../../../src/assets/images/logos/fav.png';
-            }
-        }
-    },
-
-    methods: {
-        toggleSideNav() {
-            this.aside_open = !this.aside_open
-            this.$emit('toggleSideNav',this.aside_open)
-        },
-        ...mapActions(useAuthStore,['api'])
-    },
+    });
 }
+
+/*** Open And Close Nav */
+function toggleSideNav() {
+    this.aside_open.value = !this.aside_open.value
+    this.$emit('toggleSideNav',this.aside_open.value)
+}
+
 
 </script>

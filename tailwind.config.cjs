@@ -16,7 +16,7 @@ module.exports = {
         "secoundry-dark":"#1b1b1b",
         "dark-400": "#0d0d0d",
         "dark-300": "#121212",
-        "dark-200": "#232323",
+        "dark-200": "#161616",
         //Whites
         "slate-10": "#fff",
         // gray
