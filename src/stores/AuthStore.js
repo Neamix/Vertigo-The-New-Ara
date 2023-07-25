@@ -1,5 +1,6 @@
 import { defineStore } from 'pinia';
 import axios from 'axios';
+import { useGlobalStore } from './GlobalStore';
 
 export const useAuthStore = defineStore('Auth', {
     state: () => ({
@@ -51,6 +52,29 @@ export const useAuthStore = defineStore('Auth', {
     },
 
     actions: {
+        // Fetch Auth User 
+        async fetchUser () {
+            await useAuthStore().me().then((response) => {
+                let user = response.data.data.me;
+                let globalStore = useGlobalStore();
+                
+                // Fetch user 
+                if ( user ) {
+                    this.user.name  = user.name;
+                    this.user.email = user.email;
+                    this.user.status = user.status.id;
+                    this.user.company_id = user.active_company_id;
+                    this.user.companies = user.accessable_companies;
+                    this.user.is_suspend = user.is_suspend;
+                }
+
+                setTimeout(() => {
+                    globalStore.mainLoader = false;
+                }, 1000);
+            });
+        },
+
+        // Reset Auth User
         resetUser() {
             useAuthStore().user.name  = null;
             useAuthStore().user.email = null;
@@ -99,9 +123,11 @@ export const useAuthStore = defineStore('Auth', {
                                     id
                                 },
                                 active_company_id,
-                                companies {
-                                    id,
-                                    name
+                                is_root,
+                                is_suspend,
+                                accessable_companies {
+                                    name,
+                                    id
                                 }
                             }
                         }

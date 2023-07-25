@@ -40,14 +40,8 @@ export const useMemberStore = defineStore('members',{
         },
         
         // Axios Functions
-        suspendUser($member_id) {
-            return new Promise((resolve,reject) => {
-                setTimeout(() => {
-                    resolve(true);
-                },2000);
-            });
-        },
 
+        /*** Invtie new member to active workstation */
         inviteMember(email) {
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,
@@ -69,6 +63,7 @@ export const useMemberStore = defineStore('members',{
             })
         },
 
+        /*** Verify Agent Users When They Join Workstation For First Time */
         verifyMembers(payload) {
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,
@@ -94,6 +89,7 @@ export const useMemberStore = defineStore('members',{
             })
         },
 
+        /*** Get All Members Of Active Workstation */
         getMembers(payload) {
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,
@@ -113,9 +109,10 @@ export const useMemberStore = defineStore('members',{
                                     lastPage
                                 }
                                 data {
-                                    id,
+                                    id
                                     name,
                                     email,
+                                    is_root,
                                     is_suspend
                                 }
                             }
@@ -126,6 +123,7 @@ export const useMemberStore = defineStore('members',{
             });
         },
 
+        /*** Switch Active Workstation */
         switchCompany(company_id) {
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,
@@ -139,7 +137,10 @@ export const useMemberStore = defineStore('members',{
                         mutation {
                             switchCompany(companyid:${company_id}) {
                                 status,
-                                message
+                                message,
+                                user {
+                                    is_suspend
+                                }
                             }
                         }
                     `
@@ -147,7 +148,8 @@ export const useMemberStore = defineStore('members',{
             });
         },
 
-        toggleSuspend() {
+        /*** Change Suspend State For Certain User (work as a toggler) */
+        toggleSuspend(user_id) {
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,
                 method: 'POST',
@@ -158,7 +160,7 @@ export const useMemberStore = defineStore('members',{
                 data: {
                     query: `
                         mutation {
-                            toggleUserSuspended(userid: 1) {
+                            toggleUserSuspended(user_id: ${user_id}) {
                                 status,
                                 message
                             }
@@ -166,6 +168,30 @@ export const useMemberStore = defineStore('members',{
                     `
                 }
             });
+        },
+
+        /*** Export Sheet Of Hours Users Did On Active Workstation */
+        exportMembers (duration,search) {
+            return axios({
+                url: import.meta.env.VITE_BACKEND_URL,
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${useAuthStore().bearer_token}`
+                },
+                data: {
+                    query: `
+                        query {
+                            exportMonitoringSheet(input: {duration:${duration}, filters: {
+                                name: "${search.name}",
+                                page: ${search.page}
+                            }}) {
+                                path,
+                            }
+                        }
+                    `
+                }
+            })
         }
 
     }

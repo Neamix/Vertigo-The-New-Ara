@@ -118,12 +118,12 @@ html {
 
 .aside {
   transition: all .3s linear;
-  width: 15%;
+  width: 13%;
   position: fixed;
 }
 
 .aside .logo {
-  width: 120px;
+  width: 99px;
 }
 
 .aside .fav {
@@ -147,15 +147,13 @@ html {
   width: 20px;
 }
 
-.aside li {
-  border-radius: 20px;
-  cursor: pointer;
+.aside li:not(.title) .router-link-exact-active {
+  @apply transition-all mt-2;
 }
 
-.aside li .router-link-exact-active {
-  background: #111;
-  @apply w-full;
-  border-radius: 20px;
+.aside li .router-link-exact-active,
+.aside li.active {
+  @apply bg-white rounded-[5px] text-black
 }
 
 .aside li a {
@@ -166,12 +164,34 @@ html {
   width: 5%;
 }
 
+.aside.close .menus a {
+  display: flex;
+  justify-content: center;
+  font-size: 34px;
+  height: 41px;
+}
+
+.aside.close .menus a  svg {
+  font-size: 20px !important;
+}
+
 .aside.closed_nav li span {
   white-space: nowrap;
 }
 
 .aside .company_switcher:hover:not(.active) {
   @apply hover:bg-dark-200 transition-all;
+}
+
+.aside.close {
+  width: 5%;
+}
+
+.search-holder .search-result {
+  @apply hidden;
+}
+.search-holder:foucs .search-result {
+  @apply block;
 }
 
 /* End: Aside Component */
@@ -183,8 +203,8 @@ input{
 
 .main_content {
   transition: all .3s linear;
-  width: 85%;
-  margin-left: 15%;
+  width: 87%;
+  margin-left: 13%;
 }
 
 .main_content.closed_nav {
@@ -195,13 +215,13 @@ input{
 .content {
   min-height: 100vh;
   background-color: #0d0d0d;
-  border-top-left-radius: 29px;
   border: 2px solid rgb(20, 20, 20)
 }
 
 .border_divider {
   border-color: rgb(20, 20, 20);
 }
+
 
 /* End: Main Content */
 
@@ -952,3 +972,35 @@ input{
   visibility: hidden;
 }
 /* End: Dragging */
+
+/* Start: Apex */
+.small_chart_box {
+  height: 150px;
+}
+
+.blind-chart .apexcharts-toolbar {
+  display: none !important;
+}
+
+.blind-chart .apexcharts-tooltip-title {
+  background-color: #000000;
+}
+
+.bar-chart   .apexcharts-xaxis-tick,
+.blind-chart .apexcharts-xaxis-tick {
+  display: none;
+}
+
+.apexcharts-tooltip.apexcharts-theme-light {
+  background-color: #333 !important;
+  border: 1px solid #333 !important;
+}
+
+.apexcharts-tooltip-title {
+  background-color: #333 !important;
+  border: 1px solid #333 !important;
+}
+
+#SvgjsLine10403 {
+  display: none;
+}

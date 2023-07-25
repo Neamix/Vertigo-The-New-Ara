@@ -9,6 +9,10 @@ let error_schema = () => {
                 router.push({
                     name: "server-error"
                 })
+            } else if ( error.code == "ERR_BAD_REQUEST" ) {
+                router.replace({
+                    name: "forbidden"
+                })
             }
         }
     );

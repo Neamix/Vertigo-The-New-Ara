@@ -1,11 +1,13 @@
 import { defineStore } from "pinia";
 import { nextTick } from "vue";
 
+
 export const useGlobalStore = defineStore('global',{
     state: () => ({
         mainLoader: true,
         page: "Dashboard",
-        renderComponent: true
+        renderComponent: true,
+        closed_nav: true
     }),
 
     actions: {

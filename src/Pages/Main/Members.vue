@@ -8,11 +8,18 @@
                     <input type="seach" placeholder="Search on member" class="form-control search p-2 h-v_35px" v-model="search.name" @input="SearchUser()">
                 </div>
             </div>
-            <div class="action_btns w-full">
-                <button type="button" @click="sendInvitationIsOpen = true" class="btn ml-auto flex">
-                    <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" fill="#fff" width="10" height="10" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg> 
-                    <span  class="text-white">Add New Member</span>  
-                </button>
+            <div class="action_btns w-full justify-end  flex">
+               <div class="flex">
+                    <button type="button" @click="sendInvitationIsOpen = true" class="btn  flex mx-2">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" fill="#fff" width="10" height="10" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg> 
+                        <span  class="text-white">Add New Member</span>  
+                    </button>
+                    <button type="button" @click="exportMonitoringSheet = true" class="btn flex">
+                        <svg width="18" height="18" stroke="#fff" fill="#fff" class="mr-2" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                            <path stroke="#fff" d="M18.3286 14.8286C19.4724 13.9287 20.3072 12.6946 20.717 11.2982C21.1268 9.90168 21.0911 8.4122 20.615 7.03694C20.1388 5.66168 19.2459 4.46902 18.0603 3.62489C16.8748 2.78077 15.4556 2.32715 14.0002 2.32715C12.5449 2.32715 11.1257 2.78077 9.94016 3.62489C8.75461 4.46902 7.86164 5.66168 7.38549 7.03694C6.90933 8.4122 6.87367 9.90168 7.28346 11.2982C7.69325 12.6946 8.52812 13.9287 9.67191 14.8286C7.712 15.6138 6.00191 16.9161 4.72395 18.5968C3.44599 20.2775 2.64806 22.2734 2.41524 24.3719C2.39839 24.5251 2.41188 24.6801 2.45494 24.8281C2.498 24.9761 2.56979 25.1142 2.6662 25.2344C2.86093 25.4773 3.14415 25.6329 3.45357 25.6669C3.76299 25.7009 4.07326 25.6107 4.31612 25.4159C4.55898 25.2212 4.71454 24.938 4.74857 24.6286C5.00476 22.348 6.09221 20.2417 7.80316 18.7122C9.51412 17.1826 11.7286 16.3371 14.0236 16.3371C16.3185 16.3371 18.533 17.1826 20.244 18.7122C21.9549 20.2417 23.0424 22.348 23.2986 24.6286C23.3303 24.9152 23.4671 25.18 23.6825 25.3717C23.898 25.5635 24.1768 25.6686 24.4652 25.6669H24.5936C24.8994 25.6317 25.1789 25.4771 25.3712 25.2367C25.5635 24.9963 25.653 24.6897 25.6202 24.3836C25.3863 22.2791 24.5841 20.278 23.2996 18.5948C22.015 16.9116 20.2966 15.6096 18.3286 14.8286ZM14.0002 14.0002C13.0773 14.0002 12.175 13.7265 11.4076 13.2138C10.6402 12.701 10.042 11.9721 9.6888 11.1194C9.33559 10.2667 9.24318 9.32838 9.42324 8.42314C9.60331 7.51789 10.0478 6.68637 10.7004 6.03373C11.3531 5.38108 12.1846 4.93663 13.0898 4.75656C13.9951 4.5765 14.9334 4.66891 15.7861 5.02212C16.6388 5.37533 17.3677 5.97347 17.8804 6.7409C18.3932 7.50833 18.6669 8.41058 18.6669 9.33356C18.6669 10.5712 18.1752 11.7582 17.3001 12.6334C16.4249 13.5086 15.2379 14.0002 14.0002 14.0002Z" fill="#fff"/></svg>
+                        <span  class="text-white">Export Monitoring Sheet</span>  
+                    </button>
+               </div>
             </div>
         </div>
     </SectionVue>
@@ -93,12 +100,56 @@
             </Dialog>
         </TransitionRoot>
         <!-- End: Invitation Modal -->
+        <!-- Start: Invitation Modal -->
+        <TransitionRoot appear :show="exportMonitoringSheet" as="template">
+            <Dialog as="div" @close="exportMonitoringSheet = false" class="relative z-10">
+            <div class="fixed inset-0 overflow-y-auto">
+                <div class="flex min-h-full items-center justify-center p-4 text-center bg-dark-opacity-4">
+                <TransitionChild as="template" enter="duration-300 ease-out" enter-from="opacity-0 scale-95" enter-to="opacity-100 scale-100" leave="duration-200 ease-in" leave-from="opacity-100 scale-100" leave-to="opacity-0 scale-95">
+                    <DialogPanel class="w-full max-w-md transform overflow-hidden rounded-2xl p-6 text-left align-middle shadow-xl transition-all bg-dark-200">
+                        <DialogTitle as="h3" class="px-3">
+                            <p class="text-lg leading-6 text-white uppercase font-bold">Export Monitoring Sheet</p>
+                            <span class=" text-v_12 text-gray-300 ">Exporting maybe take some minites</span>
+                        </DialogTitle>
+                        <div class="mt-2">
+                            <div class="p-3 rounded-md text-v_14  cursor-pointer" :class="{' bg-dark-400 ': exportDuration == 1}" @click="exportDuration = 1">
+                                <span>This month</span>
+                                <span class="block text-gray-500 text-v_12 font-bold">From 01 {{  calculateDurationOfExporting(0)  }} to now</span>
+                            </div>
+                            <div class="p-3 rounded-md text-v_14  cursor-pointer" :class="{'bg-dark-400': exportDuration == 2}" @click="exportDuration = 2">
+                                <span>From last month to now</span>
+                                <span class="block text-gray-500 text-v_12 font-bold">From 01 {{  calculateDurationOfExporting(1)  }} to now</span>
+                            </div>
+                            <div class="p-3 rounded-md text-v_14  cursor-pointer" :class="{'bg-dark-400': exportDuration == 3}" @click="exportDuration = 3">
+                                <span>From last two month to now</span>
+                                <span class="block text-gray-500 text-v_12 font-bold">From 01 {{  calculateDurationOfExporting(2)  }} to now</span>
+                            </div>
+                        </div>
+
+                        <div class="mt-4 flex justify-end">
+                            <button class="btn mx-3" @click="exportMonitoringSheet = false;">close</button>
+                            <LoaderButton :loading="exportingLoader" @click="exportSheet()">
+                                <template #text>
+                                    <div class="flex uppercase">
+                                        <span>Export Monitoring Sheet</span>
+                                    </div>
+                                </template>
+                            </LoaderButton>
+                            <p class="error error_email"></p>
+                        </div>
+                    </DialogPanel>
+                </TransitionChild>
+                </div>
+            </div>
+            </Dialog>
+        </TransitionRoot>
+        <!-- End: Invitation Modal -->
     </SectionVue>
     <!-- End: Member Cort Section -->
 </template>
 
 <script setup>
-import { watch,onMounted,ref } from 'vue';
+import { onMounted,ref } from 'vue';
 
 // Import Main Components 
 import SectionVue from '../../components/fragment/Pages/Section.vue';
@@ -109,13 +160,7 @@ import Pagination from '../../components/fragment/Pages/Pagination.vue';
 import { useMemberStore } from '../../stores/MembersStore';
 import Swal from 'sweetalert2/dist/sweetalert2';
 import { useGlobalStore } from '../../stores/GlobalStore';
-import {
-  TransitionRoot,
-  TransitionChild,
-  Dialog,
-  DialogPanel,
-  DialogTitle,
-} from '@headlessui/vue'
+import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle , RadioGroup, RadioGroupLabel, RadioGroupOption} from '@headlessui/vue';
 import LoaderButton from "@/components/fragment/Buttons/LoaderButton.vue";
 import validation from "@/Helpers/localization/validation";
 
@@ -186,18 +231,15 @@ function SuspendUserAction(member) {
         confirmButtonText: "Confirm"
     }).then((response) => {
         if (response.isConfirmed) {
-            memberStore.toggleSuspend().then((response) => {
+            memberStore.toggleSuspend(member.id).then((response) => {
                 // Remove Member ID From In Active Cards
-                console.log(response)
                 let memberIndex = inActiveCards.value.indexOf(member.id);
                 delete inActiveCards[memberIndex];
-                console.log(response.data.data.toggleUserSuspended.status)
 
                 // In Case No Error
                 if ( response.data.data.toggleUserSuspended.status == 'Success' ) {
                     let memberLoadedIndex = memberStore.members.findIndex((x) => x.id == member.id);
                     memberStore.members[memberLoadedIndex].is_suspend = !memberStore.members[memberLoadedIndex].is_suspend;
-                    console.log( memberStore.members)
                 }
             });
         }
@@ -271,6 +313,36 @@ function displayErrors(errors) {
     }
 }
 
+/*** Export Members */
+let exportMonitoringSheet = ref(false);
+let exportDuration  = ref(1);
+let exportingLoader = ref(false);
+let yearMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+
+/*** Calculate Duration Of Exporting */
+function calculateDurationOfExporting(durationMonth) {
+    let now = new Date();
+    now.setMonth(now.getMonth() - durationMonth);
+    return now.toLocaleString('default',{month: 'long'});
+}
+
+/** Send Exporting Request */
+function exportSheet() {
+    exportingLoader.value = true;
+    memberStore.exportMembers(exportDuration.value,search.value).then((response) => {
+        let path = response.data.data.exportMonitoringSheet.path;
+        let a = document.createElement('a');
+        a.href = path;
+        a.download = 'vertigo_users_monitor_sheet.xlsx';
+        document.body.appendChild(a);
+        a.click();
+        console.log(a);
+        // Add Extra Inteval 
+        setTimeout(() => {
+            exportingLoader.value = false;
+        },2000);
+    });
+}
 
 // Setters
 function SetFilter(searchFilter) {

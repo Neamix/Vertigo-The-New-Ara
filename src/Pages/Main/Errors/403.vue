@@ -3,10 +3,10 @@
 		<div class="container flex flex-col items-center justify-center px-5 mx-auto my-8">
 			<div class="max-w-md text-center">
 				<h2 class="mb-8 font-extrabold text-v_23 text-white" style="font-size: 100px;">
-                    500 : ( docker
+                    403
                 </h2>
-				<p class="text-2xl font-semibold md:text-3xl">Our Server Down</p>
-				<p class="mt-4 mb-8 dark:text-gray-400">Hello there, Our server is down right now we are trying to fix the problem ASAP</p>
+				<p class="text-2xl font-semibold md:text-3xl">Forbidden</p>
+				<p class="mt-4 mb-8 dark:text-gray-400">Hello there, You can't access here</p>
 			</div>
 		</div>
 	</section>

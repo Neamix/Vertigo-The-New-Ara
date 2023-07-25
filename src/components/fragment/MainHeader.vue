@@ -1,6 +1,38 @@
 <template>
-    <div class="p-5 vertigo_top_nav w-full justify-between flex border_divider border-b-2 items-center pb-3">
-        <slot name="title"></slot>
+    <div class="p-3 vertigo_top_nav w-full justify-between flex border_divider border-b-2 items-center bg-dark">
+        <div>
+            <ul class="flex">
+                <li>
+                    <button class="p-2 rounded-full" @click="toggleSideNav()">
+                        <svg width="30px" height="30px" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+                            <g id="Menu / Menu_Alt_03">
+                            <path id="Vector" d="M5 17H13M5 12H19M5 7H13" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </g>
+                        </svg>
+                    </button>
+                </li>
+                <li class="relative mx-4 search-holder">
+                    <div class="h-full flex items-center">
+                        <span class="absolute px-2 pt-1 text-gray-400 font-bold">
+                            <Icon icon="iconamoon:search-bold"></Icon>
+                        </span>
+                        <input type="search" class="form-control bg-dark-300 h-full min-w-[300px] px-8" placeholder="Search Members,Boards,Etc ..">
+                    </div>
+                    <div class="search-result bg-dark-300 shadow-md shadow-dark-200 absolute w-full z-40">
+                        <div class="list">
+                            <li class="p-2 text-v_12 text-gray-400">Members</li>
+                            <li class="w-full p-3 text-v_13 hover:bg-dark-200 cursor-pointer">Edward Jack</li>
+                            <li class="w-full p-3 text-v_13 hover:bg-dark-200 cursor-pointer">Ema Cooper</li>
+                        </div>
+                        <div class="list">
+                            <li class="p-2 text-v_12 text-gray-400">Boards</li>
+                            <li class="w-full p-3 text-v_13 hover:bg-dark-200 cursor-pointer">Client Boards</li>
+                            <li class="w-full p-3 text-v_13 hover:bg-dark-200 cursor-pointer">Leads Boards</li>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <div class="user flex relative dropdown-toggle">
             <div class="online flex">
                 <div class="flex relative">
@@ -44,6 +76,9 @@
 <script setup>
 import { useAuthStore } from '@/stores/AuthStore';
 import { usePusherStore } from '@/stores/PusherStore';
+import { useGlobalStore } from '@/stores/GlobalStore';
+import { Icon } from '@iconify/vue';
+import { watch,computed } from 'vue';
 
 /** Change Status */
 function changeStatus(status_id) {
@@ -51,4 +86,14 @@ function changeStatus(status_id) {
     usePusherStore().changeStatus();
 }
 
+/***  */
+let closed_nav = computed(() => globalStore.closed_nav);
+function toggleSideNav() {
+    useGlobalStore().closed_nav =! useGlobalStore().closed_nav
+    console.log(useGlobalStore().closed_nav,closed_nav);
+}
+
+watch(useGlobalStore().closed_nav, () => {
+    console.log('isLoggedIn ref changed, do something!')
+})
 </script>
