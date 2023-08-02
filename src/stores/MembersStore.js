@@ -54,7 +54,7 @@ export const useMemberStore = defineStore('members',{
                     query: `
                         mutation {
                             inviteMember(input: {email: "${email}"}) {
-                                name,
+                                id,
                                 email
                             }
                         }
@@ -192,7 +192,50 @@ export const useMemberStore = defineStore('members',{
                     `
                 }
             })
-        }
+        },
 
+        deletePendingRequests(id) {
+            return axios({
+                url: import.meta.env.VITE_BACKEND_URL,
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${useAuthStore().bearer_token}`
+                },
+                data: {
+                    query: `
+                        mutation {
+                            deletePendingRequest(request_id: ${id}) {
+                                status,
+                                message
+                            }
+                        }
+                    `
+                }
+            })
+        },
+
+
+        /*** Get Pending Requests */
+        pendingRequests() {
+            return axios({
+                url: import.meta.env.VITE_BACKEND_URL,
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${useAuthStore().bearer_token}`
+                },
+                data: {
+                    query: `
+                        query {
+                            pendingMembers {
+                                id,
+                                email
+                            }
+                        }
+                    `
+                }
+            })
+        },
     }
 });

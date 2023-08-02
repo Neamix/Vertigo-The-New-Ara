@@ -11,7 +11,8 @@ export const useAuthStore = defineStore('Auth', {
             avatar: null,
             status: null,
             company_id: null,
-            companies: []
+            companies: [],
+            is_rooted: false  
         },
         forgetPayload: {
             verification_id: null,
@@ -56,21 +57,17 @@ export const useAuthStore = defineStore('Auth', {
         async fetchUser () {
             await useAuthStore().me().then((response) => {
                 let user = response.data.data.me;
-                let globalStore = useGlobalStore();
                 
                 // Fetch user 
                 if ( user ) {
-                    this.user.name  = user.name;
-                    this.user.email = user.email;
+                    this.user.name   = user.name;
+                    this.user.email  = user.email;
                     this.user.status = user.status.id;
                     this.user.company_id = user.active_company_id;
-                    this.user.companies = user.accessable_companies;
+                    this.user.companies  = user.accessable_companies;
                     this.user.is_suspend = user.is_suspend;
+                    this.user.is_rooted  = user.is_rooted;
                 }
-
-                setTimeout(() => {
-                    globalStore.mainLoader = false;
-                }, 1000);
             });
         },
 

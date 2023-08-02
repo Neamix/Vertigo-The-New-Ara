@@ -4,7 +4,7 @@ defineEmits(['update:modelValue']);
 </script>
 
 <template>
-    <select id="country" name="country" class="form-control bg-dark-300 p-2 flex" @change="$emit('update:modelValue', $event.target.value)">
+    <select id="country" name="country" class="form-control bg-dark-300 p-3 flex" @change="$emit('update:modelValue', $event.target.value)">
         <option value="Afghanistan" class=" p-2 ">Afghanistan</option>
         <option value="Åland Islands">Åland Islands</option>
         <option value="Albania">Albania</option>

@@ -2,6 +2,11 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --toastify-icon-color-success: white;
+  --toastify-color-progress-success: white
+}
+
 /* Start: Fonts */
 
 @font-face {
@@ -353,6 +358,12 @@ input{
   height: 240px;
   overflow: scroll;
 }
+
+.disabled_div {
+  filter: brightness(0.5);
+  pointer-events: none;
+}
+
 /* End: Cards */
 
 
@@ -1003,4 +1014,22 @@ input{
 
 #SvgjsLine10403 {
   display: none;
+}
+
+/** List Animation **/
+.list-enter-from,
+.list-leave-to {
+  opacity: 0;
+  transform: scale(0.6);
+}
+
+.list-enter-to,
+.list-leave-from {
+  opacity: 1;
+  transform: scale(1);
+}
+
+.list-enter-active,
+.list-leave-active {
+  transition: all .3s linear;
 }

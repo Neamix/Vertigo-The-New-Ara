@@ -3,7 +3,8 @@
 
         <!-- Main Logo -->
         <div class="vertigo_top_aside flex items-center justify-center w-100 h-10">
-            <img :src="logo" class="logo" alt="logo" @click="toggleSideNav()">        </div>
+            <img :src="logo" class="logo" alt="logo" @click="toggleSideNav()">        
+        </div>
         <!-- Main Side Menu -->
         <div class="vertigo_menu my-5 pt-5 px-1">
             <ul class="menus my-2 flex justify-center flex-col">
@@ -22,9 +23,15 @@
                     </router-link>
                 </li>
                 <li class="flex">
-                    <router-link :to="{path:'/board'}" class="flex p-2 w-full">
+                    <router-link :to="{name:'boards'}" class="flex p-2 w-full">
                     <Icon icon="fluent:board-16-filled"></Icon>
                     <span class="text-md px-2 text-v_13" v-if="!closed_nav">Boards</span>
+                    </router-link>
+                </li>
+                <li class="flex">
+                    <router-link :to="{path:'/projects'}" class="flex p-2 w-full">
+                    <Icon icon="grommet-icons:projects"></Icon>
+                    <span class="text-md px-2 text-v_13" v-if="!closed_nav">Projects</span>
                     </router-link>
                 </li>
                 <li class="py-2 title w-full flex  items-center justify-between cursor-pointer" @click="workspaces_dropdown = !workspaces_dropdown" v-if="!closed_nav">

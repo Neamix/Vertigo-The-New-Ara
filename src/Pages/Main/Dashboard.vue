@@ -52,7 +52,7 @@ let sessions = ref([]);
 
 statisticsStore.getMemberSessions().then((response) => {
     sessions = response.data.data.sessions;
-    
+
     // Total Statistics
     statisticsStore.total_hours.push(sessions.filter((x) => x.created_month == 'Jan').map(x => x.total_session_time).reduce( (a, b) => (parseInt(a) + parseInt(b)),0));
     statisticsStore.total_hours.push(sessions.filter((x) => x.created_month == 'Feb').map(x => x.total_session_time).reduce( (a, b) => (parseInt(a) + parseInt(b)),0));

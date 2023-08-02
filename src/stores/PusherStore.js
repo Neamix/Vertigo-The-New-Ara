@@ -77,10 +77,12 @@ export const usePusherStore = defineStore('pusher',{
         unSubscripeCompanyChannel(company_id) {
             let pusher = this.pusherInstatce;
             pusher.unsubscribe('presence-company.'+company_id)
+            pusher.unsubscribe('presence-company-member.'+company_id)
         },
         subscribeCompanyChannel(company_id) {
             let pusher = this.pusherInstatce;
             pusher.subscribe('presence-company.'+company_id);
+            pusher.subscribe('presence-company-member.'+company_id);
         },
         changeStatus() {
             return axios({

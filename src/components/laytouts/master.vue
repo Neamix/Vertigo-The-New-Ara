@@ -1,6 +1,5 @@
 <template>
     <div class="container-fluid">
-        <Loader></Loader>
         <div class="flex">
             <!-- AsideNav -->
             <AsideNav @toggleSideNav="toggleSideNav"></AsideNav>
