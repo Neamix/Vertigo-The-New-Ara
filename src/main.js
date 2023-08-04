@@ -20,6 +20,7 @@ import 'sweetalert2/dist/sweetalert2.min.css';
 import '@assets/js/dropdown.js';
 import error_schema from './error_schema';
 
+
 // Plugins Using
 let app = createApp(App);
 app.use(router)

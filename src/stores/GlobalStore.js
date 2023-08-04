@@ -7,7 +7,8 @@ export const useGlobalStore = defineStore('global',{
         mainLoader: true,
         page: "Dashboard",
         renderComponent: true,
-        closed_nav: true
+        closed_nav: false,
+        init_loader: true
     }),
 
     actions: {

@@ -81,9 +81,9 @@ function login() {
 function loginHandler(response) {
   let errors = response.data.errors ?? [];
   let data   = response.data.data.login;
-  
+
   // Credintions Wrong
-  if ( data.status == "Fail" || errors.length) {
+  if ( errors.length ) {
     // Take place if this email doesn't exist
     document.querySelector(`.error_email`).innerHTML = '';
     document.querySelector(`.error_email`).innerHTML = 'Invalid Credintions';

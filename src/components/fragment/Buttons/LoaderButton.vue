@@ -1,5 +1,5 @@
 <template>
-    <button class="btn btn-primary  items-center relative flex justify-center disabled:opacity-100 disabled:bg-black" :disabled="loading">
+    <button class="btn btn-primary  items-center relative flex justify-center disabled:opacity-100" :disabled="loading">
         <div class="loader_text" :class="{'opacity-0': loading}">
             <span>
                 <slot name="text"></slot>

@@ -1,6 +1,6 @@
 <template>
     <div class="card relative overflow-hidden">
-        <div class="card-body bg-dark-300 rounded-md p-4 blind-chart h-v_30vh mb-2 overflow-y-scroll">
+        <div class="card-body bg-dark-300 rounded-md p-4 blind-chart h-[325px] mb-2 overflow-y-scroll">
             <h3 class=" text-v_16">{{  props.name  }}</h3>
             <div class="pt-2 flex items-center" v-for="log in logs">
                 <Avatar :user="{'avatar': undefined,'name':'Jessica Adam'}"/>

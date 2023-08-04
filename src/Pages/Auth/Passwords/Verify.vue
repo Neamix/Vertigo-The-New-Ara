@@ -42,7 +42,6 @@
     import LoaderButton from "@/components/fragment/Buttons/LoaderButton.vue";
     import router from "@/routes";
     import { useRoute } from "vue-router";
-import path from "path";
   
     // Reset Password
     let MembersStore = useMemberStore();
