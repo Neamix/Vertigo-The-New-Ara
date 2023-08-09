@@ -66,7 +66,7 @@ export const useAuthStore = defineStore('Auth', {
                     this.user.company_id = user.active_company_id;
                     this.user.companies  = user.accessable_companies;
                     this.user.is_suspend = user.is_suspend;
-                    this.user.is_rooted  = user.is_rooted;
+                    this.user.is_root  = user.is_root;
                 }
             });
         },
@@ -156,6 +156,7 @@ export const useAuthStore = defineStore('Auth', {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json",
+                    "Authorization": `Bearer ${this.bearer_token}`
                 },
                 data: {
                     query: `
@@ -190,6 +191,26 @@ export const useAuthStore = defineStore('Auth', {
                             }) {
                                 status,
                                 token
+                            }
+                        }
+                    `
+                }
+            })
+        },
+
+        logout() {
+            return axios({
+                url: import.meta.env.VITE_BACKEND_URL,
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${this.bearer_token}`
+                },
+                data: {
+                    query: `
+                        mutation {
+                            logout {
+                                status,
                             }
                         }
                     `
