@@ -59,10 +59,9 @@
 import { useAuthStore } from '../../stores/AuthStore';
 import { useMemberStore } from '../../stores/MembersStore';
 import { useGlobalStore } from '../../stores/GlobalStore';
-import { computed, ref, defineEmits } from 'vue';
+import { computed, ref } from 'vue';
 import { usePusherStore } from '../../stores/PusherStore';
 import { Icon } from '@iconify/vue';
-import { watch } from 'vue';
 let workspaces_dropdown = ref(true);
 
 /*** Computed Values */
