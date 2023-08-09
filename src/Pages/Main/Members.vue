@@ -24,11 +24,11 @@
                                 <svg width="18" height="18" stroke="#fff" fill="#fff" class="mr-2" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
                                     <path stroke="#fff" d="M18.3286 14.8286C19.4724 13.9287 20.3072 12.6946 20.717 11.2982C21.1268 9.90168 21.0911 8.4122 20.615 7.03694C20.1388 5.66168 19.2459 4.46902 18.0603 3.62489C16.8748 2.78077 15.4556 2.32715 14.0002 2.32715C12.5449 2.32715 11.1257 2.78077 9.94016 3.62489C8.75461 4.46902 7.86164 5.66168 7.38549 7.03694C6.90933 8.4122 6.87367 9.90168 7.28346 11.2982C7.69325 12.6946 8.52812 13.9287 9.67191 14.8286C7.712 15.6138 6.00191 16.9161 4.72395 18.5968C3.44599 20.2775 2.64806 22.2734 2.41524 24.3719C2.39839 24.5251 2.41188 24.6801 2.45494 24.8281C2.498 24.9761 2.56979 25.1142 2.6662 25.2344C2.86093 25.4773 3.14415 25.6329 3.45357 25.6669C3.76299 25.7009 4.07326 25.6107 4.31612 25.4159C4.55898 25.2212 4.71454 24.938 4.74857 24.6286C5.00476 22.348 6.09221 20.2417 7.80316 18.7122C9.51412 17.1826 11.7286 16.3371 14.0236 16.3371C16.3185 16.3371 18.533 17.1826 20.244 18.7122C21.9549 20.2417 23.0424 22.348 23.2986 24.6286C23.3303 24.9152 23.4671 25.18 23.6825 25.3717C23.898 25.5635 24.1768 25.6686 24.4652 25.6669H24.5936C24.8994 25.6317 25.1789 25.4771 25.3712 25.2367C25.5635 24.9963 25.653 24.6897 25.6202 24.3836C25.3863 22.2791 24.5841 20.278 23.2996 18.5948C22.015 16.9116 20.2966 15.6096 18.3286 14.8286ZM14.0002 14.0002C13.0773 14.0002 12.175 13.7265 11.4076 13.2138C10.6402 12.701 10.042 11.9721 9.6888 11.1194C9.33559 10.2667 9.24318 9.32838 9.42324 8.42314C9.60331 7.51789 10.0478 6.68637 10.7004 6.03373C11.3531 5.38108 12.1846 4.93663 13.0898 4.75656C13.9951 4.5765 14.9334 4.66891 15.7861 5.02212C16.6388 5.37533 17.3677 5.97347 17.8804 6.7409C18.3932 7.50833 18.6669 8.41058 18.6669 9.33356C18.6669 10.5712 18.1752 11.7582 17.3001 12.6334C16.4249 13.5086 15.2379 14.0002 14.0002 14.0002Z" fill="#fff"/>
                                 </svg>
-                                <span  class="text-white">Export Monitoring Sheet</span>  
+                                <span  class="text-white mt-1">Export Monitoring Sheet</span>  
                             </div>
                         </template>
                     </LoaderButton>
-                    <button type="button" @click="pendingModel = true" class="btn  flex mx-2">
+                    <button type="button" @click="pendingModel = true" class="btn  flex mx-2" v-if="auth.is_root">
                         <p  class="text-white">
                             <span class="p-2">{{ pendingEmails.length }}</span>
                             <span>Pending Requests</span>
@@ -47,16 +47,16 @@
                 <div class="sub_loader"></div>
             </div>
             <div class="grid xl:grid-cols-4 lg:grid-cols-3 sm:grid-cols-2 gap-4" v-if="!loader">
-                <!-- Start: Member Cart -->
+                <!-- Start: Member Card -->
                 <div class="member" v-for="member in memberStore.members" :key="member.id">
-                    <MemberCard :member="member" :class="{'is_inactive_card': inActiveCards.indexOf(member.id) > -1}">
+                    <MemberCard :member="member" :class="{'disabled_div': inActiveCards.indexOf(member.id) > -1}" class="position-relative">
                         <template #name>
                             {{ ShortNameAttr(member.name) }}
                         </template>
                         <template #email>
                             {{ member.email }}
                         </template>
-                        <template #actions v-if="">
+                        <template #actions v-if="auth.is_root">
                             <button class="tooltip" data-tip="Suspend User" @click="SuspendUserAction(member)">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" :stroke="member.is_suspend ? '#666464' : '#fff'" class="w-4 h-6 mx-2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
@@ -70,9 +70,12 @@
                         </template>
                     </MemberCard>
                 </div>
-               
-                <!-- End: Member Cart -->
             </div>
+            <!-- End: Member Card -->
+
+
+            
+            <!-- Start: Empty Members -->
             <div class="flex justify-center items-center w-full empty flex-col h-[50vh]" v-if="memberStore.members.length == 0 & !loader">
                 <p class="mt-2 text-center">
                     <span class="text-gray-500 text-v_20">Wow, no one here</span>
@@ -83,6 +86,7 @@
                     <span  class="text-white">Add New Member</span>  
                 </button>
             </div>
+            <!-- End: Empty Members -->
         </div>
         <!-- <Pagination :currentPage="pages.current" :totalPages="totalPages" @paginate="Paginate($event)"></Pagination> -->
 
@@ -217,13 +221,14 @@ import { onMounted,ref } from 'vue';
 import SectionVue from '@/components/fragment/Pages/Section.vue';
 import PendingCard from  '@/components/fragment/Cards/PendingCard.vue';
 
-
+// Import Stores
+import { useMemberStore } from '@/stores/MembersStore';
+import { useGlobalStore } from '@/stores/GlobalStore';
+import { useAuthStore } from '@/stores/AuthStore';
 
 // Import Fragments
 import MemberCard from '@/components/fragment/Cards/MemberCard.vue';
 import Pagination from '@/components/fragment/Pages/Pagination.vue';
-import { useMemberStore } from '@/stores/MembersStore';
-import { useGlobalStore } from '@/stores/GlobalStore';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle} from '@headlessui/vue';
 import LoaderButton from "@/components/fragment/Buttons/LoaderButton.vue";
 import validation from "@/Helpers/localization/validation";
@@ -232,8 +237,10 @@ import validation from "@/Helpers/localization/validation";
 import 'vue3-toastify/dist/index.css';
 import { toast } from 'vue3-toastify';
 
+// Swal
+import Swal from 'sweetalert2/dist/sweetalert2';
 
-// Loader Variables
+/*** Loader variables */
 let loader = ref(true);
 let loader_interval = ref(null);
 
@@ -254,6 +261,9 @@ function SearchUser() {
         });
     },1000)
 }
+
+/*** Auth Data */
+let auth = useAuthStore().user;
 
 /*** Paginate */
 function Paginate($page) {
@@ -287,19 +297,21 @@ let inActiveCards = ref([]);
 
 /*** Suspend User */
 function SuspendUserAction(member) {
+    let text = (!member.is_suspend) ? `If you suspend ${member.name} he will be restricted from enter this workspace without any touch for any data belong to ${member.name} in this workspace` : `If you unsuspend ${member.name} he will be able to re gain his access on this workspace`;
     Swal.fire({
         icon: "warning",
         title: "Are You Sure",
-        text: `If you suspend ${member.name} he will be restricted from enter this workspace without any touch for any data belong to ${member.name} in this workspace`,
+        text: text,
         confirmText: "confirm",
         showCancelButton: true,
         confirmButtonText: "Confirm"
     }).then((response) => {
         if (response.isConfirmed) {
+            inActiveCards.value.push(member.id);
             memberStore.toggleSuspend(member.id).then((response) => {
                 // Remove Member ID From In Active Cards
                 let memberIndex = inActiveCards.value.indexOf(member.id);
-                delete inActiveCards[memberIndex];
+                inActiveCards.value.splice(memberIndex,1);
 
                 // In Case No Error
                 if ( response.data.data.toggleUserSuspended.status == 'Success' ) {
@@ -320,6 +332,19 @@ function DeleteUserAction(member) {
         confirmText: "confirm",
         showCancelButton: true,
         confirmButtonText: "Confirm"
+    }).then((response) => {
+        if (response.isConfirmed) {
+            inActiveCards.value.push(member.id);
+            memberStore.toggleSuspend(member.id).then((response) => {
+                // Remove Member ID From In Active Cards
+                let memberIndex = inActiveCards.value.indexOf(member.id);
+                inActiveCards.value.splice(memberIndex,1);
+                // In Case No Error
+                if ( response.data.data.toggleUserSuspended.status == 'Success' ) {
+                    let memberLoadedIndex = memberStore.members.findIndex((x) => x.id == member.id);
+                }
+            });
+        }
     });
 }
 
@@ -353,13 +378,14 @@ function handlerMemberInvites (response) {
 
     // Check for errors
     let errors = response.data.errors;
+
     if ( errors ) {
+        // Display Errors
         displayErrors(errors[0].extensions.validation);
     } else {
         let request = response.data.data.inviteMember;
         sendInvitationIsOpen.value = false;
         pendingEmails.value.push(request);
-        console.log(pendingEmails.value);
         toast.success('Invitation has been sent', {
             theme: 'dark',
             autoClose: 10000,
@@ -388,7 +414,6 @@ function displayErrors(errors) {
 let exportMonitoringSheet = ref(false);
 let exportDuration  = ref(1);
 let exportingLoader = ref(false);
-let yearMonths = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
 
 /*** Calculate Duration Of Exporting */
 function calculateDurationOfExporting(durationMonth) {
@@ -407,7 +432,6 @@ function exportSheet() {
         a.download = 'vertigo_users_monitor_sheet.xlsx';
         document.body.appendChild(a);
         a.click();
-        console.log(a);
         // Add Extra Inteval 
         setTimeout(() => {
             exportingLoader.value = false;
@@ -438,6 +462,7 @@ function deleteRequest(id) {
         pendingEmails.value.splice(requestIndex,1);
     });
 }
+
 // Setters
 function SetFilter(searchFilter) {
     if (searchFilter.type == 'profile')  {
@@ -460,6 +485,7 @@ function ShortNameAttr($name) {
 onMounted(() => {
     useGlobalStore().page = 'Members';
     pendingRequests();
+    console.log(auth)
 });
 
 </script>
