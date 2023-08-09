@@ -51,7 +51,7 @@
                 <div class="user_dropdown w-full bg-dark-300 min-h-fit rounded-md p-2 dropdown-menu">
                     <ul class="menu border-b-2 border-dark-200">
                         <li class=" text-v_12 font-bold text-gray-200 p-2 drop_control">View Profile</li>
-                        <li class=" text-v_12 font-bold text-gray-200 p-2 drop_control">Logout</li>
+                        <li class=" text-v_12 font-bold text-gray-200 p-2 drop_control cursor-pointer" @click="logout()">Logout</li>
                     </ul>
                     <ul class="">
                         <li class="p-2 flex items-center cursor-pointer hover:text-gray-400 transition-all" @click="changeStatus(1)">
@@ -79,6 +79,7 @@ import { usePusherStore } from '@/stores/PusherStore';
 import { useGlobalStore } from '@/stores/GlobalStore';
 import { Icon } from '@iconify/vue';
 import { watch,computed } from 'vue';
+import router from "@/routes";
 
 /** Change Status */
 function changeStatus(status_id) {
@@ -86,7 +87,22 @@ function changeStatus(status_id) {
     usePusherStore().changeStatus();
 }
 
-/***  */
+/*** Logout */
+function logout() {
+    // Revoke token from server
+    useAuthStore().logout();
+
+    // Remove token from localstorage
+    localStorage.removeItem('token');
+
+    //Redirect user to login screen
+    router.push({
+      name: "login"
+    });
+
+}
+
+/***  NavToggle */
 let closed_nav = computed(() => globalStore.closed_nav);
 function toggleSideNav() {
     useGlobalStore().closed_nav =! useGlobalStore().closed_nav
