@@ -10,11 +10,10 @@ export default async function AuthMiddleware(to,from,$router,next) {
 
         // Identify the store 
         let authStore   = useAuthStore();
-        let globalStore  = useGlobalStore();
         let relevent_user = authStore.user;
 
         // Check if token exist and valid
-        if ( authStore.bearer_token  && ! authStore.user.name && ! authStore.user.email && !authStore.user.company_id) {
+        if ( authStore.bearer_token  && ! authStore.user.name && ! authStore.user.email ) {
             await authStore.fetchUser();
         }
 
