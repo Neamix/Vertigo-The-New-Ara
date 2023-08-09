@@ -16,8 +16,7 @@
                 <BoxCount :count="20" :chart_name="'Total Members'"></BoxCount>
                 <BoxCount :count="20" :chart_name="'Active Now'"></BoxCount>
                 <BoxCount :count="20" :chart_name="'Suspended Members'"></BoxCount>
-                <BoxCount :count="20" :chart_name="'Deleted Members'"></BoxCount>
-                <BoxCount :count="20" :chart_name="'Offline Members'" class="col-span-2"></BoxCount>
+                <BoxCount :count="20" :chart_name="'Offline Members'" ></BoxCount>
             </div>
             <div class="col-span-2 h-full">
                 <BarChart></BarChart>
