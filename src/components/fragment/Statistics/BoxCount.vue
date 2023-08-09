@@ -14,6 +14,4 @@
         'count': Number,
         'chart_name': String
     });
-
-    console.log(props.chart_name);
 </script>
