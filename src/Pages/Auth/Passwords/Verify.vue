@@ -25,7 +25,7 @@
         <p class="error_email"></p>
         <p class="error_token"></p>
 
-        <LoaderButton :loading="verifyLoader" class="w-full my-11" @click="verifyAccount()">
+        <LoaderButton :loading="verifyLoader" class="w-full my-11 bg-dark" @click="verifyAccount()">
           <template #text>
             Verifiy Account
           </template>
@@ -56,6 +56,7 @@
 
     /*** Verify Account */
     function verifyAccount() {
+        // Validate form
         let errors = validation(payload.value,{
           'name': ['required','min:3'],
           'email': ['required','email'],
@@ -63,12 +64,17 @@
           'token': ['required']
         });
 
+        // Start loading 
+        verifyLoader.value = true;
+
         // IF not error exist send request
         if ( ! errors['errorsExist'] ) {
           MembersStore.verifyMembers(payload.value).then((repsonse) => {
             localStorage.setItem("token",repsonse.data.data.acceptInvitation.token)
             router.push({path:"/"});
           });
+
+          verifyLoader. value = false;
         }
     }
   

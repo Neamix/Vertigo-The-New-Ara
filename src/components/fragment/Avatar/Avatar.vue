@@ -16,8 +16,6 @@ let props = defineProps({
     user: Object
 });
 
-console.log(props.user.avatar)
-
 
 function avatarGravtar () {
     let spliting_name = props.user.name.split(' ');

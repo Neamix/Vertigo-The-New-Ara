@@ -55,7 +55,7 @@
                     <span>Back: Company information </span>
                 </button>
             </router-link>
-            <LoaderButton class="btn btn-primary flex items-center relative" :loading="loading" @click="goToReviewAndCheckout()">
+            <LoaderButton class="btn btn-primary flex items-center relative bg-dark" :loading="loading" @click="goToReviewAndCheckout()">
                 <template #text>
                     <div class="flex">
                         <span>Review & Checkout</span>

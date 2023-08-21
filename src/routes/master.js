@@ -13,7 +13,7 @@ let master = [
         path: '/',
         component: dashboard,
         name: 'dashboard',
-        meta: {requiresAuth: true}
+        meta: {requiresAuth: true,mustBeRoot: true}
     },
     {
         path: '/members',

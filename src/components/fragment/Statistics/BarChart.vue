@@ -1,15 +1,17 @@
 <template>
     <div class="card bg-base-100 shadow-xl  relative h-full">
         <div class="card-body bg-dark-300 rounded-md p-4 blind-chart h-5">
-            <h3 class=" text-v_16">Members Statistics </h3>
-            <VueApexCharts width="100%" height="90%" type="bar" :options="options" :series="series"></VueApexCharts>
+            <h3 class=" text-v_16"></h3>
+            <VueApexCharts width="100%" height="95%" type="bar" :options="options" :series="series"></VueApexCharts>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref,watch,defineProps } from "vue";
 import VueApexCharts from 'vue3-apexcharts';
+
+const props = defineProps(['schema','chart_name']);
 
 let  options = {
     plotOptions: {
@@ -55,6 +57,16 @@ let  options = {
 
 let series = ref([{
     name: 'Members',
-    data: [10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120]
+    data: [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 }]);
+
+watch(() => props.schema, (value) => {
+    let data = [];
+    console.log('deep change');
+    Object.keys(value).forEach((key) => {
+		data.push(value[key] ?? 0);
+	});
+
+    series.value[0].data = data;
+},{deep: true});
 </script>

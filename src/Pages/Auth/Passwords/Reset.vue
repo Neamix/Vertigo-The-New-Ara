@@ -23,7 +23,7 @@
           <input type="password" class="form-control form-black bg-gray-100 w-full px-3 py-3 mt-2" autocomplete="off" placeholder="Awesome Password Confirmation" v-model="payload.password_confirm"/>
         </div>
   
-        <LoaderButton :loading="resetLoader" class="w-full my-11">
+        <LoaderButton :loading="resetLoader" class="w-full my-11 bg-dark">
           <template #text>
             Reset Password
           </template>

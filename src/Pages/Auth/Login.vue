@@ -24,7 +24,7 @@
         <p class="my-2 error_password error"></p>
       </div>
 
-      <LoaderButton :loading="signInLoader" class="w-full my-11">
+      <LoaderButton :loading="signInLoader" class="w-full my-11 bg-dark">
         <template #text>
           Sign In
         </template>

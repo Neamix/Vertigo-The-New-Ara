@@ -3,7 +3,7 @@
         <div class="card-body bg-dark-300 rounded-md p-4 blind-chart">
             <h3 class=" text-v_16">{{  chart_name  }}</h3>
             <div>
-                <h2 class=" text-v_15  mt-4 font-bold">{{  count  }} Members</h2>
+                <h2 class=" text-v_15  mt-4 font-bold">{{  count  }} {{ unit }}</h2>
             </div>
         </div>
     </div>
@@ -12,6 +12,7 @@
 <script setup>
     let props = defineProps({
         'count': Number,
-        'chart_name': String
+        'chart_name': String,
+        'unit': String
     });
 </script>

@@ -194,6 +194,7 @@ export const useMemberStore = defineStore('members',{
             })
         },
 
+        /*** Delete Pending Request */
         deletePendingRequests(id) {
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,

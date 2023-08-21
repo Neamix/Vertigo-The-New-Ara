@@ -12,7 +12,8 @@ export const useAuthStore = defineStore('Auth', {
             status: null,
             company_id: null,
             companies: [],
-            is_rooted: false  
+            is_rooted: false,
+            is_suspend: false
         },
         forgetPayload: {
             verification_id: null,
@@ -66,7 +67,7 @@ export const useAuthStore = defineStore('Auth', {
                     this.user.company_id = user.active_company_id;
                     this.user.companies  = user.accessable_companies;
                     this.user.is_suspend = user.is_suspend;
-                    this.user.is_root  = user.is_root;
+                    this.user.is_rooted  = user.is_root;
                 }
             });
         },

@@ -32,9 +32,8 @@
     let props = defineProps({
         member: Object
     });
-
     let memberStore = useMemberStore();
-    console.log(props.member)
+
     // Computed Class
     let status_class = computed(() => {
         if (props.member.status.id == 1) {
@@ -44,9 +43,5 @@
         } else if (props.member.status.id == 3) {
             return "bg-red-500"
         }
-    });
-
-    let name = computed(() => {
-
     });
 </script>

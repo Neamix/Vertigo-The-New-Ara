@@ -4,22 +4,23 @@ import { useAuthStore } from "./AuthStore";
 
 export const useStatisticsStore = defineStore('statistics',{
     state: () => ({
-        session_pluck: [],
-        total_hours: [],
-        active_hours: [],
-        idle_hours: [],
-        meeting_hours: [],
-    }),
+        sessions: {
+            total_hours: [],
+            active_hours: [],
+            idle_hours: [],
+            meeting_hours: [],
+        },
 
+        memberStatistics: {
+            total_members_in_work: 0,
+            total_suspended_members: 0,
+            member_report: [],
+            active_members: 0,
+            suspended_members: 0
+        },
+    }),
     actions: {
         getMemberSessions() {
-            // Reset Recording Array
-            this.session_pluck =  [];
-            this.total_hours  = [];
-            this.active_hours =  [];
-            this.idle_hours = [];
-            this.meeting_hours = [];
-
             // Send Request To Server
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,
@@ -30,16 +31,107 @@ export const useStatisticsStore = defineStore('statistics',{
                 },
                 data: {
                     query: `
-                        query {
-                            sessions {
-                                total_session_time,
-                                status_id,
-                                created_month
+                    query {
+                        sessionStatistics {
+                            total_hours {
+                                Jan,
+                                Feb,
+                                Mar,
+                                Apr,
+                                May,
+                                Jun,
+                                Jul,
+                                Aug,
+                                Sep,
+                                Oct,
+                                Nov,
+                                Dec
+                            },
+                            active_hours {
+                                Jan,
+                                Feb,
+                                Mar,
+                                Apr,
+                                May,
+                                Jun,
+                                Jul,
+                                Aug,
+                                Sep,
+                                Oct,
+                                Nov,
+                                Dec
+                            },
+                            idle_hours {
+                                Jan,
+                                Feb,
+                                Mar,
+                                Apr,
+                                May,
+                                Jun,
+                                Jul,
+                                Aug,
+                                Sep,
+                                Oct,
+                                Nov,
+                                Dec
+                            },
+                            meeting_hours {
+                                Jan,
+                                Feb,
+                                Mar,
+                                Apr,
+                                May,
+                                Jun,
+                                Jul,
+                                Aug,
+                                Sep,
+                                Oct,
+                                Nov,
+                                Dec
+                            },
+                            total_sessions_count
+                        }
+                    }
+                    `
+                },
+
+            });
+        },
+        
+        /*** Get Member Statistics */
+        membersStatistics() {
+            return axios({
+                url: import.meta.env.VITE_BACKEND_URL,
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${useAuthStore().bearer_token}`
+                },
+                data: {
+                    query: `
+                    query {
+                        memberStatistics {
+                            total_members,
+                            total_suspended_members,
+                            total_members_monthly_report {
+                                Jan,
+                                Feb,
+                                Mar,
+                                Apr,
+                                May,
+                                Jun,
+                                Jul,
+                                Aug,
+                                Sep,
+                                Oct,
+                                Nov,
+                                Dec
                             }
                         }
+                    }
                     `
                 }
-            });
-        }
+            })
+        }   
     }
 });

@@ -20,7 +20,7 @@
                 <p class="error_email error my-4"></p>
             </div>
 
-            <LoaderButton :loading="signInLoader" class="w-full my-11">
+            <LoaderButton :loading="signInLoader" class="w-full my-11 bg-dark">
                 <template #text>
                     Send Forget Email
                 </template>

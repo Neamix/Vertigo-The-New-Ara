@@ -8,9 +8,9 @@
                     <input type="seach" placeholder="Search on member" class="form-control search p-2 h-v_35px" v-model="search.name" @input="SearchUser()">
                 </div>
             </div>
-            <div class="action_btns w-full justify-end  flex">
+            <div class="action_btns w-full justify-end  flex" v-if=" auth.is_rooted ">
                <div class="flex">
-                    <LoaderButton :loading="sendInvitationLoader" @click="sendInvitationIsOpen = true" class="mx-2">
+                    <LoaderButton :loading="sendInvitationLoader" @click="sendInvitationIsOpen = true" class="mx-2 bg-dark">
                         <template #text>
                             <div class="flex uppercase">
                                 <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" fill="#fff" width="10" height="10" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg> 
@@ -18,7 +18,7 @@
                             </div>
                         </template>
                     </LoaderButton>
-                    <LoaderButton :loading="exportingLoader" @click="sendInvitationIsOpen = true" class="mx-2">
+                    <LoaderButton :loading="exportingLoader" @click="sendInvitationIsOpen = true" class="mx-2 bg-dark">
                         <template #text>
                             <div class="flex uppercase">
                                 <svg width="18" height="18" stroke="#fff" fill="#fff" class="mr-2" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
@@ -56,7 +56,7 @@
                         <template #email>
                             {{ member.email }}
                         </template>
-                        <template #actions v-if="auth.is_root">
+                        <template #actions v-if="auth.is_rooted">
                             <button class="tooltip" data-tip="Suspend User" @click="SuspendUserAction(member)">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" :stroke="member.is_suspend ? '#666464' : '#fff'" class="w-4 h-6 mx-2">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
@@ -79,9 +79,9 @@
             <div class="flex justify-center items-center w-full empty flex-col h-[50vh]" v-if="memberStore.members.length == 0 & !loader">
                 <p class="mt-2 text-center">
                     <span class="text-gray-500 text-v_20">Wow, no one here</span>
-                    <span class="block text-v_16">Invite new mates? </span>
+                    <span class="block text-v_16" v-if=" auth.is_rooted ">Invite new mates? </span>
                 </p>
-                <button type="button" @click="sendInvitationIsOpen = true" class="btn  flex mt-4">
+                <button type="button" @click="sendInvitationIsOpen = true" class="btn  flex mt-4" v-if=" auth.is_rooted ">
                     <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" fill="#fff" width="10" height="10" viewBox="0 0 24 24"><path d="M24 10h-10v-10h-4v10h-10v4h10v10h4v-10h10z"/></svg> 
                     <span  class="text-white">Add New Member</span>  
                 </button>
@@ -110,7 +110,7 @@
 
                     <div class="mt-4 flex justify-end">
                         <button class="btn mx-3" @click="sendInvitationIsOpen = false;">close</button>
-                        <LoaderButton :loading="sendInvitationLoader" @click="sendInvitationToMember()">
+                        <LoaderButton :loading="sendInvitationLoader" @click="sendInvitationToMember()" class=" bg-dark ">
                             <template #text>
                                 <div class="flex uppercase">
                                     <span>Send Invitaition Email</span>
@@ -155,7 +155,7 @@
 
                         <div class="mt-4 flex justify-end">
                             <button class="btn mx-3" @click="exportMonitoringSheet = false;">close</button>
-                            <LoaderButton :loading="exportingLoader" @click="exportSheet()">
+                            <LoaderButton :loading="exportingLoader" @click="exportSheet()" class=" bg-dark ">
                                 <template #text>
                                     <div class="flex uppercase">
                                         <span>Export Monitoring Sheet</span>
@@ -228,7 +228,6 @@ import { useAuthStore } from '@/stores/AuthStore';
 
 // Import Fragments
 import MemberCard from '@/components/fragment/Cards/MemberCard.vue';
-import Pagination from '@/components/fragment/Pages/Pagination.vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle} from '@headlessui/vue';
 import LoaderButton from "@/components/fragment/Buttons/LoaderButton.vue";
 import validation from "@/Helpers/localization/validation";
@@ -454,7 +453,6 @@ function pendingRequests() {
 function deleteRequest(id) {
     pendingEmailsUnderActions.value.push(id);
     memberStore.deletePendingRequests(id).then(function (response) {
-        console.log(response);
         let requestIndex = pendingEmails.value.findIndex((x) => {
             return x.id == id
         });
@@ -485,7 +483,6 @@ function ShortNameAttr($name) {
 onMounted(() => {
     useGlobalStore().page = 'Members';
     pendingRequests();
-    console.log(auth)
 });
 
 </script>

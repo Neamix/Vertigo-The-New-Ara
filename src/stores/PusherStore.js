@@ -1,8 +1,14 @@
+// Pinia 
 import { defineStore } from "pinia";
-import axios from 'axios';
-import { useAuthStore } from "./AuthStore";
+
+// Plugins
 import Pusher from 'pusher-js';
+import axios from 'axios';
+
+// Stores
+import { useAuthStore } from "./AuthStore";
 import { useMemberStore } from '@/stores/MembersStore';
+import { useStatisticsStore } from "./StatisticsStore";
 
 export const usePusherStore = defineStore('pusher',{
     getters: {
@@ -34,29 +40,32 @@ export const usePusherStore = defineStore('pusher',{
             let pusher = this.pusherInstatce;
             let AuthStore = useAuthStore();
             let memberStore = useMemberStore();
-
-            // let company_channel = useAuthStore().user.
             let channel_name = 'presence-company.'+AuthStore.user.company_id;
             let channel = pusher.subscribe(channel_name);
-            console.log(AuthStore.user.company_id)
             
-            if ( AuthStore.user.company_id ) {
+            if ( AuthStore.user.company_id && ! AuthStore.user.is_suspend ) {
                 // Add Active Members When User Subscribe To The Channel
+                // Set Number Of Active Member In Dashboard
                 channel.bind('pusher:subscription_succeeded', function(member) {
+                    useStatisticsStore().memberStatistics.active_members = channel.members.count;
                     channel.members.each(function (member) {
-                        memberStore.activeMembers.push(member.info.user_id)
+                        if ( memberStore.activeMembers.indexOf(member.info.user_id) == -1 ) 
+                            memberStore.activeMembers.push(member);
                     });
                 });
 
                 // Add Subscriped Members To The Array Of Active
                 channel.bind("pusher:member_added", (member) => {
-                    memberStore.activeMembers.push(member.id)
+                    useStatisticsStore().memberStatistics.active_members += 1;
+                    if ( memberStore.activeMembers.indexOf(member.info.user_id) == -1 ) 
+                        memberStore.activeMembers.push(member);
                 });
 
                 // Remove Leaved Members From The Array Of Active
                 channel.bind("pusher:member_removed", (member) => {
-                    let memberIndex = memberStore.activeMembers.findIndex((x) => x == member.id)
+                    let memberIndex = memberStore.activeMembers.findIndex((x) => x == member.id);
                     memberStore.activeMembers.splice(memberIndex,1);
+                    useStatisticsStore().memberStatistics.active_members -= 1;
                 });
 
                 // Bind Event Status
@@ -72,17 +81,57 @@ export const usePusherStore = defineStore('pusher',{
                         members[index].status.id = data.user.status_id;
                     }
                 });
+
+                // Bind Event Status
+                channel.bind('member-suspend', function(data) {
+                    if ( data.event == 'member-suspend' )
+                        useStatisticsStore().memberStatistics.total_suspended_members += 1;
+                    else 
+                        useStatisticsStore().memberStatistics.total_suspended_members -= 1;
+                });
+
+                // Bind Event Session
+                channel.bind('session', function(data) {
+                    // Increase Session By 1
+                    useStatisticsStore().sessions.total_sessions_count += 1;
+
+                    // Add Session total number
+                    if ( data.status_id == 1 ) {
+                        useStatisticsStore().sessions.active_hours[data['month']] += data.total_session_time;
+                        useStatisticsStore().sessions.total_hours[data['month']] += data.total_session_time;
+                    }
+                    else if ( data.status_id == 2 ) {
+                        useStatisticsStore().sessions.idle_hours[data['month']] += data.total_session_time;
+                        useStatisticsStore().sessions.total_hours[data['month']] += data.total_session_time;
+                    }                     
+                    else if ( data.status_id == 3 ) {
+                        useStatisticsStore().sessions.meeting_hours[data['month']] += data.total_session_time;
+                        useStatisticsStore().sessions.total_hours[data['month']] += data.total_session_time;
+                    }
+                });
+
+                // Bind Event Members
+                channel.bind('new-member', function (data) {
+                    useStatisticsStore().memberStatistics.total_members_in_work += 1;
+                    useStatisticsStore().memberStatistics.member_report[data['month']] += 1;
+                });
+
             }
+        },
+        addAvailableMembers(member) {
+            let memberStore = useMemberStore();
+
+            if ( memberStore.activeMembers.indexOf(member.user_id) > -1 )
+                memberStore.push(member);
+
         },
         unSubscripeCompanyChannel(company_id) {
             let pusher = this.pusherInstatce;
             pusher.unsubscribe('presence-company.'+company_id)
-            pusher.unsubscribe('presence-company-member.'+company_id)
         },
         subscribeCompanyChannel(company_id) {
             let pusher = this.pusherInstatce;
             pusher.subscribe('presence-company.'+company_id);
-            pusher.subscribe('presence-company-member.'+company_id);
         },
         changeStatus() {
             return axios({
@@ -95,11 +144,11 @@ export const usePusherStore = defineStore('pusher',{
                 data: {
                     query: `
                         mutation {
-                            changeStatus(status_id: ${this.getUserStatus}) {
-                                name,
-                                email,
-                                status {
-                                    name
+                            switchStatus(status_id: 2) {
+                                statusid,
+                                session {
+                                    id,
+                                    start_date
                                 }
                             }
                         }

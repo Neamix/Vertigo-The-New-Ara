@@ -5,11 +5,11 @@
 
 <script setup>
   import Loader from './Pages/Main/Loader.vue';
-import { useGlobalStore } from './stores/GlobalStore';
+  import { useGlobalStore } from './stores/GlobalStore';
 
   let globalStore = useGlobalStore();
   
   setTimeout(() => {
-      globalStore.mainLoader = false;
+    globalStore.mainLoader = false;
   }, 1000);
 </script>

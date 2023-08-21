@@ -1,5 +1,4 @@
-import { useAuthStore } from "../../../stores/AuthStore";
-import { useGlobalStore } from "../../../stores/GlobalStore";
+import { useAuthStore } from "@/stores/AuthStore";
 
 export default async function AuthMiddleware(to,from,$router,next) {
     /** Check if Auth is required */
@@ -23,5 +22,6 @@ export default async function AuthMiddleware(to,from,$router,next) {
                 name: 'login' 
             })
         }
+
     }
 }

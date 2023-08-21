@@ -1,5 +1,5 @@
 <template>
-    <div class="p-3 vertigo_top_nav w-full justify-between flex border_divider border-b-2 items-center bg-dark">
+    <div class="p-3 vertigo_top_nav w-full justify-between flex border_divider border-b-2 items-center ">
         <div>
             <ul class="flex">
                 <li>
@@ -34,7 +34,7 @@
             </ul>
         </div>
         <div class="user flex relative dropdown-toggle">
-            <div class="online flex">
+            <div class="online flex cursor-pointer z-40 select-none" @click="menu.user_menu =! menu.user_menu">
                 <div class="flex relative">
                     <img src="@assets/images/avatar/avatar.png" class="rounded-full avatar_icon" v-if="useAuthStore().user.avatar"/>
                     <div class="avatar_icon rounded-full bg-slate-900 flex justify-center items-center"  v-if="!useAuthStore().user.avatar">
@@ -47,13 +47,13 @@
                     <p class="mb-0 text-v_12 text-gray-400">{{ useAuthStore().authShortEmail }}</p>
                 </div>
             </div>
-            <div class="pt-12 absolute w-full z-10 drop-container">
-                <div class="user_dropdown w-full bg-dark-300 min-h-fit rounded-md p-2 dropdown-menu">
+            <div class="pt-12 absolute w-full z-10"  v-if="menu.user_menu">
+                <div class="user_dropdown border border-dark w-full bg-dark-300 min-h-fit rounded-md p-2 dropdown-menu select-none">
                     <ul class="menu border-b-2 border-dark-200">
-                        <li class=" text-v_12 font-bold text-gray-200 p-2 drop_control">View Profile</li>
-                        <li class=" text-v_12 font-bold text-gray-200 p-2 drop_control cursor-pointer" @click="logout()">Logout</li>
+                        <li class=" text-v_12 font-bold text-gray-200 p-2 drop_control hover:bg-white hover:text-black rounded-md cursor-pointer">View Profile</li>
+                        <li class=" text-v_12 font-bold text-gray-200 p-2 drop_control cursor-pointer hover:bg-white hover:text-black rounded-md cursor-pointer" @click="logout()">Logout</li>
                     </ul>
-                    <ul class="">
+                    <ul class="" v-if="session.id">
                         <li class="p-2 flex items-center cursor-pointer hover:text-gray-400 transition-all" @click="changeStatus(1)">
                             <span class="status_pullet status-green block mr-2 rounded-full"></span>
                             <span class="text-v_12">Active</span>
@@ -67,6 +67,16 @@
                             <span class="text-v_12">Do Not Disturb</span>
                         </li>
                     </ul>
+                    <ul class=" py-4 ">
+                        <LoaderButton class="w-full p-0" :loading="sessionLoader">
+                            <template  #text>
+                                <div class="w-full h-full flex justify-center items-center transition-all ">
+                                    <span v-if="!session.id" class="uppercase w-full h-full  flex items-center justify-center bg-dark hover:bg-violet-800 hover:text-white" @click="openSession()">Open session</span>
+                                    <span v-if="session.id" class="uppercase w-full h-full  flex items-center justify-center bg-dark hover:bg-violet-800 hover:text-white"  @click="closeSession()">Close session</span>
+                                </div>
+                            </template>
+                        </LoaderButton>
+                    </ul>
                 </div>
             </div>
         </div>
@@ -74,17 +84,38 @@
 </template>
 
 <script setup>
+// Storees
 import { useAuthStore } from '@/stores/AuthStore';
 import { usePusherStore } from '@/stores/PusherStore';
 import { useGlobalStore } from '@/stores/GlobalStore';
+import { useSessionStore } from '@/stores/SessionStore';
+
+// Compenents
+import LoaderButton from "@/components/fragment/Buttons/LoaderButton.vue";
 import { Icon } from '@iconify/vue';
-import { watch,computed } from 'vue';
+
+// Vue Functions
+import { ref,computed, onUnmounted, onMounted } from 'vue';
 import router from "@/routes";
+
+// Plugins
+import Swal from 'sweetalert2/dist/sweetalert2';
 
 /** Change Status */
 function changeStatus(status_id) {
     useAuthStore().user.status = status_id;
-    usePusherStore().changeStatus();
+    usePusherStore().changeStatus().then((response) => {
+        let data = response.data.data.switchStatus;
+        console.log(response.data.data.switchStatus.session);
+        // Save new session data
+        sessionsStore.session = {
+            id: data.session.id,
+            start_date: data.session.start_date
+        }
+
+        // Set status id in localstorage to regain the session
+        localStorage.setItem('session',JSON.stringify({'status_id': data.status_id,'start_time':data.session.start_date}));
+    });
 }
 
 /*** Logout */
@@ -106,10 +137,68 @@ function logout() {
 let closed_nav = computed(() => globalStore.closed_nav);
 function toggleSideNav() {
     useGlobalStore().closed_nav =! useGlobalStore().closed_nav
-    console.log(useGlobalStore().closed_nav,closed_nav);
 }
 
-watch(useGlobalStore().closed_nav, () => {
-    console.log('isLoggedIn ref changed, do something!')
-})
+/** Open session  */
+let sessionsStore = useSessionStore();
+let session = computed(() => sessionsStore.session);
+let sessionLoader = ref(false);
+
+function openSession() {
+    sessionLoader.value = true;
+    sessionsStore.openSession().then((response) => {
+        let data = response.data.data.opensession;
+        
+        // Disable loader
+        sessionLoader.value = false;
+
+        // Add session
+        sessionsStore.session = {
+            id: data.id,
+            start_date: data.start_date
+        }
+    });
+}
+
+function closeSession() {
+    sessionLoader.value = true;
+    sessionsStore.closeSession().then((response) => {
+        let data = response.data.data.closesession;
+        
+        // Disable loader
+        sessionLoader.value = false;
+
+        // Add session
+        sessionsStore.session = {
+            id: null,
+            start_date: null
+        }
+    });
+}
+
+/*** Menus */
+let menu = ref({
+    user_menu: false
+});
+
+window.addEventListener("offline", () => {
+    Swal.fire({
+        imageUrl:'@/assets/images/icons/nopower.png',
+        title: "Can't reach to the server",
+        text: "There could be any number of reasons you can't reach the internet: The firewall might be malfunctioning, the wireless signal might be blocked or too weak to use, the router might be experiencing issues, there could be IP address conflicts",
+        confirmText: "confirm",
+        showConfirmButton:false,
+    })
+});
+
+window.addEventListener("online", () => {
+    Swal.fire({
+        imageUrl:'@/assets/images/icons/power.png',
+        title: "We got it back",
+        text: "Hey, Howdy we got our connection to server back but we lost your session,please create new session",
+        confirmText: "confirm",
+        showConfirmButton:false,
+    })
+});
+
 </script>

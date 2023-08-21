@@ -17,7 +17,7 @@
                 <p class="error_otp error my-4"></p>
             </div>
 
-            <LoaderButton :loading="otpLoader" class="w-full my-11">
+            <LoaderButton :loading="otpLoader" class="w-full my-11 bg-dark">
                 <template #text>
                     Verify Otp
                 </template>

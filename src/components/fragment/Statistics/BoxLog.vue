@@ -21,6 +21,4 @@ let props = defineProps({
     name: String,
     logs: Array
 });
-
-console.log(props.logs)
 </script>

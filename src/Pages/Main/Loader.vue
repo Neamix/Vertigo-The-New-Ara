@@ -1,5 +1,5 @@
 <template>
-    <div class="loader w-full h-screen bg-dark-300  flex justify-center items-center flex-col" v-if="globalStore.mainLoader">
+    <div class="w-full h-screen bg-dark-300  flex justify-center items-center flex-col" v-if="globalStore.mainLoader">
         <Transition name="movedown" appear>
             <img src="@assets/images/logos/logo_light.png" class=" w-44 relative " alt="logo" v-if="globalStore.mainLoader">
         </Transition>

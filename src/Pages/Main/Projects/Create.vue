@@ -20,24 +20,26 @@
 
                 <div class="form-group">
                     <label class=" my-3 block text-v_13 font-bold" for="projectdescription">
-                        Project Type
+                        Accessable Members 
                     </label>
                     <div class="switch"></div>
-                    <p class="mb-1 project_name error"></p>
+                    <div class="member_select relative w-full max-w-sm ">
+                        <input type="text" class="form-control p-3 bg-dark-400 w-full" placeholder="Select accessable members">
+                        <div class="select_member absolute w-full p-3 bg-dark-200 h-72 overflow-y-scroll">
+                            <input type="text" class="form-control p-3 bg-dark-400 w-full" placeholder="Search by name">
+                            <ul class="menu navbar text-start items-start rounded-md shadow-md pt-2">
+                                <li class=" text-v_14 font-bold py-2 ">Adam Jack</li>
+                                <li class=" text-v_14 font-bold py-2 ">Adam Jack</li>
+                            </ul>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="form-group col-span-2">
                     <label class=" my-3 block text-v_13 font-bold" for="projectdescription">
                         Project Accessable Members
                     </label>
-                    <div class="accessable_form position-relative">
-                        <input id="projectname" type="email" placeholder="Amazing Name" class="form-control p-3 bg-dark-400 w-[50%]" ref="" v-model="project.name">
-                        <div class="position-absolute w-[50%] bg-dark-400 h-96 rounded-md top-1 mt-1">
-                            <div class="form-group p-3">
-                                <input class="search_member form-control p-3 bg-dark-300 w-full" placeholder="Search Members">
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
             </div>
         </div>
