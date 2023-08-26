@@ -67,12 +67,4 @@ statisticsStore.membersStatistics().then((response) => {
     statisticsStore.memberStatistics.total_suspended_members = report.total_suspended_members
 })
 
-
-// watch(() => statisticsStore.sessions.idle_hours, (value) => {
-//     console.log('asdasdasdasd');
-// });
-
-watch(() => statisticsStore.sessions, (newVal, oldVal) => {
-  console.log('deepState changed', newVal, oldVal)
-}, { deep: true })
 </script>

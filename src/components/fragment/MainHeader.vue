@@ -106,7 +106,6 @@ function changeStatus(status_id) {
     useAuthStore().user.status = status_id;
     usePusherStore().changeStatus().then((response) => {
         let data = response.data.data.switchStatus;
-        console.log(response.data.data.switchStatus.session);
         // Save new session data
         sessionsStore.session = {
             id: data.session.id,

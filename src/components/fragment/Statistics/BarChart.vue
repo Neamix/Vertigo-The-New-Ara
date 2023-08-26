@@ -62,7 +62,7 @@ let series = ref([{
 
 watch(() => props.schema, (value) => {
     let data = [];
-    console.log('deep change');
+
     Object.keys(value).forEach((key) => {
 		data.push(value[key] ?? 0);
 	});
