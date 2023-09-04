@@ -1,7 +1,7 @@
 <template>
     <form autocomplete="off" class="sign-in-form" @submit.prevent="reset()">
       <div class="heading flex items-center my-10">
-        <img src="@/assets/images/logos/fav.png" class=" w-10 h-10" alt="vertigo" />
+        <img src="@/assets/images/logos/fav.png" class=" w-12 " alt="vertigo" />
         <div class="pl-4">
           <h2 class=" text-black text-v_23 font-bold ">Reset Password</h2>
           <h6 class=" text-gray-400 text-v_12">

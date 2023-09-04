@@ -43,10 +43,10 @@ export const usePusherStore = defineStore('pusher',{
             
             // Subscripe Channels
             this.unSubscripeCompanyChannel(AuthStore.user.id);
-            this.unSubcribePersonalChannel(AuthStore.user.company_id);
+            this.unSubcripePersonalChannel(AuthStore.user.user_id);
 
-            let notification = this.subscribePersonalChannel(AuthStore.user.id);
             let channel = this.subscribeCompanyChannel(AuthStore.user.company_id);
+            let personal_channel = this.subscripePersonalChannel(AuthStore.user.id);
 
             if ( AuthStore.user.company_id && ! AuthStore.user.is_suspend ) {
                 // Add Active Members When User Subscribe To The Channel
@@ -141,20 +141,21 @@ export const usePusherStore = defineStore('pusher',{
                 memberStore.push(member);
 
         },
-        unSubcribePersonalChannel() {
-            let pusher = this.pusherInstatce;
-        },
         unSubscripeCompanyChannel(company_id) {
             let pusher = this.pusherInstatce;
             pusher.unsubscribe('presence-company.'+company_id)
         },
-        subscribePersonalChannel() {
-            let pusher = this.pusherInstatce;
-            return pusher.subscribe('presence-member.'+useAuthStore().user.id);
-        },
         subscribeCompanyChannel(company_id) {
             let pusher = this.pusherInstatce;
             return pusher.subscribe('presence-company.'+company_id);
+        },
+        unSubcripePersonalChannel(user_id) {
+            let pusher = this.pusherInstatce;
+            pusher.unsubscribe('private.member.'+user_id);
+        },
+        subscripePersonalChannel(user_id) {
+            let pusher = this.pusherInstatce;
+            return pusher.subscribe('present.member.'+user_id)
         },
         changeStatus() {
             return axios({

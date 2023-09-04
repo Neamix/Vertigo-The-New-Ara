@@ -23,14 +23,24 @@
 
 <script setup>
 import AsideNav from '../fragment/AsideNav.vue';
-import Loader from '../../Pages/Main/Loader.vue';
-import { ref,computed } from 'vue';
+import { ref,computed, watch } from 'vue';
 import MainHeader from '@/components/fragment/MainHeader.vue';
 import Page from '@/components/fragment/Pages/Page.vue';
 import { useGlobalStore } from "@/stores/GlobalStore";
 import { usePusherStore } from '../../stores/PusherStore';
 
-let closed_nav = computed(() => useGlobalStore().closed_nav);
+/** Define Stores */
+let globalStore = useGlobalStore();
+
+/*** Body Toggle  */
+let closed_nav = computed(() => globalStore.closed_nav);
+
+watch(() => globalStore.closed_nav,(value) => {
+    closed_nav = value;
+
+});
+
+/*** Subscripe Channels */
 let pusherStore = usePusherStore();
 
 function toggleSideNav ($val) {

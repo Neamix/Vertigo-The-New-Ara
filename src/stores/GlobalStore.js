@@ -10,7 +10,7 @@ export const useGlobalStore = defineStore('global',{
         closed_nav: false,
         init_loader: true
     }),
-
+    
     actions: {
         async recompile() { 
             this.renderComponent = false;

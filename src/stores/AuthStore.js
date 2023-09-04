@@ -65,7 +65,6 @@ export const useAuthStore = defineStore('Auth', {
                     this.user.id     = user.id;
                     this.user.name   = user.name;
                     this.user.email  = user.email;
-                    this.user.status = user.status.id;
                     this.user.company_id = user.active_company_id;
                     this.user.companies  = user.accessable_companies;
                     this.user.is_suspend = user.is_suspend;

@@ -127,10 +127,6 @@ html {
   position: fixed;
 }
 
-.aside .logo {
-  width: 99px;
-}
-
 .aside .fav {
   width: 30px;
 }
@@ -166,7 +162,7 @@ html {
 }
 
 .aside.closed_nav {
-  width: 4%;
+  width: 5%;
 }
 
 .aside.closed_nav .menus a {
