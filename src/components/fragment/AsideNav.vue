@@ -53,7 +53,6 @@
                     </Transition>
                 </li>
             </ul>
-            <p>{{ memberNumbers  }}</p>
         </div>
         <!-- ========== End Menu ========== -->
        
