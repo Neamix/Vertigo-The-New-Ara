@@ -80,10 +80,10 @@ export const usePusherStore = defineStore('pusher',{
 
                     // Find Index of User
                     let index = members.findIndex((x) =>  x.id == user_id);
-                    
+
                     // In Case This User Exist In The Array Change Its Status
                     if ( index > -1 ) {
-                        members[index].status.id = data.user.status_id;
+                        members[index].status_id = data.status_id;
                     }
 
                     // In Case This Is Auth
@@ -157,7 +157,7 @@ export const usePusherStore = defineStore('pusher',{
             let pusher = this.pusherInstatce;
             return pusher.subscribe('present.member.'+user_id)
         },
-        changeStatus() {
+        changeStatus(status_id) {
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,
                 method: 'POST',
@@ -168,12 +168,10 @@ export const usePusherStore = defineStore('pusher',{
                 data: {
                     query: `
                         mutation {
-                            switchStatus(status_id: 2) {
-                                statusid,
-                                session {
-                                    id,
-                                    start_date
-                                }
+                            switchStatus(status_id: ${status_id}) {
+                                id,
+                                status_id,
+                                start_date
                             }
                         }
                     `
