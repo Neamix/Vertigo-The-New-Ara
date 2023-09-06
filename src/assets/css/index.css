@@ -1040,8 +1040,9 @@ input{
 /* End: Main Loader */
 
 /* Start: Swal */
-.swal2-modal {
-  background-color: #232323 !important;
+.swal2-modal,
+.swal2-toast  {
+  @apply bg-dark-200 !important
 }
 
 .swal2-actions {
@@ -1084,6 +1085,11 @@ input{
 
 .swal2-warning {
   border-color: #fff !important;
+}
+
+.swal2-title,
+.swal2-html-container {
+  @apply text-v_13 !important
 }
 /* End: Swal */
 
