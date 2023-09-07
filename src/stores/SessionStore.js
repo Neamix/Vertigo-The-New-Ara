@@ -29,7 +29,10 @@ export const useSessionStore = defineStore('sessions',{
                         mutation {
                             opensession {
                                 id,
-                                start_date
+                                start_date,
+                                status {
+                                    id
+                                }
                             }
                         }
                     `

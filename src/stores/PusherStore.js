@@ -9,6 +9,7 @@ import axios from 'axios';
 import { useAuthStore } from "./AuthStore";
 import { useMemberStore } from '@/stores/MembersStore';
 import { useStatisticsStore } from "./StatisticsStore";
+import { useSessionStore } from "./SessionStore";
 
 export const usePusherStore = defineStore('pusher',{
     getters: {
@@ -37,12 +38,16 @@ export const usePusherStore = defineStore('pusher',{
     actions: {
         initPusher() {
             // Init Pusher
-            let pusher = this.pusherInstatce;
             let AuthStore = useAuthStore();
             let memberStore = useMemberStore();
-            let channel_name = 'presence-company.'+AuthStore.user.company_id;
-            let channel = pusher.subscribe(channel_name);
             
+            // Subscripe Channels
+            this.unSubscripeCompanyChannel(AuthStore.user.id);
+            this.unSubcripePersonalChannel(AuthStore.user.user_id);
+
+            let channel = this.subscribeCompanyChannel(AuthStore.user.company_id);
+            let personal_channel = this.subscripePersonalChannel(AuthStore.user.id);
+
             if ( AuthStore.user.company_id && ! AuthStore.user.is_suspend ) {
                 // Add Active Members When User Subscribe To The Channel
                 // Set Number Of Active Member In Dashboard
@@ -71,15 +76,25 @@ export const usePusherStore = defineStore('pusher',{
                 // Bind Event Status
                 channel.bind('status', function(data) {
                     let members = memberStore.members;
-                    let user_id = data.user.user_id;
+                    let user_id = data.user_id;
 
                     // Find Index of User
                     let index = members.findIndex((x) =>  x.id == user_id);
-                    
+
                     // In Case This User Exist In The Array Change Its Status
                     if ( index > -1 ) {
-                        members[index].status.id = data.user.status_id;
+                        members[index].status_id = data.status_id;
                     }
+
+                    // In Case This Is Auth
+                    if ( useAuthStore().user.id == user_id ) {
+                        useAuthStore().user.status = data.status_id;
+                        useSessionStore().session = {
+                            id: data.session.id,
+                            start_date: data.start_date
+                        }
+                    }
+
                 });
 
                 // Bind Event Status
@@ -108,6 +123,8 @@ export const usePusherStore = defineStore('pusher',{
                         useStatisticsStore().sessions.meeting_hours[data['month']] += data.total_session_time;
                         useStatisticsStore().sessions.total_hours[data['month']] += data.total_session_time;
                     }
+
+                    
                 });
 
                 // Bind Event Members
@@ -115,7 +132,6 @@ export const usePusherStore = defineStore('pusher',{
                     useStatisticsStore().memberStatistics.total_members_in_work += 1;
                     useStatisticsStore().memberStatistics.member_report[data['month']] += 1;
                 });
-
             }
         },
         addAvailableMembers(member) {
@@ -131,9 +147,17 @@ export const usePusherStore = defineStore('pusher',{
         },
         subscribeCompanyChannel(company_id) {
             let pusher = this.pusherInstatce;
-            pusher.subscribe('presence-company.'+company_id);
+            return pusher.subscribe('presence-company.'+company_id);
         },
-        changeStatus() {
+        unSubcripePersonalChannel(user_id) {
+            let pusher = this.pusherInstatce;
+            pusher.unsubscribe('private.member.'+user_id);
+        },
+        subscripePersonalChannel(user_id) {
+            let pusher = this.pusherInstatce;
+            return pusher.subscribe('present.member.'+user_id)
+        },
+        changeStatus(status_id) {
             return axios({
                 url: import.meta.env.VITE_BACKEND_URL,
                 method: 'POST',
@@ -144,12 +168,10 @@ export const usePusherStore = defineStore('pusher',{
                 data: {
                     query: `
                         mutation {
-                            switchStatus(status_id: 2) {
-                                statusid,
-                                session {
-                                    id,
-                                    start_date
-                                }
+                            switchStatus(status_id: ${status_id}) {
+                                id,
+                                status_id,
+                                start_date
                             }
                         }
                     `

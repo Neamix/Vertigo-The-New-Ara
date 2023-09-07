@@ -9,7 +9,7 @@ import Verify from '../Pages/Auth/Passwords/Verify.vue';
 // Auth Routes
 let authRoutes = [
     {
-        path: 'login',
+        path: '',
         name: 'login',
         component: Login
     },

@@ -38,13 +38,13 @@
                 <div class="flex relative">
                     <img src="@assets/images/avatar/avatar.png" class="rounded-full avatar_icon" v-if="useAuthStore().user.avatar"/>
                     <div class="avatar_icon rounded-full bg-slate-900 flex justify-center items-center"  v-if="!useAuthStore().user.avatar">
-                        {{  useAuthStore().authGravtarName  }}
+                        {{ AuthStore.authGravtarName  }}
                     </div>
-                    <span class="absolute avatar-status" :class="{'status-green': useAuthStore().user.status == 1,'status-yellow': useAuthStore().user.status == 2,'status-red': useAuthStore().user.status == 3}"></span>
+                    <span class="absolute avatar-status" :class="{'status-green':AuthStore.user.status == 1,'status-yellow':AuthStore.user.status == 2,'status-red':AuthStore.user.status == 3}"></span>
                 </div>
                 <div class="px-2">
-                    <p class="mb-0 text-v_12">{{  useAuthStore().authShortName  }}</p>
-                    <p class="mb-0 text-v_12 text-gray-400">{{ useAuthStore().authShortEmail }}</p>
+                    <p class="mb-0 text-v_12">{{ AuthStore.authShortName  }}</p>
+                    <p class="mb-0 text-v_12 text-gray-400">{{AuthStore.authShortEmail }}</p>
                 </div>
             </div>
             <div class="pt-12 absolute w-full z-10"  v-if="menu.user_menu">
@@ -101,27 +101,29 @@ import router from "@/routes";
 // Plugins
 import Swal from 'sweetalert2/dist/sweetalert2';
 
+let AuthStore = useAuthStore();
+
 /** Change Status */
 function changeStatus(status_id) {
-    useAuthStore().user.status = status_id;
-    usePusherStore().changeStatus().then((response) => {
+   AuthStore.user.status = status_id;
+    usePusherStore().changeStatus(status_id).then((response) => {
         let data = response.data.data.switchStatus;
-        console.log(response.data.data.switchStatus.session);
+
         // Save new session data
         sessionsStore.session = {
-            id: data.session.id,
-            start_date: data.session.start_date
+            id: data.id,
+            start_date: data.start_date
         }
 
         // Set status id in localstorage to regain the session
-        localStorage.setItem('session',JSON.stringify({'status_id': data.status_id,'start_time':data.session.start_date}));
+        localStorage.setItem('session',JSON.stringify({'status_id': data.status_id,'start_time':data.start_date}));
     });
 }
 
 /*** Logout */
 function logout() {
     // Revoke token from server
-    useAuthStore().logout();
+   AuthStore.logout();
 
     // Remove token from localstorage
     localStorage.removeItem('token');
@@ -134,9 +136,9 @@ function logout() {
 }
 
 /***  NavToggle */
-let closed_nav = computed(() => globalStore.closed_nav);
 function toggleSideNav() {
     useGlobalStore().closed_nav =! useGlobalStore().closed_nav
+    localStorage.setItem("closed_nav",useGlobalStore().closed_nav);
 }
 
 /** Open session  */
@@ -157,14 +159,14 @@ function openSession() {
             id: data.id,
             start_date: data.start_date
         }
+
+        AuthStore.user.status = data.status_id;
     });
 }
 
 function closeSession() {
     sessionLoader.value = true;
-    sessionsStore.closeSession().then((response) => {
-        let data = response.data.data.closesession;
-        
+    sessionsStore.closeSession().then((response) => {        
         // Disable loader
         sessionLoader.value = false;
 
@@ -173,6 +175,8 @@ function closeSession() {
             id: null,
             start_date: null
         }
+
+        AuthStore.user.status = {};
     });
 }
 

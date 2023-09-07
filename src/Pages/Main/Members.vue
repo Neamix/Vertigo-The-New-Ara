@@ -62,7 +62,7 @@
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M16.5 10.5V6.75a4.5 4.5 0 10-9 0v3.75m-.75 11.25h10.5a2.25 2.25 0 002.25-2.25v-6.75a2.25 2.25 0 00-2.25-2.25H6.75a2.25 2.25 0 00-2.25 2.25v6.75a2.25 2.25 0 002.25 2.25z" />
                                 </svg>
                             </button>
-                            <button class="tooltip" data-tip="Delete User">
+                            <button class="tooltip" data-tip="Delete User" @click="DeleteUserAction(member)">
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-4 h-6">
                                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
                                 </svg>
@@ -220,6 +220,7 @@ import { onMounted,ref } from 'vue';
 // Import Main Components 
 import SectionVue from '@/components/fragment/Pages/Section.vue';
 import PendingCard from  '@/components/fragment/Cards/PendingCard.vue';
+import MemberCard from '@/components/fragment/Cards/MemberCard.vue';
 
 // Import Stores
 import { useMemberStore } from '@/stores/MembersStore';
@@ -227,7 +228,6 @@ import { useGlobalStore } from '@/stores/GlobalStore';
 import { useAuthStore } from '@/stores/AuthStore';
 
 // Import Fragments
-import MemberCard from '@/components/fragment/Cards/MemberCard.vue';
 import { TransitionRoot, TransitionChild, Dialog, DialogPanel, DialogTitle} from '@headlessui/vue';
 import LoaderButton from "@/components/fragment/Buttons/LoaderButton.vue";
 import validation from "@/Helpers/localization/validation";
@@ -312,6 +312,19 @@ function SuspendUserAction(member) {
                 let memberIndex = inActiveCards.value.indexOf(member.id);
                 inActiveCards.value.splice(memberIndex,1);
 
+                // Alert user              
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-end',
+                    icon: "success",
+                    title: "Member Suspended",
+                    text: `${member.name} has been ${ member.is_suspend ? 'unsuspend' : 'suspended' } from workspace`,
+                    timer: 3000,
+                    confirmText: "confirm",
+                    showCancelButton: false,
+                    showConfirmButton:false
+                })
+
                 // In Case No Error
                 if ( response.data.data.toggleUserSuspended.status == 'Success' ) {
                     let memberLoadedIndex = memberStore.members.findIndex((x) => x.id == member.id);
@@ -334,14 +347,18 @@ function DeleteUserAction(member) {
     }).then((response) => {
         if (response.isConfirmed) {
             inActiveCards.value.push(member.id);
-            memberStore.toggleSuspend(member.id).then((response) => {
-                // Remove Member ID From In Active Cards
-                let memberIndex = inActiveCards.value.indexOf(member.id);
-                inActiveCards.value.splice(memberIndex,1);
-                // In Case No Error
-                if ( response.data.data.toggleUserSuspended.status == 'Success' ) {
-                    let memberLoadedIndex = memberStore.members.findIndex((x) => x.id == member.id);
-                }
+            memberStore.removeMember(member.id).then((response) => {
+                // Alert user              
+                Swal.fire({
+                    toast: true,
+                    position: 'bottom-end',
+                    icon: "success",
+                    title: "Member Removed",
+                    text: `${member.name} has been removed from workspace`,
+                    confirmText: "confirm",
+                    showCancelButton: false,
+                    showConfirmButton:false
+                })
             });
         }
     });

@@ -6,6 +6,7 @@ export const useAuthStore = defineStore('Auth', {
     state: () => ({
         bearer_token: null,
         user: {
+            id: null,
             name: null,
             email: null,
             avatar: null,
@@ -61,9 +62,9 @@ export const useAuthStore = defineStore('Auth', {
                 
                 // Fetch user 
                 if ( user ) {
+                    this.user.id     = user.id;
                     this.user.name   = user.name;
                     this.user.email  = user.email;
-                    this.user.status = user.status.id;
                     this.user.company_id = user.active_company_id;
                     this.user.companies  = user.accessable_companies;
                     this.user.is_suspend = user.is_suspend;
@@ -115,6 +116,7 @@ export const useAuthStore = defineStore('Auth', {
                     query: `
                         query {
                             me {
+                                id,
                                 name,
                                 email,
                                 status {

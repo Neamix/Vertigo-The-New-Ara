@@ -1,7 +1,9 @@
 <template>
   <form autocomplete="off" class="sign-in-form" @submit.prevent="login()">
     <div class="heading flex items-center my-10">
-      <img src="@/assets/images/logos/fav.png" class=" w-10 h-10" alt="vertigo" />
+
+      <!-- ========== Start introduction section ========== -->
+      <img src="@/assets/images/logos/fav.png" class=" w-12 " alt="vertigo" />
       <div class="pl-4">
         <h2 class=" text-black text-v_23 font-bold ">Welcome Back</h2>
         <h6 class=" text-gray-400 text-v_12">
@@ -11,9 +13,13 @@
           </router-link>
         </h6>
       </div>
+      <!-- ========== End introduction section ========== -->
+      
     </div>
 
     <div class="actual-form mt-10">
+      
+      <!-- ========== Start Credintions ========== -->
       <div class="input-wrap">
         <input type="email" minlength="4" class="form-control form-black bg-gray-100 w-full px-3 py-3" autocomplete="off" placeholder="Awesome Email" v-model="payload.email" />
         <p class="error_email error my-4"></p>
@@ -23,12 +29,15 @@
         <input type="password" minlength="4" class="form-control form-black bg-gray-100 w-full px-3 py-3 mt-2" autocomplete="off" placeholder="Awesome Password" v-model="payload.password"/>
         <p class="my-2 error_password error"></p>
       </div>
+      <!-- ========== End Credintions ========== -->
 
+      <!-- ========== Start login button ========== -->
       <LoaderButton :loading="signInLoader" class="w-full my-11 bg-dark">
-        <template #text>
-          Sign In
-        </template>
+          <template #text>
+            Sign In
+          </template>
       </LoaderButton>
+      <!-- ========== End login button ========== -->
 
       <h6 class=" text-gray-400 text-v_12">
         Forgotten your password or you login datails?
@@ -83,7 +92,7 @@ function loginHandler(response) {
   let data   = response.data.data.login;
 
   // Credintions Wrong
-  if ( errors.length ) {
+  if ( errors.length || data.status == 'fail') {
     // Take place if this email doesn't exist
     document.querySelector(`.error_email`).innerHTML = '';
     document.querySelector(`.error_email`).innerHTML = 'Invalid Credintions';

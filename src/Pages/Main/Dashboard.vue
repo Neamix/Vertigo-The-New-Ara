@@ -43,9 +43,6 @@ import BarChart from '@/components/fragment/Statistics/BarChart.vue';
 import SectionVue from '@/components/fragment/Pages/Section.vue';
 import AreaChart from '@/components/fragment/Statistics/AreaChart.vue';
 
-// Vue Component Import
-import { watch } from 'vue';
-
 // Define Stores
 let statisticsStore = useStatisticsStore();
 
@@ -67,12 +64,4 @@ statisticsStore.membersStatistics().then((response) => {
     statisticsStore.memberStatistics.total_suspended_members = report.total_suspended_members
 })
 
-
-// watch(() => statisticsStore.sessions.idle_hours, (value) => {
-//     console.log('asdasdasdasd');
-// });
-
-watch(() => statisticsStore.sessions, (newVal, oldVal) => {
-  console.log('deepState changed', newVal, oldVal)
-}, { deep: true })
 </script>

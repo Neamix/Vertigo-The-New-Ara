@@ -127,10 +127,6 @@ html {
   position: fixed;
 }
 
-.aside .logo {
-  width: 99px;
-}
-
 .aside .fav {
   width: 30px;
 }
@@ -166,7 +162,7 @@ html {
 }
 
 .aside.closed_nav {
-  width: 4%;
+  width: 5%;
 }
 
 .aside.closed_nav .menus a {
@@ -1044,8 +1040,9 @@ input{
 /* End: Main Loader */
 
 /* Start: Swal */
-.swal2-modal {
-  background-color: #232323 !important;
+.swal2-modal,
+.swal2-toast  {
+  @apply bg-dark-200 !important
 }
 
 .swal2-actions {
@@ -1088,6 +1085,11 @@ input{
 
 .swal2-warning {
   border-color: #fff !important;
+}
+
+.swal2-title,
+.swal2-html-container {
+  @apply text-v_13 !important
 }
 /* End: Swal */
 
@@ -1166,3 +1168,13 @@ input{
 .select-options:hover {
   display: block;
 }
+
+/*** Drop Zone*/
+.drop-zone-container .drop-zone-layer {
+  @apply hidden;
+}
+
+.drop-zone.active {
+  @apply border-4 border-blue-900;
+}
+

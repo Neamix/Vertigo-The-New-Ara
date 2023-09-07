@@ -8,9 +8,9 @@ export const useGlobalStore = defineStore('global',{
         page: "Dashboard",
         renderComponent: true,
         closed_nav: false,
-        init_loader: true
+        initializationLoader: false
     }),
-
+    
     actions: {
         async recompile() { 
             this.renderComponent = false;
