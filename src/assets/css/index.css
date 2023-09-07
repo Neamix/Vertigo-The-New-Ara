@@ -1168,3 +1168,13 @@ input{
 .select-options:hover {
   display: block;
 }
+
+/*** Drop Zone*/
+.drop-zone-container .drop-zone-layer {
+  @apply hidden;
+}
+
+.drop-zone.active {
+  @apply border-4 border-blue-900;
+}
+
