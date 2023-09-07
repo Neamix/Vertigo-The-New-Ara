@@ -37,11 +37,20 @@
 <script setup>
 import { onMounted } from 'vue';
 
+// Define stores
+import { useGlobalStore } from '../../stores/GlobalStore';
+
+let globalStore = useGlobalStore();
+
 onMounted(() => {
   const plugin = document.createElement("script");
   plugin.setAttribute("src", "/src/assets/js/app.js");
   plugin.async = true;
   document.head.appendChild(plugin);
+
+  setTimeout(() => {
+    globalStore.initializationLoader = false;
+  },1000)
 });
 </script>
 <style scoped>
