@@ -106,17 +106,17 @@ let AuthStore = useAuthStore();
 /** Change Status */
 function changeStatus(status_id) {
    AuthStore.user.status = status_id;
-    usePusherStore().changeStatus().then((response) => {
+    usePusherStore().changeStatus(status_id).then((response) => {
         let data = response.data.data.switchStatus;
 
         // Save new session data
         sessionsStore.session = {
-            id: data.session.id,
-            start_date: data.session.start_date
+            id: data.id,
+            start_date: data.start_date
         }
 
         // Set status id in localstorage to regain the session
-        localStorage.setItem('session',JSON.stringify({'status_id': data.status_id,'start_time':data.session.start_date}));
+        localStorage.setItem('session',JSON.stringify({'status_id': data.status_id,'start_time':data.start_date}));
     });
 }
 
@@ -160,7 +160,7 @@ function openSession() {
             start_date: data.start_date
         }
 
-        AuthStore.user.status = data.status.id;
+        AuthStore.user.status = data.status_id;
     });
 }
 
