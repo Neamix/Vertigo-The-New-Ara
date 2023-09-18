@@ -54,7 +54,7 @@
 import { onMounted, ref } from "vue";
 import validation from "@/Helpers/localization/validation";
 import { useAuthStore } from '@/stores/AuthStore.js';
-import LoaderButton from "../../components/fragment/Buttons/LoaderButton.vue";
+import LoaderButton from "@/components/fragment/Buttons/LoaderButton.vue";
 import router from "../../routes";
 
 // Sign in
