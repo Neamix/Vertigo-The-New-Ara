@@ -11,3 +11,16 @@
 		</div>
 	</section>
 </template>
+
+<script setup>
+import { onMounted } from 'vue';
+import { useGlobalStore } from "@/stores/GlobalStore";
+
+let globalStore = useGlobalStore();
+
+onMounted(() => {
+    setTimeout(() => {
+        globalStore.initializationLoader = false;
+    },1000)
+});
+</script>
