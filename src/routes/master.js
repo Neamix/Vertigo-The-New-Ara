@@ -5,6 +5,7 @@ import Boards from '../Pages/Main/Tasks/Boards.vue';
 import List from '../Pages/Main/Tasks/List.vue';
 import Projects from '../Pages/Main/Projects/Project.vue';
 import ProjectCreate from '../Pages/Main/Projects/Create.vue';
+import ProjectSingle from '../Pages/Main/Projects/Single.vue';
 import Forbidden from '../Pages/Main/Errors/403.vue'
 
 // Master Routes
@@ -44,6 +45,11 @@ let master = [
                 path: 'create',
                 component: ProjectCreate,
                 name: 'project_create',
+            },
+            {
+                path: ':slug',
+                component: ProjectSingle,
+                name: 'project_single',
             }
         ]
     },
