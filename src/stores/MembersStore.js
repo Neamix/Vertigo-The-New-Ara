@@ -113,7 +113,8 @@ export const useMemberStore = defineStore('members',{
                                     name,
                                     email,
                                     is_root,
-                                    is_suspend
+                                    is_suspend,
+                                    status_id
                                 }
                             }
                         }
@@ -163,6 +164,27 @@ export const useMemberStore = defineStore('members',{
                             toggleUserSuspended(user_id: ${user_id}) {
                                 status,
                                 message
+                            }
+                        }
+                    `
+                }
+            });
+        },
+
+        /*** Remove user from workspace */
+        removeMember(user_id) {
+            return axios({
+                url: import.meta.env.VITE_BACKEND_URL,
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Authorization": `Bearer ${useAuthStore().bearer_token}`
+                },
+                data: {
+                    query: `
+                        mutation {
+                            deleteUser(user_id: ${user_id}) {
+                                status
                             }
                         }
                     `
