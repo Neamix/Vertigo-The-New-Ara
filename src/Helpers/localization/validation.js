@@ -2,11 +2,13 @@
 let errorBag = {};
 let errorExist = false;
 let payload;
+let custom_messages;
 
-function validation(data,rules) {
+function validation(data,rules,messages) {
     let rulesKeys = Object.keys(rules);
     let errors = [];
     payload = data;
+    custom_messages = messages;
 
     // Reset the bag and condition
     errorBag = {};
@@ -30,44 +32,49 @@ function validation(data,rules) {
 function isValidValue(conditions,value,name) {    
     for (var x = 0; x < conditions.length; x++) {
         let condition = conditions[x];
+        let error_default;
 
         if ( ! errorBag.hasOwnProperty(name) ) {
             errorBag[name] = [];
         }   
 
         if ( condition == 'required' && ! value) {
-            errorBag[name].push(`${name} is required value`);
+            error_default = `${name} is required value`;
             errorExist = true;
         }
 
         if ( value != null ) {
             if ( condition == 'integer' && typeof value != 'number' ) {
-                errorBag[name].push(`${name} must be a number`);
+                error_default = `${name} must be a number`;
                 errorExist = true;
             }
-    
+            
             if ( condition.indexOf('min') == 0 ) {
                 let split = condition.split(':');
 
                 if ( value.length < split[1] ) {
-                    errorBag[name].push( `${name} must be at least ${split[1]} letters`);
+                    error_default = `${name} must be at least ${split[1]} letters`;
                     errorExist = true;
                 }
             }
 
             if ( condition == 'email' && ! value.match(/^[A-Za-z\._\-0-9]*[@][A-Za-z]*[\.][a-z]{2,4}$/)) {
-                errorBag[name].push(`${name} must be a valid email address`);
+                error_default = `${name} must be a valid email address`;
                 errorExist = true;
             }
 
             if (condition == 'confirm') {
                 if (  payload[name]  !=  payload[`${name}_confirm`]  ) {
-                    errorBag[name].push(`${name} and ${name} confirmation doesn't match`);
+                    error_default = `${name} and ${name} confirmation doesn't match`;
                     errorExist = true;
                 }
             }
         }
+
+        if ( error_default   )
+            errorBag[name].push(errorPhares(name,condition) ?? error_default);
     }
+
     if ( Object.keys(errorBag.length > 0 ))  {
         displayErrors(errorBag);
     }
@@ -90,6 +97,11 @@ function displayErrors(errors) {
         document.querySelector(`.error_${keys[i]}`).innerHTML = '';
         document.querySelector(`.error_${keys[i]}`).innerHTML = errors[keys[i]].join("<br>");
     }
+}
+
+function errorPhares(name,condition) {
+   let rule = condition.split(':')[0];
+   return (custom_messages[name+'.'+rule]) ? custom_messages[name+'.'+rule]  : null;
 }
 
 export default validation;
