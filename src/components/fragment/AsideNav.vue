@@ -74,7 +74,6 @@ import { Icon } from '@iconify/vue';
 /*** Define Stores */
 let globalStore = useGlobalStore();
 let authStore   = useAuthStore();
-console.log(globalStore.closed_nav)
 
 /*** Logo Switch */
 let closed_nav = computed(() => globalStore.closed_nav);
